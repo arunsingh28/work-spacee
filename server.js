@@ -9,14 +9,14 @@ const app = express();
 require('./config/passport')(passport)
 
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
-mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true, useCreateIndexes:true})
+mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true, usecreateIndexes:true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))
 
 
 app.use(expressLayouts);
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static("Public"));
 
 app.use(express.urlencoded({ extended:true }));
 

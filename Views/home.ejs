@@ -1,0 +1,140 @@
+<%- include ('partials/navbar') -%>
+
+
+<!-- banner -->
+<div class="container">
+    <div class="jumbotron bg-image rounded-bottom">
+        <h1 class="display-4">Welcome to Tracker</h1>
+        <p class="lead">Oranize way to do work with group or team and Track yourself Progess</p>
+        <hr class="my-4">
+        <p>Why Are You Wating Create You Accout and get Started.Its Free</p>
+        <a class="btn btn-primary btn-lg" role="button"  data-toggle="modal" data-target="#signup">Sign up</a>
+      </div>
+
+<!-- info -->
+<div class="row pt-4">
+    <div class="col-3 border-right border-secondary">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active shdow" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+        <a class="nav-link shdow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+        <a class="nav-link shdow" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+        <!-- <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a> -->
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            You Have you Personal Dashboard. In that you Have To do List , Share Work and Many more Tools.
+            that will increase your Productivity. and help You to work fast and Communicate to your Office worker
+            which will not divert to you from your work .
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            You Have your Profile and You can share this profile to anyone in which you have you Phone Number,
+            Acchivments many other thing. And You decied what to show and what not to show.And You can also 
+            submit you Acchivment Certificates to Improve your Profile .
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+            You Have Chat Support in this.You always Connected to you Team .
+        </div>
+        <!-- <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div> -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- footer -->
+<%-include ('partials/footer')-%>
+
+
+<!-- model -->
+<div class="modal fade" id="signup" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Create Account</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+        <section>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="row">
+                  <div class="col text-center message">
+                    <h1>Register</h1>
+                    <p class="text-h3">Register YourSelft for Saving Time and do more as You aspact from  Yourself.</p>
+                  </div>
+                </div>
+                <form action="/register" method="post" onsubmit="return valiDate()">
+                <div class="row align-items-center">
+                  <div class="col mt-4">
+                    <input type="text" class="form-control" name="name" id="fullName" placeholder="Full Name">
+                  </div>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col mt-4">
+                    <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name" required>
+                  </div>
+                </div>
+                <div class="row align-items-center mt-4">
+                  <div class="col">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                  </div>
+                </div>
+                <div class="row align-items-center mt-4">
+                  <div class="col">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off" required>
+                  </div>
+                  <div class="col">
+                    <input type="password" class="form-control" id="cPassword" placeholder="Confirm Password" autocomplete="off" required>
+                  </div>
+                </div>
+                <div class="row justify-content-start mt-4">
+                  <div class="col">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="tc">
+                        I Read and Accept <a href="#" data-toggle="modal" data-target="#staticBackdrop">Terms and Conditions</a>
+                      </label>
+                    </div>
+                    <button class="btn btn-primary mt-4 btn-block" type="submit">Submit</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+ <!-- model -->
+ <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog shadow-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Terms and Conditions</h5>
+      </div>
+      <div class="modal-body">
+        Your personal Info not shared to anyone.
+        You can not delete your Account from our Platform.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

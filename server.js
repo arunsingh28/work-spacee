@@ -9,7 +9,7 @@ const app = express();
 
 require('./config/passport')(passport)
 
-const db = 'mongodb://127.0.0.1:27017/Tracker'
+const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
 mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))

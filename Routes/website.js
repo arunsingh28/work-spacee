@@ -33,7 +33,6 @@ app.get('/dashboard',ensureAuthenticated, (req,res)=>{
 app.post('/register',(req,res)=>{
     const {name,nickName,email,password,tc} = req.body;
     const newUser = new userDB({name,nickName,email,password});
-    if(tc == 'on'){
         bcrypt.genSalt(10,(err,salt)=>{
             bcrypt.hash(newUser.password,salt,(err,hash)=>{
                 if(err) throw err;
@@ -46,9 +45,6 @@ app.post('/register',(req,res)=>{
                 .catch(err => console.log(err))
             })
         })
-    }else{
-       res.send('not') 
-    }
 })
 
 app.post('/login',(req,res,next)=>{

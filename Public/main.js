@@ -3,6 +3,8 @@ valiDate = () =>{
     const fullName = document.getElementById('fullName').value;
     const cPassword = document.getElementById('cPassword').value;
     const password = document.getElementById('password').value;
+    const tc = document.getElementById('tc').checked;
+
     if(cPassword != password){
     const div = document.createElement('div');
     div.className = 'row';
@@ -39,4 +41,16 @@ valiDate = () =>{
         document.querySelector('.message').appendChild(div);  
         return false;
     } 
+    if(tc == false){
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Terms & Conditions !</strong>Please Check T&C to Continue.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>`;
+      document.querySelector('.message').appendChild(div);  
+      return false;
+    }
 }

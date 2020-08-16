@@ -9,16 +9,16 @@ const app = express();
 require('./config/passport')(passport)
 
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
-mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true})
+mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true, useCreateIndexes:true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))
 
 
 app.use(expressLayouts);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(express.urlencoded({extended:true}));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+app.use(express.urlencoded({ extended:true }));
 
 app.use(session({
     secret : 'arunsingh09',
@@ -47,6 +47,7 @@ app.use('/*',(req,res)=>{
 })
 
 const PORT = process.env.PORT || 70;
+
 app.listen(PORT,()=>{
     console.log(`Server Runiing On http://localhost:${PORT}`)
 })

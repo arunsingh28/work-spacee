@@ -24,6 +24,7 @@ mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true, usecreateInd
 .catch(err => console.log(err))
 
 
+app.set('views', path.join(__dirname, 'Views'));
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.use(express.static("Public"));

@@ -130,8 +130,8 @@ app.post('/reminder',ensureAuthenticated,(req,res)=>{
       // time funciton
    var time = new Date();
    var d = time.getDate(); // get Today Date
-   var h = time.getHours(); // get Hours
-   var m = time.getMinutes(); // get Minite
+   var h = time.getHours()+6; // get Hours
+   var m = time.getMinutes()-30; // get Minite
    var month = time.getMonth()+1;
    var year = time.getFullYear();
    var fullTime;
@@ -168,8 +168,8 @@ app.post('/save-note',ensureAuthenticated,(req,res)=>{
    // time funciton
    var time = new Date();
    var d = time.getDate(); // get Today Date
-   var h = time.getHours(); // get Hours
-   var m = time.getMinutes(); // get Minite
+   var h = time.getHours()+6; // get Hours
+   var m = time.getMinutes()-30; // get Minite
    var month = time.getMonth()+1;
    var year = time.getFullYear();
    var fullTime;

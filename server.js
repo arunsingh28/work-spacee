@@ -4,11 +4,21 @@ const mongoose = require('mongoose')
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const socket = require('socket.io');
+const http = require('http');
+
 const app = express();
+
+
+
+// soket io
+const server = http.createServer(app);
+const io = socket(server);
 
 require('./config/passport')(passport)
 
-const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
+// const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
+const db = 'mongodb://127.0.0.1:27017/Tracker'
 mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true, usecreateIndexes:true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))
@@ -36,8 +46,10 @@ app.use(function(req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    res.locals.down_msg = req.flash('down_msg');
     next();
   });
+
 
 app.use('/', require('./Routes/website'))
 

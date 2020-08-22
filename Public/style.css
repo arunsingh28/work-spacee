@@ -30,3 +30,28 @@ body{
 .shdow:hover{
     box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
 }
+textarea{
+    border: none;
+    padding:5px 10px;
+    outline: none;
+    border-radius: 3px;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+}
+
+/* notification */
+.noti{
+    color: #fff;
+}
+.give{
+    position: fixed;
+    bottom: 10px;
+    left: 16px;
+    background: #232323;
+    z-index: 1;
+    border-radius: 6px;
+    box-shadow: 8px 1px 20px 6px rgba(0,0,0,0.22);
+    transition: .3s cubic-bezier(1, -0.01, 0.51, 1.46);
+}
+.toogle{
+    bottom: 16px;
+}

@@ -1,0 +1,26 @@
+<%- include ('partials/navbar') -%>
+<%- include ('partials/important') -%>
+
+<div class="container">
+    <div class="jumbotron jumbotron-fluid border-bottom bg-image">
+        <div class="container">
+          <h1 class="display-4 text-center">Notes</h1>
+          <p class="lead text-center">Make Your Own Notes will Help You next.</p>
+        </div>
+    </div>
+
+
+    <% for(var i=0; i < note.length; i++) {%>
+    <div class="card mt-2">
+        <div class="card-header">
+         <%= note[i].public %> <code class="float-right">Publish on  <%= note[i].date %></code>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p><%= note[i].note%></p>
+            <code class="blockquote-footer"><cite title="Source Title"><%= note[i].writer %></cite></code>
+          </blockquote>
+        </div>
+      </div>
+     <% } %> 
+</div>

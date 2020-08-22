@@ -1,0 +1,72 @@
+<%- include ('partials/navbar') -%>
+<%- include ('partials/important') -%>
+<%- include ('partials/messages') -%>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Setting</li>
+        </ol>
+      </nav>
+     
+      <!-- change password -->
+      <div class="card">
+        <div class="card-header">
+          Change Password
+        </div>
+        <div class="card-body">
+            <form action="/change-password" method="POST" class="container" onsubmit="return passWord()">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Current Password</label>
+                  <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Password.." name="currentPassword" required>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">New Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password.." name="newPassword" required>
+                  <small id="emailHelp" class="form-text text-muted">Create Strong Password.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" class="form-control" id="cPassword" placeholder="Password.." required>
+                    <small id="emailHelp" class="form-text text-muted">Should be same as above.</small>
+                  </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+                <button type="reset" class="btn btn-success">Reset</button>
+              </form>
+              <div class="give"></div>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header">
+         Delete Account Parmanently
+        </div>
+        <div class="card-body">
+            <form action="/delete-account" method="POST" class="container">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Type Your Email</label>
+                  <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email" required>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Enter Your Password</label>
+                  <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter Your Password" required>
+                </div>
+                <button type="submit" class="btn btn-danger">Delete Account</button>
+                <button type="reset" class="btn btn-success">Reset</button>
+              </form>
+        </div>
+      </div>
+</div>
+
+
+<style>
+    .alert-warning{
+        color: #fff;
+        background: none !important;
+        border-color: black !important;
+        margin-bottom: 0px;
+    }
+    .alert-dismissible .close{
+        border-left: 3px solid #00bcd4 !important;
+    }
+</style>

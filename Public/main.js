@@ -54,3 +54,25 @@ valiDate = () =>{
       return false;
     }
 }
+
+passWord = () => {
+  const newPassword = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('cPassword').value;
+
+  if(newPassword != confirmPassword){
+    const div = document.createElement('div');
+    div.className = 'temp';
+    div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Password Error!</strong>Please check .
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>`;
+        document.querySelector('.give').appendChild(div); 
+
+      //  setInterval(function(){
+      //   $('.give').toggleClass('toogle')
+      //  },1000)
+        return false;
+  }
+}

@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-blue">
     <div class="nav-wraper container">
-      <a class="navbar-brand" href="/">Tracker</a>
+      <a class="navbar-brand" href="/">WorkSpace</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -8,23 +8,24 @@
        <% if(nav == false) { %> 
         <ul class="navbar-nav mx-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Share Work</a>
+            <a class="nav-link" href="/share-work">Share Work</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Todo</a>
-          </li>
+          <!-- <li class="nav-item active">
+            <a class="nav-link" href="/todo-list">Todo</a>
+          </li> -->
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Important Link
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Logs</a>
-              <a class="dropdown-item" href="#">Task</a>
-              <a class="dropdown-item" href="#">What to do ?</a>
-              <a class="dropdown-item" href="#">Questions</a>
+              <a class="dropdown-item" href="/note">Notes</a>
+              <!-- <a class="dropdown-item" href="#">Task</a> -->
+              <a class="dropdown-item" href="/what-is-next">What to do Next?</a>
+              <a class="dropdown-item" href="/q&a">Questions & Answers</a>
+              <a class="dropdown-item" href="/account-settings">Setting</a>
             </div>
           </li>
         </ul>
@@ -72,3 +73,10 @@
     </div>
   </div>
 </div>
+
+<style>
+  .bg-blue{
+    background: #134872;
+    background-image: linear-gradient(60deg,#134872,#1881d6);
+  }
+</style>

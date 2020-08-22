@@ -1,0 +1,15 @@
+<%- include ('partials/navbar') -%>
+<%- include ('partials/important') -%>
+
+<div class="container">
+    <div class="list-group mt-4">
+        <button type="button" class="list-group-item list-group-item-action active">
+          Your All Reminders <span class="float-right">Time</span>
+        </button>
+        <% for(var i =0; i< reminder.length; i++) { %>
+        <button type="button" class="list-group-item list-group-item-action"><%= reminder[i].reminder%><code class="float-right"><%= reminder[i].date%></code></button>
+        <% } %>
+      </div>
+</div>
+
+

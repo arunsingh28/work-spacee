@@ -1,0 +1,236 @@
+<div class="important">
+    <div class="note" data-toggle="modal" data-target="#saveNote" data-placement="top" title="Make Notes"><i class="fa fa-sticky-note fa-2x" aria-hidden="true"></i></div>
+    <div class="message"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i></div>
+    <div class="reminder" data-toggle="modal" data-target="#reminder"><i class="fa fa-bell-o fa-2x" aria-hidden="true"></i></div>
+    <!-- <div class="todo"data-toggle="modal" data-target="#todo"><i class="fa fa-list-alt fa-2x" aria-hidden="true"></i></div> -->
+</div>
+
+<style>
+    .important{
+        height: 174px;
+        width: 72px;
+        background: #fff;
+        position: fixed;
+        top: 50%;
+        left: 35px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 13px;
+        transform: translate(-50%,0);
+    }
+    .note{
+        height: 57px;
+        width: 72px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(20, 72, 114);
+        border-top-right-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        transition: .1s ease-in;
+    }
+    .message{
+        height: 57px;
+        width: 72px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        background: rgb(14, 50, 80);
+        cursor: pointer;
+        transition: .1s ease-in;
+    }
+    .reminder{
+        height: 60px;
+        width: 72px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        background: rgb(5, 47, 102);
+        cursor: pointer;
+        transition: .1s ease-in;
+        border-bottom-right-radius: 13px;
+    }
+    .todo{
+        height: 60px;
+        width: 72px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom-right-radius: 13px;
+        color: #fff;
+        background: rgb(5, 28, 59);
+        cursor: pointer;
+        transition: .1s ease-in;
+    }
+
+    /* hover */
+    .note:hover .fa-sticky-note{
+        transform: scale(1.1);
+    }
+    .message:hover .fa-commenting-o{
+        transform: scale(1.1);
+    }
+    .reminder:hover .fa-bell-o{
+        transform: scale(1.1);
+    }
+    .todo:hover .fa-list-alt{
+        transform: scale(1.1);
+    }
+</style>
+
+
+<!-- Modal  for note-->
+<div class="modal fade" id="saveNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Save Notes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/save-note" method="post">
+                <textarea name="note" id="" class="input-form" cols="54" rows="6" placeholder="Write Your Notes"></textarea>
+        </div>
+        <div class="modal-footer">
+          <div class="toggle float-right">
+            Private
+            <label class="switch" style="margin-bottom:0 !important;">
+              <input type="checkbox" id="public" name="public">
+              <span class="slider round"></span>
+            </label>
+            public
+          </div>
+          <button type="submit" class="btn btn-primary">Save Note</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- model for reminder -->
+
+  <div class="modal fade" id="reminder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Set Reminder</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/reminder" method="post">
+                <div class="form-group">
+                    <label for="reminder">Enter Your Reminder</label>
+                    <input type="text" class="form-control" id="reminder" name="reminder" placeholder="Reminder...">
+                </div>
+           
+        </div>
+         <div class="modal-footer">
+          <a href="/all-reminder" class="btn btn-secondary">View All Reminders</a>
+          <button type="submit" class="btn btn-primary">Set Reminder</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- todo list -->
+  <div class="modal fade" id="todo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Todo List</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-action">Cras justo odio</li>
+                <li class="list-group-item list-group-item-action">Dapibus ac facilisis in</li>
+                <li class="list-group-item list-group-item-action">Morbi leo risus</li>
+                <li class="list-group-item list-group-item-action">Porta ac consectetur ac</li>
+                <li class="list-group-item list-group-item-action">Vestibulum at eros</li>
+              </ul>
+              <form action="#" method="post" class="border-top mt-3">
+                <label for="task" class="text-center">Task</label>
+                <input type="text" name="task" id="task" placeholder="Task" class="form-control" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary btn-block">Save Task</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <style>
+    .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.toggle{
+  margin-right:171px;
+}
+  </style>

@@ -1,31 +1,73 @@
-<%- include ('partials/navbar') -%>
-
-<!-- banner -->
+<%- include('partials/navbar')%>
+<%- include('partials/important')%>
+<%- include('partials/messages')%>
 <div class="container">
     <div class="jumbotron bg-image rounded-bottom">
         <h1 class="display-4">Welcome <%= user.name %></h1>
         <p class="lead">Fell Happy To see You Again.</p>
         <hr class="my-4">
-        <p>Complete Your Pending Work</p>
+        <p class="text-light">Complete Your Pending Work</p>
       </div>
-
 <div class="container">
     <div class="row mt-2">
          <div class="col-4">
-              <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Reminder
-                  <span class="badge badge-primary badge-pill">14</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Total Links
-                  <span class="badge badge-primary badge-pill">2</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  Online
-                  <span class="badge badge-primary badge-pill">1</span>
-                </li>
-              </ul>
+<div class="accordion shadow-lg" id="accordionExample">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Online Peoples
+          </button>
+        </h2>
+      </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">Actor</a>
+                <a href="#" class="list-group-item list-group-item-action">Ashu</a>
+                <a href="#" class="list-group-item list-group-item-action">Harsh</a>  
+              </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Create Reminders
+          </button>
+        </h2>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+            <form action="/reminder" method="post">
+                <div class="form-group">
+                    <!-- <label for="reminderTitle">Reminder Title</label>
+                    <input type="text" id="reminderTitle"name="reminderTitle" class="form-control" placeholder="Reminder Title" required> -->
+                    <label for="reminder">Reminder</label> 
+                    <textarea name="reminder" id="reminder" cols="32" rows="3" required placeholder="Enter your Reminder"></textarea>
+                    <button type="submit" class="btn btn-primary mt-2">Save</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Total Links
+          </button>
+        </h2>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+            No Link Present
+        </div>
+      </div>
+    </div>
+  </div>
             
         </div>
         <div class="col-8">
@@ -34,28 +76,73 @@
                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Reminders</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Notes</a>
+                  <a class="nav-link" id="profile-tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" data-toggle="modal" data-target="#saveNote">Notes</a>
                 </li>
                 <li class="nav-item" role="presentation">
                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Links</a>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    
+                <div class="tab-pane fade show active bg-light shadow-lg" id="home" role="tabpanel" aria-labelledby="home-tab">
+                   <!-- start reimnder -->
+                  
+                      <% for(var i=0; i< reminder.length; i++) { %>
+                        <div class="accordion" id="accordionExample">
+                        <div class="card">
+                          <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#reminder1" aria-expanded="true" aria-controls="collapseOne">
+                              <code>  <%= reminder[i].date %></code>
+                              </button>
+                            </h2>
+                          </div>
+                          <div id="reminder1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                              <%= reminder[i].reminder %>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <% } %>
+                        <!--end reminer  -->
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <textarea name="note" id="" cols="90" rows="10" placeholder="Work Place and Make Notes"></textarea>
                 </div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                  <% for(var j=0; j < link.length; j++) { %>
+                    <ul class="list-group list-group-flush rounded">
+                        <li class="list-group-item list-group-item-action border-bottom">
+                          <label for="for"><%= link[j].For %></label><br>
+                          <a  href=<%= link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
+                        <form action="/link-delete" method="POST">
+                        <input type="hidden" value="<%=link[j]._id %>" name="AID">
+                        <button type="submit" class="flex float-right btn btn-danger" style="margin-top: -27px;">Delete</button>
+                        </form>
+                        </li>
+
+                    </ul>
+                  <% } %>  
+                      <form action="/link" method="post" class="form-group mt-3 shadow-lg">
+                        <input type="text" class="form-control mb-2" placeholder="Link For What ?" name="For">
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="Enter Link" name="link">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Save</button>
+                          </div>
+                        </div>
+                    </form>
+                </div>
               </div>
         </div>
     </div>
 </div>
 
+
+
 <style>
     .bg-image{
-        background-image: linear-gradient(50deg,rgba(46, 101, 173, 0.4),rgba(11, 33, 46, 0.7)),url(https://images.pexels.com/photos/989946/pexels-photo-989946.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500);
+        background-image: linear-gradient(50deg,rgba(46, 101, 173, 0.4),rgba(11, 33, 46, 0.7)),url(bg.jpg);
         background-origin: center;
         background-size: cover;
         background-repeat: no-repeat;

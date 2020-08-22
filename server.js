@@ -18,8 +18,8 @@ const io = socket(server);
 
 require('./config/passport')(passport)
 
-// const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
-const db = 'mongodb://127.0.0.1:27017/Tracker'
+const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
+// const db = 'mongodb://127.0.0.1:27017/Tracker'
 mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true, usecreateIndexes:true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))

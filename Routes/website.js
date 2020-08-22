@@ -138,6 +138,7 @@ app.post('/reminder',ensureAuthenticated,(req,res)=>{
    if(h < 12){
      fullTime = d+"-"+month+"-"+year+" Time "+h+":"+m+" "+"AM";
    }else{
+    h-=12;
      fullTime = d+"-"+month+"-"+year+" Time "+h+":"+m+" "+"PM";
    }
     const {reminder} = req.body;

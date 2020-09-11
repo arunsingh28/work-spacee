@@ -55,8 +55,7 @@ app.use(function(req, res, next) {
 
 app.use('/', require('./Routes/website'))
 
-
-app.use('/*',(req,res)=>{
+app.use('/*', (req,res) =>{
     res.redirect('/')
 })
 

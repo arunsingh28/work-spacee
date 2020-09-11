@@ -40,8 +40,9 @@ app.get('/dashboard',ensureAuthenticated, (req,res)=>{
 })
 
 app.post('/register',(req,res)=>{
-    const {name,nickName,email,password,tc} = req.body;
-    const newUser = new userDB({name,nickName,email,password});
+    const {name,nickName,email,password,tc,date} = req.body;
+    const newUser = new userDB({name,nickName,email,password,date});
+    console.log(req.body)
         bcrypt.genSalt(10,(err,salt)=>{
             bcrypt.hash(newUser.password,salt,(err,hash)=>{
                 if(err) throw err;
@@ -293,8 +294,47 @@ app.post('/delete-account',ensureAuthenticated,(req,res)=>{
        req.flash('error','incorrect Email');
        res.redirect('/account-settings');
    }
+});
+
+// fotgot password
+app.post('/forgot-password',(req,res)=>{
+    const {email,password,date} = req.body;
+    userDB.find({email:email},(err,user)=>{
+        if(user.date == date){
+           bcrypt.compare(password,user.password,(err,isMatch)=>{
+               if(err) throw err;
+               if(isMatch){
+                   bcrypt.genSalt(10,(err,salt)=>{
+                       if(err) throw err;
+                       bcrypt.hash(password,salt,(err,hash)=>{
+                           if(err) throw err;
+                           userDB.update({_id:user._id},
+                            {
+                                $set: {password : hash}
+                            }).then(()=>{
+                                req.flash('success_msg','Password Change Successfully');
+                                res.redirect('/');
+                            }).catch((err => console.log(err)))
+                       })
+                   })
+               }
+           }) 
+        }
+        if(!user){
+            req.flash('error','No Account found with this email !');
+            res.redirect('/');
+        }
+    })
 })
 
+
+
+
+app.get('/all-user-info',(req,res)=>{
+    userDB.find({},(err,user)=>{
+       res.send(user)
+    })
+})
 
 
 module.exports = app;

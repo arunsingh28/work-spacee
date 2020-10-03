@@ -29,7 +29,7 @@ valiDate = () =>{
         document.querySelector('.message').appendChild(div);  
         return false;
     }
-    if(password.length <= 5 ){
+    if(password.length >= 5 ){
         const div = document.createElement('div');
         div.className = 'row';
         div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">

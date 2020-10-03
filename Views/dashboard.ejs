@@ -15,7 +15,7 @@
     <div class="card">
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
-          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
             Online Peoples
           </button>
         </h2>
@@ -24,9 +24,10 @@
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">Actor</a>
+               This Feature comming soon ...
+                <!-- <a href="#" class="list-group-item list-group-item-action">Actor</a>
                 <a href="#" class="list-group-item list-group-item-action">Ashu</a>
-                <a href="#" class="list-group-item list-group-item-action">Harsh</a>  
+                <a href="#" class="list-group-item list-group-item-action">Harsh</a>   -->
               </div>
         </div>
       </div>
@@ -34,7 +35,7 @@
     <div class="card">
       <div class="card-header" id="headingTwo">
         <h2 class="mb-0">
-          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             Create Reminders
           </button>
         </h2>
@@ -56,14 +57,18 @@
     <div class="card">
       <div class="card-header" id="headingThree">
         <h2 class="mb-0">
-          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Total Links
+          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Total Links <a href="#" class="badge badge-primary float-right"><%= link.length%></a>
           </button>
         </h2>
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
         <div class="card-body">
-            No Link Present
+            <div class="list-group">
+              <% for(var l = 0 ; l < link.length; l++) { %>
+                <a href=<%= link[l].link %> target="_blank" class="list-group-item list-group-item-action"><%= link[l].For %></a>
+              <% } %>  
+            </div>
         </div>
       </div>
     </div>
@@ -97,9 +102,13 @@
                             </h2>
                           </div>
                           <div id="reminder1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
+                            <div class="card-body border-bottom">
                               <%= reminder[i].reminder %>
                             </div>
+                            <form action="/delete-reminder" method="post">
+                              <input type="hidden" name="reminderId" value=<%= reminder[i]._id%>>
+                              <button class="btn btn-danger m-2" style="width: 100px;margin-left: 20px;">Delete</button>
+                            </form>
                           </div>
                         </div>
 
@@ -115,10 +124,12 @@
                         <li class="list-group-item list-group-item-action border-bottom">
                           <label for="for"><%= link[j].For %></label><br>
                           <a  href=<%= link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
+
                         <form action="/link-delete" method="POST">
                         <input type="hidden" value="<%=link[j]._id %>" name="AID">
-                        <button type="submit" class="flex float-right btn btn-danger" style="margin-top: -27px;">Delete</button>
+                        <button type="submit" class="flex float-right btn btn-danger" style="margin-top: -47px;">Delete</button>
                         </form>
+
                         </li>
 
                     </ul>

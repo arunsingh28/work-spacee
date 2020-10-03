@@ -336,5 +336,11 @@ app.get('/all-user-info',(req,res)=>{
     })
 })
 
+app.post('/delete-reminder',(req,res)=>{
+    const {reminderId} = req.body;
+    reminderDB.remove({_id:reminderId})
+    .then(()=>{res.redirect('/')})
+    .catch((err => console.log(err)))
+})
 
 module.exports = app;

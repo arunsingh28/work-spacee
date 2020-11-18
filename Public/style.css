@@ -58,5 +58,6 @@ textarea{
 @media screen and (max-width : 500px){
     .nav-link{
         padding: .5rem .3rem !important;
+        box-shadow: inset -1px -3px 2px 1px #03a9f461;
     }
 }

@@ -54,9 +54,30 @@ textarea{
 .toogle{
     bottom: 16px;
 }
-
+.question-input{
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0px !important;
+    border-bottom: 1px solid #333 !important;
+    outline: none !important;
+}
+.display-question{
+    font-size: 20px;
+    font-weight: 500;
+}
+.answer{
+    padding: 5px 10px;
+    background: #cacaca;
+    border-radius: 5px;
+}
+.from-answer{
+    background: #cacaca;
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
 @media screen and (max-width : 500px){
-    .nav-link{
+    .nav-linkk{
         padding: .5rem .3rem !important;
         box-shadow: inset -1px -3px 2px 1px #03a9f461;
     }

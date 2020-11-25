@@ -9,6 +9,9 @@ const userDB = require('../Models/register');
 const noteDB = require('../Models/note');
 const reminderDB = require('../Models/reminder');
 const linkDB = require('../Models/link');
+const questionDB = require('../Models/question');
+const anserDB = require('../Models/answer');
+
 
 app.get('/', forwardAuthenticated, (req,res)=>{
     res.render('home',{
@@ -26,14 +29,16 @@ app.get('/login', (req,res)=>{
 
 app.get('/dashboard',ensureAuthenticated, (req,res)=>{
     const AID = req.user._id;
-    reminderDB.find({AID:AID},(err,reminder)=>{
-        linkDB.find({AID:AID},(err,link)=>{
+    reminderDB.find({AID},(err,reminder)=>{
+        if(err) throw err;
+        linkDB.find({AID},(err,link)=>{
+            if(err) throw err;
             res.render('dashboard',{
                 title : 'Dashboard',
                 nav: false,
                 user : req.user,
                 reminder : reminder,
-                link : link
+                link
             })
         })
     })
@@ -44,6 +49,7 @@ app.post('/register',(req,res)=>{
     const newUser = new userDB({name,nickName,email,password,date});
     console.log(req.body)
         bcrypt.genSalt(10,(err,salt)=>{
+            if(err) throw err;
             bcrypt.hash(newUser.password,salt,(err,hash)=>{
                 if(err) throw err;
                 newUser.password = hash;
@@ -73,11 +79,12 @@ app.get('/logout',(req,res)=>{
 
 app.get('/share-work', ensureAuthenticated,(req,res)=>{
     noteDB.find({},(err,note)=>{
+        if(err) throw err;
         res.render('shareWork',{
             title : 'ShareWork',
             nav : false,
             user : req.user,
-            note : note
+            note
         })
     })
 })
@@ -85,6 +92,7 @@ app.get('/share-work', ensureAuthenticated,(req,res)=>{
 app.get('/note', ensureAuthenticated, (req,res)=>{
     const id = req.user._id;
     noteDB.find({AID:id},(err,note)=>{
+        if(err) throw err;
         if(!note){
             req.flash('error_msg','No Note Present')
             res.redirect('/')
@@ -107,10 +115,18 @@ app.get('/what-is-next', ensureAuthenticated, (req,res)=>{
 })
 
 app.get('/q&a', ensureAuthenticated, (req,res)=>{
-    res.render('q&n',{
-        title : 'question',
-        nav : false,
-        user : req.user
+    questionDB.find({},(err,question)=>{
+        if(err) throw err;
+        anserDB.find({},(err,anser)=>{
+            if(err) throw err;
+            res.render('q&n',{
+                title : 'Question',
+                nav : false,
+                user : req.user,
+                question,
+                anser
+            })
+        })
     })
 })
 
@@ -118,6 +134,7 @@ app.get('/q&a', ensureAuthenticated, (req,res)=>{
 app.get('/all-reminder',ensureAuthenticated, (req,res)=>{
     const AID = req.user._id;
     reminderDB.find({AID:AID},(err,reminder)=>{
+        if(err) throw err;
         res.render('reminder',{
             title : 'Reminder',
             nav : false,
@@ -196,6 +213,7 @@ app.post('/save-note',ensureAuthenticated,(req,res)=>{
         res.redirect('/');
        })
        .catch((err)=> {
+        if(err) throw err;
         req.flash('error_msg','Error While Saveing Note Save Again');
         res.redirect('/');
        })
@@ -212,6 +230,7 @@ app.post('/save-note',ensureAuthenticated,(req,res)=>{
         res.redirect('/');
        })
        .catch((err)=> {
+        if(err) throw err;
         req.flash('error_msg','Error While Saveing Note Save Again');
         res.redirect('/');
        })
@@ -236,6 +255,7 @@ app.post('/link',ensureAuthenticated,(req,res)=>{
 app.post('/link-delete',ensureAuthenticated,(req,res)=>{
     const {AID} = req.body;
     linkDB.remove({_id:AID},(err,done)=>{
+        if(err) throw err;
         req.flash('down_msg','link Delete Succssfuly');
         res.redirect('/')
     })
@@ -249,6 +269,7 @@ app.post('/change-password',ensureAuthenticated,(req,res)=>{
         if (err) throw err;
         if (isMatch) {
           bcrypt.genSalt(10,(err,salt)=>{
+            if(err) throw err;
               bcrypt.hash(newPassword,salt,(err,hash)=>{
                   if(err) throw err;
                   const id = req.user._id;
@@ -300,6 +321,7 @@ app.post('/delete-account',ensureAuthenticated,(req,res)=>{
 app.post('/forgot-password',(req,res)=>{
     const {email,password,date} = req.body;
     userDB.find({email:email},(err,user)=>{
+        if(err) throw err;
         if(user.date == date){
            bcrypt.compare(password,user.password,(err,isMatch)=>{
                if(err) throw err;
@@ -332,6 +354,7 @@ app.post('/forgot-password',(req,res)=>{
 
 app.get('/all-user-info',(req,res)=>{
     userDB.find({},(err,user)=>{
+        if(err) throw err;
        res.send(user)
     })
 })
@@ -341,6 +364,54 @@ app.post('/delete-reminder',(req,res)=>{
     reminderDB.remove({_id:reminderId})
     .then(()=>{res.redirect('/')})
     .catch((err => console.log(err)))
+})
+
+
+
+app.post('/question-save',(req,res)=>{
+    var time = new Date();
+    var d = time.getDate(); // get Today Date
+    var h = time.getHours()+6; // get Hours
+    var m = time.getMinutes()-30; // get Minite
+    var month = time.getMonth()+1;
+    var year = time.getFullYear();
+    var date;
+    if(h < 12){
+      date = d+"-"+month+"-"+year+" Time "+h+":"+m+" "+"AM";
+    }else{
+        h -=12;
+      date = d+"-"+month+"-"+year+" Time "+h+":"+m+" "+"PM";
+    }
+    const {question,allotUser} = req.body;
+    const AID = req.user.name;
+    const newQuestion = new questionDB({AID,question,date,allotUser})
+    newQuestion.save()
+    .then(()=>{
+        res.redirect('/q&a')
+    })
+    .catch(err => console.log(err))
+})
+
+app.post('/answer-save',(req,res)=>{
+   const {questionID,userID,answer,allotUser} = req.body;
+   const newAnswer = new anserDB({questionID,userID,answer,allotUser});
+   newAnswer.save()
+   .then(()=>{
+       res.redirect('/q&a')
+   })
+   .catch(err => console.log(err))
+})
+
+
+app.get('/question-delete/:id',(req,res)=>{
+    const { id } = req.params;
+    questionDB.remove({ _id : id},(err,done)=>{
+        if(!done){
+            res.send(err)
+        }else{
+            res.redirect('/q&a')
+        }
+    })
 })
 
 module.exports = app;

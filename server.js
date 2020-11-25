@@ -5,22 +5,27 @@ const path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const socket = require('socket.io');
 const http = require('http');
+const socket = require('socket.io');
+
+
 
 const app = express();
 
 
-
 // soket io
-const server = http.createServer(app);
-const io = socket(server);
+
+
+
+
 
 require('./config/passport')(passport)
 
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
+
 // const db = 'mongodb://127.0.0.1:27017/Tracker'
-mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology: true, usecreateIndexes:true})
+mongoose.Promise = Promise;
+mongoose.connect(db,{useNewUrlParser: true,useUnifiedTopology: true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))
 

@@ -2,7 +2,44 @@
 <%- include ('partials/important') -%>
 
 <div class="container">
-    <div class="jumbotron rounded-bottom">
-        <p class="text-dark text-center">This Page Under Maintenance <br><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></p>
-      </div>
+    <div class="jumbotron rounded-bottom shadow-sm" style="padding: 1.2rem 2rem !important; background: rgba(174, 201, 202, 0.582);">
+        <form action="/question-save" method="post">
+          <label for="question" class="display-question">What is Your Question ?</label>
+          <input type="hidden" value="<%= user._id%>" name="allotUser">
+          <input type="text" class="form-control question-input" placeholder="Type here..." name="question">
+          <button type="submit" class="btn btn-primary my-3 submit">Submit</button>
+        </form>
+    </div>
+
+
+
+  <% for(var j=0 ; j < question.length; j++) {%>
+    <div class="jumbotron rounded-bottom" style="padding: 1rem 2rem !important;">
+      <p class="display-question">Q:<%= question[j].question%> <code class="float-right"><%= question[j].date%></code></p>
+      <% for(var i=0; i < anser.length; i++) {%>
+        <% if(anser[i].questionID == question[j]._id) {%>
+          <i class="from-answer"><b>Ans from <%= anser[i].userID%></b></i>
+          <p class="lead answer shadow-sm"><%= anser[i].answer%></p>
+        <%}%>
+      <% } %>  
+      <form action="/answer-save" method="post">
+        <input type="hidden" name="questionID" value="<%= question[j]._id%>">
+        <input type="hidden" name="userID" value="<%= user.name%>">
+       <input type="text" class="form-control question-input" placeholder="Type Your Answer here ..." name="answer" autocomplete="off"/>
+       <% if(question[j].allotUser == user._id) {%>
+        <button type="submit" class="btn btn-primary my-3" >Submit</button>
+        <a href="/question-delete/<%= question[j]._id%>"><button class="btn btn-danger my-3 ml-3 submit" type="button" >Delete</button></a>
+       <% } else {%>
+        <button type="submit" class="btn btn-primary my-3">submit</button>
+      <%}%> 
+        <i class="float-right mt-5">Question by <b><%= question[j].AID %></b></i>
+      </form>
+    </div>
+  <% } %>   
+
 </div>
+
+
+<script>
+
+</script>

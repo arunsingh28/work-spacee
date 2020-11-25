@@ -15,7 +15,7 @@
     <div class="card">
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
-          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" >
             Online Peoples
           </button>
         </h2>
@@ -72,6 +72,27 @@
         </div>
       </div>
     </div>
+    <!-- other project -->
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" >
+            Other Projects
+          </button>
+        </h2>
+      </div>
+
+      <div id="collapseFour" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">Vegihub</a>
+                <a href="#" class="list-group-item list-group-item-action">ShapeYou</a>
+                <a href="#" class="list-group-item list-group-item-action">ChatApp</a>  
+              </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
             
         </div>
@@ -123,16 +144,13 @@
                   <% for(var j=0; j < link.length; j++) { %> 
                     <ul class="list-group list-group-flush rounded">
                         <li class="list-group-item list-group-item-action border-bottom">
-                          <label for="for"><%= link[j].For %></label><br>
-                          <a  href=<%= link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
-
+                        <label for="for"><%= link[j].For %></label><br>
+                        <a  href=<%= link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
                         <form action="/link-delete" method="POST">
                         <input type="hidden" value="<%=link[j]._id %>" name="AID">
                         <button type="submit" class="flex float-right btn btn-danger" style="margin-top: -47px;">Delete</button>
                         </form>
-
                         </li>
-
                     </ul>
                   <% } %>  
                       <form action="/link" method="post" class="form-group mt-3 shadow-lg">
@@ -150,7 +168,9 @@
     </div>
 </div>
 
-
+<div class="container-fluid">
+  <%- include('partials/dashFooter')%>
+</div>
 
 <style>
     .bg-image{

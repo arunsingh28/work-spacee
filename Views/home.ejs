@@ -62,7 +62,7 @@
                 <div class="row">
                   <div class="col text-center message">
                     <h1>Register</h1>
-                    <p class="text-h3">Register YourSelft for Saving Time and do more as You aspact from  Yourself.</p>
+                    <p class="text-h3">Register YourSelf for Saving Time and do more as You aspact from  Yourself.</p>
                   </div>
                 </div>
                 <form action="/register" method="post" onsubmit="return valiDate()">
@@ -83,15 +83,16 @@
                 </div>
                 <div class="row align-items-center mt-4">
                   <div class="col">
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off" required>
+                    <input type="password" class="form-control pass" name="password" placeholder="password" autocomplete="off" required>
                   </div>
                   <div class="col">
-                    <input type="password" class="form-control" id="cPassword" placeholder="Confirm Password" autocomplete="off" required>
+                    <input type="password" class="form-control confirm"  placeholder="Confirm Password" autocomplete="off" required>
                   </div> 
                 </div>
                 <div class="row align-items-center mt-4">
                   <div class="col">
-                    <input type="date" class="form-control" name="date" id="date" placeholder="Date of Birth" required>
+                    <label for="date">Date of Birth</label>
+                    <input type="date" class="form-control" name="date" placeholder="Date of Birth" required>
                   </div>
                 </div>
                 <div class="row justify-content-start mt-4">
@@ -133,6 +134,7 @@
       <div class="modal-body">
         Your personal Info not shared to anyone.
         You can not delete your Account from our Platform.
+        Your DOB is only for Security purpose nobady can see your DOB.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Close</button>
@@ -140,3 +142,4 @@
     </div>
   </div>
 </div>
+

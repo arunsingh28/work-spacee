@@ -24,13 +24,13 @@
       <% } %>  
       <form action="/answer-save" method="post">
         <input type="hidden" name="questionID" value="<%= question[j]._id%>">
-        <input type="hidden" name="userID" value="<%= user.name%>">
+        <input type="hidden" name="userID" value="<%= user.nickName %>">
        <input type="text" class="form-control question-input" placeholder="Type Your Answer here ..." name="answer" autocomplete="off"/>
        <% if(question[j].allotUser == user._id) {%>
         <button type="submit" class="btn btn-primary my-3" >Submit</button>
         <a href="/question-delete/<%= question[j]._id%>"><button class="btn btn-danger my-3 ml-3 submit" type="button" >Delete</button></a>
        <% } else {%>
-        <button type="submit" class="btn btn-primary my-3">submit</button>
+        <button type="submit" class="btn btn-primary my-3">Submit</button>
       <%}%> 
         <i class="float-right mt-5">Question by <b><%= question[j].AID %></b></i>
       </form>

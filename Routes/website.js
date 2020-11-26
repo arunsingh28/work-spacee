@@ -45,22 +45,30 @@ app.get('/dashboard',ensureAuthenticated, (req,res)=>{
 })
 
 app.post('/register',(req,res)=>{
-    const {name,nickName,email,password,tc,date} = req.body;
-    const newUser = new userDB({name,nickName,email,password,date});
-    console.log(req.body)
-        bcrypt.genSalt(10,(err,salt)=>{
-            if(err) throw err;
-            bcrypt.hash(newUser.password,salt,(err,hash)=>{
+    const {name,nickName,email,password,date} = req.body;
+    userDB.findOne({email},(err,user)=>{
+        if(err) throw err;
+        if(!user){
+            const newUser = new userDB({name,nickName,email,password,date});
+            bcrypt.genSalt(10,(err,salt)=>{
                 if(err) throw err;
-                newUser.password = hash;
-                newUser.save()
-                .then(()=>{
-                    req.flash('message','You Are Registered.')
-                    res.redirect('/login')
+                bcrypt.hash(newUser.password,salt,(err,hash)=>{
+                    if(err) throw err;
+                    newUser.password = hash;
+                    newUser.save()
+                    .then(()=>{
+                        req.flash('message','You Are Registered.')
+                        res.redirect('/login')
+                    })
+                    .catch(err => console.log(err))
                 })
-                .catch(err => console.log(err))
             })
-        })
+        }else{
+            req.flash('message','This Email already Registered')
+            res.redirect('/login')
+        }
+    })
+
 })
 
 app.post('/login',(req,res,next)=>{

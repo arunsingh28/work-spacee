@@ -1,6 +1,9 @@
+
 <%- include('partials/navbar')%>
 <%- include('partials/important')%>
 <%- include('partials/messages')%>
+
+<div class="desktop">
 <div class="container">
     <div class="jumbotron bg-image rounded-bottom">
         <h1 class="display-4">Welcome <%= user.name %></h1>
@@ -25,9 +28,6 @@
         <div class="card-body">
             <div class="list-group">
                This Feature comming soon ...
-                <!-- <a href="#" class="list-group-item list-group-item-action">Actor</a>
-                <a href="#" class="list-group-item list-group-item-action">Ashu</a>
-                <a href="#" class="list-group-item list-group-item-action">Harsh</a>   -->
               </div>
         </div>
       </div>
@@ -166,11 +166,22 @@
               </div>
         </div>
     </div>
+   </div>
+  </div>
+</div>
+
+<div class="mobile">
+  <h3 class="bg-blue pl-2">WorkSpace</h3>
+  <p class="text-center mt-5">You Are Using Small Screen <b>WorkSpace</b> is not Compatible with Mobile <i class="fa fa-mobile"></i>.<br>Switch to Desktop <i class="fa fa-desktop"></i> or Laptop <i class="fa fa-laptop"></i>.<br><b>From support Team</b><br>
+  <a href="/logout" class="btn btn-primary mt-3"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </p> 
 </div>
 
 <div class="container-fluid">
   <%- include('partials/dashFooter')%>
 </div>
+
+
 
 <style>
     .bg-image{
@@ -179,4 +190,25 @@
         background-size: cover;
         background-repeat: no-repeat;
     }
+    .mobile{
+      display: none;
+    }
+    .mobile h3{
+      line-height: 50px;
+      color: #fff;
+    }
+    @media screen and (max-width : 500px){
+    .desktop{
+      display: none; 
+    }
+    .mobile{
+      display: block;
+    }
+    nav{
+      display: none !important
+    }
+    .important{
+      display: none !important
+    }
+}
 </style>

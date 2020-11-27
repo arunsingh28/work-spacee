@@ -3,7 +3,11 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const { forwardAuthenticated,ensureAuthenticated } = require('../config/auth');
 
+
 const app = express.Router();
+
+
+
 
 const userDB = require('../Models/register');
 const noteDB = require('../Models/note');
@@ -27,22 +31,6 @@ app.get('/login', (req,res)=>{
     })
 })
 
-app.get('/dashboard',ensureAuthenticated, (req,res)=>{
-    const AID = req.user._id;
-    reminderDB.find({AID},(err,reminder)=>{
-        if(err) throw err;
-        linkDB.find({AID},(err,link)=>{
-            if(err) throw err;
-            res.render('dashboard',{
-                title : 'Dashboard',
-                nav: false,
-                user : req.user,
-                reminder : reminder,
-                link
-            })
-        })
-    })
-})
 
 app.post('/register',(req,res)=>{
     const {name,nickName,email,password,date} = req.body;
@@ -171,9 +159,14 @@ app.post('/reminder',ensureAuthenticated,(req,res)=>{
     const AID = req.user._id;
     const date = fullTime;
     const newReminder = reminderDB({reminder,AID,date})
-    newReminder.save()
-    .then(()=>{req.flash('down_msg','Your reminder set Successfuly');res.redirect('/')})
-    .catch((err)=> console.log(err));
+    if(reminder.length == 0){
+        res.redirect('/all-reminder')
+    }
+    else{
+        newReminder.save()
+        .then(()=>{req.flash('down_msg','Your reminder set Successfuly');res.redirect('/')})
+        .catch((err)=> console.log(err));
+    }
 })
 
 
@@ -215,16 +208,20 @@ app.post('/save-note',ensureAuthenticated,(req,res)=>{
        const public = 'Private';
        const AID = req.user._id
        const newNote = noteDB({note,public,writer,date,AID});
-       newNote.save()
-       .then(()=>{
-        req.flash('down_msg','Note Save to Private Note.');
-        res.redirect('/');
-       })
-       .catch((err)=> {
-        if(err) throw err;
-        req.flash('error_msg','Error While Saveing Note Save Again');
-        res.redirect('/');
-       })
+       if(note.length == 0){
+           res.redirect('/note')
+       }else{
+        newNote.save()
+        .then(()=>{
+         req.flash('down_msg','Note Save to Private Note.');
+         res.redirect('/');
+        })
+        .catch((err)=> {
+         if(err) throw err;
+         req.flash('error_msg','Error While Saveing Note Save Again');
+         res.redirect('/');
+        })
+       }
     }else{
         // public
         const writer = req.user.name;
@@ -232,16 +229,20 @@ app.post('/save-note',ensureAuthenticated,(req,res)=>{
         const public = 'Public';
         const AID = req.user._id
         const newNote = noteDB({note,public,writer,date,AID})
-        newNote.save()
-       .then(()=>{
-        req.flash('down_msg','Note Save to Private Note.');
-        res.redirect('/');
-       })
-       .catch((err)=> {
-        if(err) throw err;
-        req.flash('error_msg','Error While Saveing Note Save Again');
-        res.redirect('/');
-       })
+        if(note.length == 0){
+            res.redirect('/note')
+        }else{
+            newNote.save()
+            .then(()=>{
+             req.flash('down_msg','Note Save to Private Note.');
+             res.redirect('/');
+            })
+            .catch((err)=> {
+             if(err) throw err;
+             req.flash('error_msg','Error While Saveing Note Save Again');
+             res.redirect('/');
+            })
+        }
     }
 })
 

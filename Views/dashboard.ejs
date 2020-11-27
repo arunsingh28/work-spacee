@@ -24,11 +24,9 @@
         </h2>
       </div>
 
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
-            <div class="list-group">
-               This Feature comming soon ...
-              </div>
+            <div class="list-group user-list" style="max-height: 200px; overflow-y:auto;"></div>
         </div>
       </div>
     </div>
@@ -44,8 +42,6 @@
         <div class="card-body">
             <form action="/reminder" method="post">
                 <div class="form-group">
-                    <!-- <label for="reminderTitle">Reminder Title</label>
-                    <input type="text" id="reminderTitle"name="reminderTitle" class="form-control" placeholder="Reminder Title" required> -->
                     <label for="reminder">Reminder</label> 
                     <textarea name="reminder" id="reminder" cols="32" rows="3" required placeholder="Enter your Reminder"></textarea>
                     <button type="submit" class="btn btn-primary mt-2">Save</button>
@@ -64,7 +60,7 @@
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
         <div class="card-body">
-            <div class="list-group">
+            <div class="list-group" style="max-height: 240px; overflow-y:auto;">
               <% for(var l = 0 ; l < link.length; l++) { %>
                 <a href=<%= link[l].link %> target="_blank" class="list-group-item list-group-item-action"><%= link[l].For %></a>
               <% } %>  
@@ -74,15 +70,15 @@
     </div>
     <!-- other project -->
     <div class="card">
-      <div class="card-header" id="headingOne">
+      <div class="card-header" id="headingFour">
         <h2 class="mb-0">
-          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" >
+          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
             Other Projects
           </button>
         </h2>
       </div>
 
-      <div id="collapseFour" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action">Vegihub</a>
@@ -181,9 +177,7 @@
 <div class="container-fluid">
   <%- include('partials/dashFooter')%>
 </div>
-
-
-
+<script src="socket.js"></script>   
 <style>
     .bg-image{
         background-image: linear-gradient(50deg,rgba(46, 101, 173, 0.4),rgba(11, 33, 46, 0.7)),url(bg.jpg);

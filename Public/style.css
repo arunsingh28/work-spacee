@@ -76,6 +76,25 @@ textarea{
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
+.alert{
+    margin: 1rem !important;
+}
+.display-task{
+    padding: .8rem .5rem;
+    margin: .5rem;
+    background: #eee;
+    border-radius: 5px;
+}
+.project-title{
+    font-size: 18px;
+}
+.user-active {
+    height: 8px;
+    width: 8px;
+    background: #1abb1f;
+    border-radius: 20px;
+    margin-top: 7px;
+}
 @media screen and (max-width : 500px){
     .nav-linkk{
         padding: .5rem .3rem !important;

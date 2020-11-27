@@ -68,7 +68,7 @@ const linkDB = require('./Models/link');
 app.get('/dashboard',ensureAuthenticated, (req,res)=>{
     io.on('connection',socket =>{
         io.sockets.setMaxListeners(10);
-        socket.broadcast.emit('online',req.user.nickName);
+        socket.emit('online',req.user.nickName);
         socket.on('disconnect',()=>{
             socket.emit('offline',req.user.nickName)
         })

@@ -65,19 +65,14 @@ const reminderDB = require('./Models/reminder');
 const linkDB = require('./Models/link');
 
 
-var connectCounter = 0;
 app.get('/dashboard',ensureAuthenticated, (req,res)=>{
-    io.on('connection',socket =>{
-        connectCounter++;
-        console.log(connectCounter)
-        io.sockets.setMaxListeners(10);
-        socket.emit('online',req.user.nickName);
-        socket.on('disconnect',()=>{
-            connectCounter--;
-            console.log('user disconect'+connectCounter)
-            socket.emit('offline',req.user.nickName)
-        })
-    })
+    // io.on('connection',socket =>{
+    //     io.sockets.setMaxListeners(10);
+    //     socket.broadcast.emit('online',req.user.nickName);
+    //     socket.on('disconnect',()=>{
+    //         socket.emit('offline',req.user.nickName)
+    //     })
+    // })
     const AID = req.user._id;
     reminderDB.find({AID},(err,reminder)=>{
         if(err) throw err;

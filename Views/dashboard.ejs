@@ -2,7 +2,6 @@
 <%- include('partials/navbar')%>
 <%- include('partials/important')%>
 <%- include('partials/messages')%>
-<%- include('partials/messanger')%>
 <div class="desktop">
 <div class="container">
     <div class="jumbotron bg-image rounded-bottom">
@@ -169,7 +168,7 @@
 <div class="mobile">
   <h3 class="bg-blue pl-2">WorkSpace</h3>
   <img src="/mobile.svg" alt="image" class="img-fluid">
-  <p class="text-center mt-5">Dear,<span id="user_name"><%= user.name %></span> Are Using Small Screen <b>WorkSpace</b> is not Compatible with Mobile <i class="fa fa-mobile"></i>.<br>Switch to Desktop <i class="fa fa-desktop"></i> or Laptop <i class="fa fa-laptop"></i>.<br><b>From support Team</b><br>
+  <p class="text-center mt-5">Dear <span id="user_name"><%= user.name %></span> You Are Using Small Screen <b>WorkSpace</b> is not Compatible with Mobile <i class="fa fa-mobile"></i>.<br>Switch to Desktop <i class="fa fa-desktop"></i> or Laptop <i class="fa fa-laptop"></i>.<br><b>From support Team</b><br>
   <a href="/logout" class="btn btn-primary mt-3"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </p> 
 </div>
@@ -193,6 +192,7 @@
       color: #fff;
     }
     #user_name{
+      font-weight: bold;
       text-transform: capitalize;
     }
     @media screen and (max-width : 500px){

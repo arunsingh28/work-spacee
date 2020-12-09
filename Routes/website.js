@@ -423,4 +423,14 @@ app.get('/question-delete/:id',(req,res)=>{
     })
 })
 
+// create team route
+
+app.get('/team-management',(req,res)=>{
+    res.render('team',{
+        title : 'Team',
+        user: req.user,
+        nav : false
+    })
+})
+
 module.exports = app;

@@ -21,7 +21,8 @@
         right: 20px;
         height: 60px;
         width: 60px;
-        background: rgb(72, 143, 224);
+        background: #134872;
+        background-image: linear-gradient(60deg,#134872,#1881d6);
         border-radius: 50px;
         display: flex;
         align-items: center;
@@ -67,7 +68,7 @@
         width: 84%;
         height: 40px;
     }
-    .show{
+    .disp{
         transition: all .2s ease-in-out;
         margin-right: 50px;
     }
@@ -79,11 +80,11 @@
        var window = $('.msg-window');
        var box = $('.box-msg');
        box.click(()=>{
-           window.addClass('show');
+           window.addClass('disp');
             return false;
        })
        $(document).click(()=>{
-           window.removeClass('show');
+           window.removeClass('disp');
        })
        windo.click((e)=>{
            e.stopPropagation();

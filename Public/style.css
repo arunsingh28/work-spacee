@@ -99,7 +99,7 @@ textarea{
 
 @media screen and (max-width : 500px){
     .nav-linkk{
-        padding: .3rem .28rem !important;
+        padding: .5rem .3rem !important;
         text-align: center;
     }
 }

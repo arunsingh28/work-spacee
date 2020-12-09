@@ -95,9 +95,12 @@ textarea{
     border-radius: 20px;
     margin-top: 7px;
 }
+
+
 @media screen and (max-width : 500px){
     .nav-linkk{
-        padding: .5rem .3rem !important;
+        padding: .3rem .1rem !important;
+        text-align: center;
         box-shadow: inset -1px -3px 2px 1px #03a9f461;
     }
 }

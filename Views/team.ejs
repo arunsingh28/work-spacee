@@ -1,0 +1,266 @@
+
+<%- include('partials/navbar')%>
+<%- include('partials/important')%>
+<%- include('partials/messages')%>
+<%- include('partials/messanger')%>
+
+
+<script>
+    let suggestion = [
+    // "how to cook",
+    // "how to look",
+    "how to book",
+    "Arun",
+    // "Arun Pratap Singh",
+    // "Arun Singh",
+    // "varun",
+    // "varun singh",
+    // "varun Pratap sigh",
+]
+
+    const searchWrapper = document.querySelector('.search-input');
+    const inputBox = document.querySelector('input');
+    const suggBox = document.querySelector('.autocom-box');
+    
+    inputBox.onkeyup =(e)=>{
+        let userData = e.target.value;
+        let emptyArray = [];
+        if(userData){
+            emptyArray = suggestion.filter((data)=>{
+               return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase()) 
+            });
+            emptyArray = emptyArray.map((data)=>{
+                return data = '<li>'+ data +'</li>';
+            })
+            inputBox.classList.add('border');
+            searchWrapper.classList.add("border-search");
+            searchWrapper.classList.add("active");   
+            showSuggestion(emptyArray);
+            let allList = suggBox.querySelectorAll("li");
+            for(let i = 0; i< allList.length; i++){
+                allList[i].setAttribute("onclick","select(this)");
+            }
+        }else{
+            inputBox.classList.remove('border');
+            searchWrapper.classList.remove("border-search");
+            searchWrapper.classList.remove("active");
+        }
+    }
+     
+    
+    function select(element){
+        let selectUserData = element.textContent;
+        inputBox.value = selectUserData;
+        inputBox.classList.remove('border');
+        searchWrapper.classList.remove("border-search");
+        searchWrapper.classList.remove("active");
+        for(let i = 0; i < suggestion.length; i++){
+            if(suggestion[i] != selectUserData){
+                suggestion.push(selectUserData)
+            }
+            break;
+        } 
+    }
+    
+    
+    
+    
+    function showSuggestion(list){
+        let listData;
+        if(!list.length){
+            userData = inputBox.value;
+            listData = '<li>'+userData+'</li>'
+        }else{
+            listData = list.join('');
+        }
+        suggBox.innerHTML = listData;
+    }
+    </script>
+
+<div class="team-wrapper mt-5  container">
+    <div class="count-wrapper">
+        <div class="row" style="justify-content: space-evenly;">
+            <div class="member counter shadow-sm col-3 ml-5"><h1>12</h1> <small class="mt-2">Members</small></div>
+            <div class="Note counter shadow-sm col-3 ml-5"><h1>1200</h1> <small class="mt-2">Notes</small></div>
+            <div class="link counter shadow-sm col-3 ml-5"><h1>90</h1> <small class="mt-2">Links</small></div>
+        </div>
+    </div>
+    <div class="team-info-wrapper mt-4">
+        <div class="row" style="justify-content: space-evenly;">
+            <div class="team-userName col-3 shadow-md" style="padding: 0 !important;">
+                <p class="team-title pl-2 text-white">Team Members</p>
+                <div class="team-scroll mt-5">
+                <p>Arun</p>
+                <p>Varun</p>
+                <p>Krishna</p>
+                <p>Arun</p>
+                <p>Varun</p>
+                <p>Krishna</p>
+                <p>Arun</p>
+                <p>Varun</p>
+                <p>Krishna</p>
+                <p>Arun</p>
+                <p>Varun</p>
+                <p>Krishna</p>
+                </div>
+            </div>
+            <div class="team-search col-8 ml-1">
+                <div class="wrapper">
+                    <div class="search-input">
+                        <input type="text" placeholder="Type to Search...">
+                      <div class="autocom-box"></div>
+                      <div class="icon"><i class="fas fa-search"></i></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/suggestion.js"></script>
+<script src="js/script.js"></script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+    .counter{
+        height: 100px;
+        width: 200px;
+        background : rgba(84, 174, 226, 0.445);
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+    }
+    .team-userName, .team-search{
+        max-height: 400px;
+        overflow-y: auto;
+        width: 100%;
+        background:rgba(180, 185, 187, 0.445);
+        border-radius: 5px;
+    }
+    .team-userName .team-title{
+        position: fixed;
+        background :rgb(111, 169, 197);
+        width: 286px;
+        line-height: 50px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .team-scroll p{
+        width: 90%;
+        margin-left: 5%;
+        line-height: 40px;
+        background : #fff;
+        margin-bottom: 8px;
+        border-radius: 2px;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+
+
+
+
+
+
+.wrapper{
+    max-width: 750px;
+    margin: 150px auto;
+    position: relative;
+}
+.wrapper .text{
+    text-align: center;
+    font-size: 5rem;
+    color: rgb(109, 114, 113);
+    margin-bottom: 40px;
+}
+.wrapper .btn-box,
+.wrapper .lang-box{
+    margin-top: 30px;
+    text-align: center;
+}
+.wrapper .lang-box{
+    font-size: 12px;
+}
+.wrapper .lang-box a{
+    text-decoration: none;
+    margin-left: 8px;
+}
+.wrapper .btn-box .btn-fleeing,
+.wrapper .btn-box .btn-search{
+    padding: 9px 30px;
+    cursor: pointer;
+}
+.wrapper .search-input{
+    background: #fff;
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+    /* transition: .1 ease-in; */
+}
+.wrapper .search-input:hover{
+    box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
+.search-input input{
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+}
+.border{
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+.border-search{
+    box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+    border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+}
+.search-input .icon{
+    height: 55px;
+    width: 55px;
+    line-height: 55px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 20px;
+    color: #644bff;
+    cursor: pointer;
+}
+.search-input .autocom-box{
+    padding: 0px;
+    max-height: 280px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events:none;
+}
+.search-input.active .autocom-box{
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+.autocom-box li{
+    list-style: none;
+    padding: 8px 12px;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+    display: none;
+}
+.search-input.active .autocom-box li{
+    display: block;
+}
+.autocom-box li:hover{
+    background: #efefef;
+}
+
+</style>
+

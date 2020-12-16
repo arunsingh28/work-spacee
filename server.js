@@ -17,9 +17,6 @@ const io = socket(server);
 
 
 
-
-
-
 require('./config/passport')(passport)
 
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
@@ -44,6 +41,7 @@ app.use(session({
     saveUninitialized : true,
 }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -66,8 +64,9 @@ const linkDB = require('./Models/link');
 
 
 app.get('/dashboard',ensureAuthenticated, (req,res)=>{
+    var users = 0;
     io.on('connection',socket =>{
-        io.sockets.setMaxListeners(10);
+        users++;
         socket.emit('online',req.user.nickName);
         socket.on('disconnect',()=>{
             socket.emit('offline',req.user.nickName)
@@ -83,28 +82,12 @@ app.get('/dashboard',ensureAuthenticated, (req,res)=>{
                 nav: false,
                 user : req.user,
                 reminder : reminder,
-                link
+                link,
             })
         })
     })
 })
 
-
-
-// // soket io
-// io.on('connection', socket=>{
-//     console.log('socket work')
-//     // show message to single user 
-//     socket.emit('message','Welcome to workspace')
-//     // brodcast message to all but not user
-//     socket.broadcast.emit('message',`A user is Online`)
-//     // when user disconnect
-//     socket.on('disconnect',()=>{
-//         io.emit('message',`A has is Offline`)
-//     })
-//     // bordcast to all user 
-//     io.emit()
-// })
 
 
 

@@ -67,6 +67,7 @@ app.post('/login',(req,res,next)=>{
     })(req, res, next);
 });
 
+
 app.get('/logout',(req,res)=>{
     req.logout();
     req.flash('sucess_msg','You are Logout Out');

@@ -1,9 +1,8 @@
 <div class="important">
-    <div class="note" data-toggle="modal" data-target="#saveNote" data-placement="top" title="Make Notes"><i class="fa fa-sticky-note fa-2x"></i></div>
-    <div class="message" ><i class="fas fa-images fa-2x" ></i></div>
+    <div class="note" data-toggle="modal" data-target="#saveNote"><i class="fa fa-sticky-note fa-2x"></i></div>
+    <div class="images" data-toggle="modal" data-target="#images"><i class="fas fa-images  fa-2x"></i></div>
     <div class="reminder" data-toggle="modal" data-target="#reminder"><i class="fa fa-bell-o fa-2x"></i></div>
-    <div class="todo" data-target="#todo" data-toggle="modal"><i class="fas fa-clipboard-list fa-2x"></i></div>
-    <!-- <div class="todo"data-toggle="modal" data-target="#todo"><i class="fa fa-list-alt fa-2x" aria-hidden="true"></i></div> -->
+    <div class="todo" data-toggle="modal" data-target="#todo"><i class="fas fa-clipboard-list fa-2x"></i></div>
 </div>
 
 <style>
@@ -31,7 +30,7 @@
         cursor: pointer;
         transition: .1s ease-in;
     }
-    .message{
+    .images{
         height: 57px;
         width: 72px;
         display: flex;
@@ -70,13 +69,13 @@
     .note:hover .fa-sticky-note{
         transform: scale(1.1);
     }
-    .message:hover .fa-commenting-o{
+    .images:hover .fa-images{
         transform: scale(1.1);
     }
     .reminder:hover .fa-bell-o{
         transform: scale(1.1);
     }
-    .todo:hover .fa-list-alt{
+    .todo:hover .fa-clipboard-list{
         transform: scale(1.1);
     }
 </style>
@@ -142,7 +141,7 @@
   </div>
 
   <!-- todo list -->
-  <div class="modal fade" id="todo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="todo">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -172,8 +171,57 @@
   </div>
   
 
+
+
+    <!-- images -->
+    <div class="modal fade" id="images">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Image Uploader</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form style="display: grid" enctype="multipart/form-data" action="/imageUpload" method="post">
+              <input type="file" name="image" multiple="true" class="inputImage" style="display: inline-grid;"/>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn-block">Upload</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+
+
   <style>
-    .switch {
+    .inputImage::-webkit-file-upload-button{
+      visibility: hidden;
+    }
+    .inputImage::before{
+      content: 'Drag Images here / Select Images (max 4)';
+      display: inline-block;
+      background-image: linear-gradient(130deg,#0f91fb,#356ba5);
+      color: #fff;
+      border-radius: 5px;
+      padding: 50px 30px;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 20px;
+      border: 2px dashed;
+    }
+    .inputImage:hover::before{
+      border: 2px dashed #fff;
+    }
+
+  .switch {
   position: relative;
   display: inline-block;
   width: 60px;

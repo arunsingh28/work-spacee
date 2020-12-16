@@ -1,12 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const multer = require('multer');
 const { forwardAuthenticated,ensureAuthenticated } = require('../config/auth');
 
 
 const app = express.Router();
-
-
 
 
 const userDB = require('../Models/register');
@@ -15,6 +14,9 @@ const reminderDB = require('../Models/reminder');
 const linkDB = require('../Models/link');
 const questionDB = require('../Models/question');
 const anserDB = require('../Models/answer');
+
+
+
 
 
 app.get('/', forwardAuthenticated, (req,res)=>{
@@ -433,5 +435,53 @@ app.get('/team-management',(req,res)=>{
         nav : false
     })
 })
+
+
+
+
+// images 
+const AWS = require('aws-sdk')
+AWS.config.update({region: 'ap-south-1'})
+
+const s3 = new AWS.S3({
+    accessKeyId : 'AKIAZCJVPZ3FMIA2Z2EO',
+    secretAccessKey : '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'
+})
+
+const storage = multer.memoryStorage({
+    destination : (req,file,cb)=>{
+        cb(null, '')
+    },
+    // filename : (req,file,cb)=>{
+    //     cb(null, file.fieldname+'-'+file.originalname+Date.now()+'.jpg')
+    // },
+})
+ 
+const upload = multer({storage})
+
+app.post('/imageUpload', upload.single('image'), (req,res)=>{
+
+    // rename filename
+    let fileName = req.file.originalname.split('.')
+    let fileType = fileName[fileName.length - 1];
+    
+
+    const params = {
+        Bucket : 'tracker321',
+        Key :  "workSpace"+fileName+Date.now()+'.'+fileType,
+        Body : req.file.buffer
+    }
+
+    s3.upload(params, (error,data)=>{
+        if(error){
+            res.send('Try Again leter \n'+ error)
+        }
+        res.send(`<img src="${data.Location}" height="200px" width="200px"/>`)
+        console.log(data.Location)
+    })
+})
+
+
+
 
 module.exports = app;

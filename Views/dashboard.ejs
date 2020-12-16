@@ -139,7 +139,7 @@
                 <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
                   <% for(var j=0; j < link.length; j++) { %> 
                     <ul class="list-group list-group-flush rounded">
-                        <li class="list-group-item list-group-item-action border-bottom">
+                        <li class="list-group-item list-group-item-action border-bottom" style="word-break: break-all;">
                         <label for="for"><%= link[j].For %></label><br>
                         <a  href=<%= link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
                         <form action="/link-delete" method="POST">

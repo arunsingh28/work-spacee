@@ -96,6 +96,9 @@ textarea{
     margin-top: 7px;
 }
 
+.list-group-item{
+    margin-top: 10px !important;
+}
 
 @media screen and (max-width : 500px){
     .nav-linkk{

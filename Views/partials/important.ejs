@@ -1,7 +1,8 @@
 <div class="important">
-    <div class="note" data-toggle="modal" data-target="#saveNote" data-placement="top" title="Make Notes"><i class="fa fa-sticky-note fa-2x" aria-hidden="true"></i></div>
-    <div class="message"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i></div>
-    <div class="reminder" data-toggle="modal" data-target="#reminder"><i class="fa fa-bell-o fa-2x" aria-hidden="true"></i></div>
+    <div class="note" data-toggle="modal" data-target="#saveNote" data-placement="top" title="Make Notes"><i class="fa fa-sticky-note fa-2x"></i></div>
+    <div class="message" ><i class="fas fa-images fa-2x" ></i></div>
+    <div class="reminder" data-toggle="modal" data-target="#reminder"><i class="fa fa-bell-o fa-2x"></i></div>
+    <div class="todo" data-target="#todo" data-toggle="modal"><i class="fas fa-clipboard-list fa-2x"></i></div>
     <!-- <div class="todo"data-toggle="modal" data-target="#todo"><i class="fa fa-list-alt fa-2x" aria-hidden="true"></i></div> -->
 </div>
 
@@ -51,7 +52,6 @@
         background: rgb(5, 47, 102);
         cursor: pointer;
         transition: .1s ease-in;
-        border-bottom-right-radius: 13px;
     }
     .todo{
         height: 60px;
@@ -140,6 +140,7 @@
       </div>
     </div>
   </div>
+
   <!-- todo list -->
   <div class="modal fade" id="todo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">

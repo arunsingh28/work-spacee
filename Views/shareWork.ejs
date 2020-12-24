@@ -3,17 +3,62 @@
 
 <div class="container">
 <% for(var i=0; i < note.length; i++) {%>
-  <div class="card mt-2">
-      <div class="card-header">
+  <div class="card mt-2" style="background-color: #2c363e;margin-top: 2rem !important;">
+      <div class="card-header" style="color: darkorange;">
        <%= note[i].public %> <code class="float-right">Publish on  <%= note[i].date %></code>
       </div>
       <div class="card-body">
         <blockquote class="blockquote mb-0">
-          <p><%= note[i].note%></p>
-          <code class="blockquote-footer"><cite title="Source Title"><%= note[i].writer %></cite></code>
+          <textarea rows="7" class="form-control textarea"><%= note[i].note%></textarea>
+          <code class="blockquote-footer"><cite title="Source Title" style="color: gold;"><%= note[i].writer %></cite></code>
         </blockquote>
       </div>
     </div>
 <% } %> 
 
 </div>
+
+
+<div class="footer-note">
+  <code>Design by Arun 2020</code>
+</div>
+
+<style>
+  body{
+    background-color: #02090e !important;
+    padding-bottom: 50px !important;
+  }
+  .bg-image{
+    background-image: linear-gradient(180deg,rgb(0 0 0 / 22%),rgb(70 70 70 / 57%),rgb(20 22 23 / 57%),rgb(0 0 0 / 57%)) ,url(https://images.pexels.com/photos/212286/pexels-photo-212286.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500) !important;
+  }
+  .footer-note{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background-color: #000;
+    text-align: center !important;
+  }
+  .footer-note code{
+    line-height: 30px;
+    font-size: 100;
+    font-size: 12px;
+  }
+  .bg-blue{
+    background-image: linear-gradient(70deg,#dc3545,#da5cb3) !important;
+  }
+  .note{
+    background: #ea4494 !important;
+  }
+  .images{
+    background: #428cd4 !important;
+  }
+  .todo{
+    background: #dc3545 !important;
+  }
+  .reminder{
+    background: #ffc107 !important;
+  }
+
+</style>

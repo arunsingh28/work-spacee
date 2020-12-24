@@ -105,8 +105,19 @@ textarea{
     background-color: #1d2124 !important;
     color: #23b945 !important;
     font-weight: 100 !important;
+    cursor: text;
 }
-
+.note-btn{
+    padding : 3px 35px !important;
+}
+.card{
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+    margin-top: 2rem !important;
+}
+.card:hover{
+    box-shadow: -1px -1px 20px 1px rgb(217 26 241 / 39%);
+}
 @media screen and (max-width : 500px){
     .nav-linkk{
         padding: .5rem .3rem !important;

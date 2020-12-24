@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 *{
     padding: 0;
     margin: 0;
@@ -113,10 +114,31 @@ textarea{
 .card{
     transition: all .2s ease-in-out;
     cursor: pointer;
-    margin-top: 2rem !important;
 }
 .card:hover{
     box-shadow: -1px -1px 20px 1px rgb(217 26 241 / 39%);
+}
+
+.img-notFound{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 26px;
+    font-weight: 900;
+}
+.note-msg{
+    font-family: 'Poppins', sans-serif; 
+    color: #1c75d4;
+    font-weight: 900;
+}
+h2{
+    font-family: 'Poppins', sans-serif; 
+}
+.total_notes{
+    display: flex;
+    justify-content: space-between;
 }
 @media screen and (max-width : 500px){
     .nav-linkk{

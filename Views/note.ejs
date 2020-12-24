@@ -13,6 +13,7 @@
       <div class="img-notFound">
         <img src="/notfound.svg" height="340px" width="340px" alt="You Dont have any note" class="Nots Found"/>
         <p class="note-msg mt-3">You have <%= note.length %> Notes <br>Create some Notes</p>
+        <div data-toggle="modal" data-target="#saveNote" class="divBtn">Create Note</div>
       </div>
     <%} else {%>
       <div class="total_notes">

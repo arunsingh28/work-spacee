@@ -99,6 +99,13 @@ textarea{
 .list-group-item{
     margin-top: 10px !important;
 }
+.textarea{
+    resize: none;
+    font-family: monospace !important;
+    background-color: #1d2124 !important;
+    color: #23b945 !important;
+    font-weight: 100 !important;
+}
 
 @media screen and (max-width : 500px){
     .nav-linkk{

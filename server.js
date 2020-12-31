@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const socket = require('socket.io');
+const helmet = require('helmet')
 
 const { ensureAuthenticated } = require('./config/auth');
 
@@ -44,7 +45,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(helmet())
 app.use(flash());
 
 // Global variables

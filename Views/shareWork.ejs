@@ -3,13 +3,13 @@
 
 <div class="container">
 <% for(var i=0; i < note.length; i++) {%>
-  <div class="card mt-2" style="background-color: #2c363e;margin-top: 2rem !important;">
+  <div class="card mt-2 card1" style="background-color: #2c363e;margin-top: 2rem !important;">
       <div class="card-header" style="color: darkorange;">
        <%= note[i].public %> <code class="float-right">Publish on  <%= note[i].date %></code>
       </div>
       <div class="card-body">
         <blockquote class="blockquote mb-0">
-          <textarea rows="7" class="form-control textarea"><%= note[i].note%></textarea>
+          <textarea rows="7" class="form-control textarea" disabled><%= note[i].note%></textarea>
           <code class="blockquote-footer"><cite title="Source Title" style="color: gold;"><%= note[i].writer %></cite></code>
         </blockquote>
       </div>

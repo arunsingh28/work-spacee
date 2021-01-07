@@ -111,13 +111,7 @@ textarea{
 .note-btn{
     padding : 3px 35px !important;
 }
-.card{
-    transition: all .2s ease-in-out;
-    cursor: pointer;
-}
-.card:hover{
-    box-shadow: -1px -1px 20px 1px rgb(217 26 241 / 39%);
-}
+/*  */
 
 .img-notFound{
     position: absolute;
@@ -158,4 +152,8 @@ h2{
         padding: .5rem .3rem !important;
         text-align: center;
     }
+}
+.card1:hover textarea{
+    border: 1px solid rgb(78, 163, 233) !important;
+    box-shadow: -1px 0px 7px 0px rgb(83, 175, 250);
 }

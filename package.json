@@ -4,7 +4,8 @@
   "description": "tracker for Work",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -33,11 +34,16 @@
     "jquery": "^3.5.1",
     "mongoose": "^5.10.0",
     "multer": "1.4.2",
-    "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "popper.js": "^1.16.1",
     "socket.io": "^2.3.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "gridfs-stream": "^1.1.1",
+    "method-override": "^3.0.0",
+    "multer-gridfs-storage": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

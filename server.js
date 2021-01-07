@@ -7,6 +7,11 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const socket = require('socket.io');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const methodOverride = require('method-override');
+const crypto = require('crypto');
+
 // const helmet = require('helmet')
 
 const { ensureAuthenticated } = require('./config/auth');
@@ -15,6 +20,7 @@ const { ensureAuthenticated } = require('./config/auth');
 const app = express();
 const server = http.createServer(app)
 const io = socket(server);
+
 
 
 
@@ -27,6 +33,7 @@ mongoose.Promise = Promise;
 mongoose.connect(db,{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex : true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))
+
 
 
 app.set('views', path.join(__dirname, 'Views'));

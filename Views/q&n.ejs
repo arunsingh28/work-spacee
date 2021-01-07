@@ -22,7 +22,7 @@
           <i class="from-answer"><b>Ans from <%= anser[i].userID%></b></i>
           <p class="lead answer shadow-sm"><%= anser[i].answer%></p>
         <%}%>
-      <% } %>  
+      <%}%>  
       <form action="/answer-save" method="post">
         <input type="hidden" name="questionID" value="<%= question[j]._id%>">
         <input type="hidden" name="userID" value="<%= user.nickName %>">
@@ -30,7 +30,7 @@
        <% if(question[j].allotUser == user._id) {%>
         <button type="submit" class="btn btn-primary my-3" >Submit</button>
         <a href="/question-delete/<%= question[j]._id%>"><button class="btn btn-danger my-3 ml-3 submit" type="button" >Delete</button></a>
-       <% } else {%>
+       <%} else {%>
         <button type="submit" class="btn btn-primary my-3">Submit</button>
       <%}%> 
         <i class="float-right mt-5">Question by <b><%= question[j].AID %></b></i>

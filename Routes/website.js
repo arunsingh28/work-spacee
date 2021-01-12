@@ -76,6 +76,7 @@ app.get('/logout',(req,res)=>{
     res.redirect('/');
 })
 
+
 app.get('/share-work', ensureAuthenticated,(req,res)=>{
     noteDB.find({},(err,note)=>{
         if(err) throw err;

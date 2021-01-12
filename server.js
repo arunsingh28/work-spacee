@@ -76,9 +76,12 @@ app.get('/dashboard',ensureAuthenticated, (req,res)=>{
     io.on('connection',socket =>{
         users++;
         socket.emit('online',req.user.nickName);
+        socket.emit('user',users)
         socket.on('disconnect',()=>{
+            users--;
             socket.emit('offline',req.user.nickName)
         })
+        socket.emit('useroff',users)
     })
     const AID = req.user._id;
     reminderDB.find({AID},(err,reminder)=>{
@@ -99,10 +102,15 @@ app.get('/dashboard',ensureAuthenticated, (req,res)=>{
 
 
 
-app.use('*', (req,res) =>{
-    req.flash('message','Welcome back')
-    res.redirect('/')
-})
+// app.use('/*', (req,res) =>{
+//     req.flash('message','Welcome back')
+//     res.redirect('/')
+// })
+
+
+// other stuff
+app.use('/other',require('./Routes/other'))
+
 
 const PORT = process.env.PORT || 70;
 

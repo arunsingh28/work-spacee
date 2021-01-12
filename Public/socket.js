@@ -1,18 +1,19 @@
 const socket = io({transports : ['websocket'], upgrade : false});
 
-var user = [];
 
   socket.on('online', message =>{
-    user.push(message);
-    console.log('online funciton',message)
     outputMessage(message);
-})
+  })
+  
+  socket.on('user', user =>{
+    document.querySelector('.online-person').innerHTML = user;
+  })
 
-console.log(user)
-
+  socket.on('useroff', user =>{
+    document.querySelector('.online-person').innerHTML = user;
+  })
 
 socket.on('offline', message =>{
-  user.pop(message)
   disconnectMessage(id);
 })
 
@@ -22,3 +23,6 @@ socket.on('offline', message =>{
     div.innerHTML = `<p class="list-group-item list-group-item-action">${message}<span class="user-active float-right"></span></p>`
     document.querySelector('.user-list').appendChild(div)
   }
+
+
+  

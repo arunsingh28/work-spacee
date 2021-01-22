@@ -56,7 +56,18 @@
         background-color: #000;
         box-shadow: 1px 0px 20px 0px black;
     }
-
+    .eye{
+        animation: 60s close;
+        transition: all .9s infinite;
+    }
+    .eye1{
+        animation: 80s close;
+        transition: all .9s infinite;
+    }
+    @keyframes close{
+        0%{transform: translateX(500px);}
+        100%{transform: translateX(0px);}
+    }
     @keyframes trip{
         0%{
             background-color: #66ff00;

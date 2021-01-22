@@ -30,6 +30,7 @@
         justify-content: center;
         transition:all .1s ease-in;
         cursor: pointer;
+        z-index: 2;
     }
     .box-msg:hover{
         box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
@@ -76,16 +77,25 @@
 <script>
    $(document).ready(()=>{
        var window = $('.msg-window');
+       var col = $('.col-8');
+       var card1 = $('.card1')
        var box = $('.box-msg');
+       var footer = $('.footer-note')
        box.click(()=>{
            window.addClass('disp');
+           col.css('zIndex','-1')
+           card1.css('zIndex','-1')
             return false;
        })
        $(document).click(()=>{
            window.removeClass('disp');
+           col.css('zIndex','1')
+           card1.css('zIndex','1')
+           footer.css('zIndex','1')
        })
-       windo.click((e)=>{
+       window.click((e)=>{
            e.stopPropagation();
        });
+
    })
 </script>

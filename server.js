@@ -11,6 +11,7 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 const crypto = require('crypto');
+const morgan = require('morgan')
 
 // const helmet = require('helmet')
 
@@ -20,6 +21,7 @@ const { ensureAuthenticated } = require('./config/auth');
 const app = express();
 const server = http.createServer(app)
 const io = socket(server);
+app.use(morgan('dev'))
 
 
 

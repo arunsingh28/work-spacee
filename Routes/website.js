@@ -1,7 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const { s3 , upload} = require('../config/multer') 
+const PORT = process.env.PORT || 70;
+
+// const { s3 , upload} = require('../config/multer') 
 const { forwardAuthenticated,ensureAuthenticated } = require('../config/auth');
 
 
@@ -91,11 +93,12 @@ app.get('/share-work', ensureAuthenticated,(req,res)=>{
 
 app.get('/note', ensureAuthenticated, (req,res)=>{
     const id = req.user._id;
+    const URL = req.url;
     noteDB.find({AID:id},(err,note)=>{
         if(err) throw err;
         if(!note){
             req.flash('error_msg','No Note Present')
-            res.redirect('/')
+            res.redirect(`/${URL}`)
         }
         res.render('note',{
             title : 'Notes',
@@ -145,6 +148,10 @@ app.get('/all-reminder',ensureAuthenticated, (req,res)=>{
 })
 // post request
 app.post('/reminder',ensureAuthenticated,(req,res)=>{
+    const URL = req.url;
+    const PROTOCALL = req.protocol;
+    const HOST = req.hostname;
+    const current = PROTOCALL+'://'+HOST+PORT+URL
       // time funciton
    var time = new Date();
    var d = time.getDate(); // get Today Date
@@ -168,10 +175,12 @@ app.post('/reminder',ensureAuthenticated,(req,res)=>{
     }
     else{
         newReminder.save()
-        .then(()=>{req.flash('down_msg','Your reminder set Successfuly');res.redirect('/')})
+        .then(()=>{req.flash('down_msg','Your reminder set Successfuly')
+        res.redirect(`${current}`)})
         .catch((err)=> console.log(err));
     }
 })
+
 
 
 
@@ -436,32 +445,6 @@ app.get('/team-management',(req,res)=>{
         nav : false
     })
 })
-
-
-
-
-// images 
-
-app.post('/imageUpload', upload, (req,res)=>{
-    // rename filename
-    let fileName = req.file.originalname.split('.')
-    let fileType = fileName[fileName.length - 1];
-    
-    const params = {
-        Bucket : 'tracker321',
-        Key :  "workSpace"+fileName+Date.now()+'.'+fileType,
-        Body : req.file.buffer
-    }
-    s3.upload(params, (error,data)=>{
-        if(error){
-            res.send('Try Again leter \n'+ error)
-        }
-        res.send(data)
-    })
-
-})
-
-
 
 
 module.exports = app;

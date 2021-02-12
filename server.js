@@ -2,16 +2,17 @@ const express = require('express');
 const http = require('http');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-const path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const socket = require('socket.io');
+const morgan = require('morgan');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
+const path = require('path');
 const crypto = require('crypto');
-const morgan = require('morgan')
+const multer = require('multer');
 
 // const helmet = require('helmet')
 
@@ -30,11 +31,14 @@ require('./config/passport')(passport)
 
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
 
-
 mongoose.Promise = Promise;
 mongoose.connect(db,{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex : true})
 .then(()=> console.log('MongoDB is connected'))
 .catch(err => console.log(err))
+
+// const connection = mongoose.createConnection(URI,{useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex : true})
+// .then(()=>{console.log('DB is Connected')})
+// .catch(err => console.log(err))
 
 
 
@@ -72,6 +76,65 @@ app.use('/', require('./Routes/website'))
 const reminderDB = require('./Models/reminder');
 const linkDB = require('./Models/link');
 
+let gfs ;
+
+// connection.once('open',()=>{
+//     gfs = Grid(connection.db, mongoose.mongo)
+//     gfs.collection('uploads')
+// })
+
+// // Create storage engine
+// const storage = new GridFsStorage({
+//     url: URI,
+//     file: (req, file) => {
+//       return new Promise((resolve, reject) => {
+//         crypto.randomBytes(16, (err, buf) => {
+//           if (err) {
+//             return reject(err);
+//           }
+//           const filename = buf.toString('hex') + path.extname(file.originalname);
+//           const fileInfo = {
+//             filename: filename,
+//             bucketName: 'uploads'
+//           };
+//           resolve(fileInfo);
+//         });
+//       });
+//     }
+// });
+
+// const upload = multer({ storage });
+
+// // images 
+// app.post('/fileUpload', upload.single('image'),(req,res)=>{
+//     res.redirect('/image')
+// })
+
+
+// app.get('/image',(req,res)=>{
+//     gfs.files.find().toArray((err, files) => {
+//         // Check if files
+//         if (!files || files.length === 0) {
+//           res.render('index', { files: false });
+//         } else {
+//           files.map(file => {
+//             if (
+//               file.contentType === 'image/jpeg' ||
+//               file.contentType === 'image/png'
+//             ) {
+//               file.isImage = true;
+//             } else {
+//               file.isImage = false;
+//             }
+//           });
+//           res.render('image',{
+//               files,
+//               title : 'image',
+//               nav: false
+//             })
+//         }
+//       });
+// })
 
 app.get('/dashboard',ensureAuthenticated, (req,res)=>{
     var users = 0;

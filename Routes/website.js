@@ -26,6 +26,14 @@ app.get('/', forwardAuthenticated, (req,res)=>{
     res.redirect('https://work.vegihub.in')
 })
 
+app.get('/orignal',(req,res)=>{
+    res.render('home',{
+        title : 'Original Home',
+        nav : true
+    })
+})
+
+
 app.get('/login', (req,res)=>{
     res.render('login',{
         title : 'login',

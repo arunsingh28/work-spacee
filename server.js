@@ -13,8 +13,7 @@ const methodOverride = require('method-override');
 const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer');
-
-// const helmet = require('helmet')
+const helmet = require('helmet')
 
 const { ensureAuthenticated } = require('./config/auth');
 

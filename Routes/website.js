@@ -2,11 +2,10 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const PORT = process.env.PORT || 70;
+// const { s3 , upload } = require('../config/multer') 
+const { forwardAuthenticated , ensureAuthenticated } = require('../config/auth');
 
-// const { s3 , upload} = require('../config/multer') 
-const { forwardAuthenticated,ensureAuthenticated } = require('../config/auth');
-
-
+// init app
 const app = express.Router();
 
 
@@ -18,14 +17,13 @@ const questionDB = require('../Models/question');
 const anserDB = require('../Models/answer');
 
 
-
-
-
+// routers
 app.get('/', forwardAuthenticated, (req,res)=>{
-    res.render('home',{
-        title : 'Home',
-        nav : true
-    })
+    // res.render('home',{
+    //     title : 'Home',
+    //     nav : true
+    // })
+    res.redirect('https://work.vegihub.in')
 })
 
 app.get('/login', (req,res)=>{
@@ -34,7 +32,6 @@ app.get('/login', (req,res)=>{
         nav : true
     })
 })
-
 
 app.post('/register',(req,res)=>{
     const {name,nickName,email,password,date} = req.body;
@@ -60,7 +57,6 @@ app.post('/register',(req,res)=>{
             res.redirect('/login')
         }
     })
-
 })
 
 app.post('/login',(req,res,next)=>{
@@ -71,13 +67,11 @@ app.post('/login',(req,res,next)=>{
     })(req, res, next);
 });
 
-
 app.get('/logout',(req,res)=>{
     req.logout();
     req.flash('sucess_msg','You are Logout Out');
     res.redirect('/');
 })
-
 
 app.get('/share-work', ensureAuthenticated,(req,res)=>{
     noteDB.find({},(err,note)=>{
@@ -146,6 +140,7 @@ app.get('/all-reminder',ensureAuthenticated, (req,res)=>{
         })
     })
 })
+
 // post request
 app.post('/reminder',ensureAuthenticated,(req,res)=>{
     const URL = req.url;
@@ -181,9 +176,6 @@ app.post('/reminder',ensureAuthenticated,(req,res)=>{
     }
 })
 
-
-
-
 // settings
 app.get('/account-settings',ensureAuthenticated,(req,res)=>{
     res.render('setting',{
@@ -192,9 +184,6 @@ app.get('/account-settings',ensureAuthenticated,(req,res)=>{
         nav : false
     })
 })
-
-
-
 
 // saving notes
 app.post('/save-note',ensureAuthenticated,(req,res)=>{
@@ -259,8 +248,6 @@ app.post('/save-note',ensureAuthenticated,(req,res)=>{
     }
 })
 
-
-
 // link
 app.post('/link',ensureAuthenticated,(req,res)=>{
     const {link,For} = req.body;
@@ -282,7 +269,6 @@ app.post('/link-delete',ensureAuthenticated,(req,res)=>{
         res.redirect('/')
     })
 })
-
 
 // change password
 app.post('/change-password',ensureAuthenticated,(req,res)=>{
@@ -311,7 +297,6 @@ app.post('/change-password',ensureAuthenticated,(req,res)=>{
         }
       });
 })
-
 
 // delete account
 app.post('/delete-account',ensureAuthenticated,(req,res)=>{
@@ -371,9 +356,6 @@ app.post('/forgot-password',(req,res)=>{
     })
 })
 
-
-
-
 app.get('/all-user-info',(req,res)=>{
     userDB.find({},(err,user)=>{
         if(err) throw err;
@@ -387,8 +369,6 @@ app.post('/delete-reminder',(req,res)=>{
     .then(()=>{res.redirect('/')})
     .catch((err => console.log(err)))
 })
-
-
 
 app.post('/question-save',(req,res)=>{
     var time = new Date();
@@ -424,7 +404,6 @@ app.post('/answer-save',(req,res)=>{
    .catch(err => console.log(err))
 })
 
-
 app.get('/question-delete/:id',(req,res)=>{
     const { id } = req.params;
     questionDB.remove({ _id : id},(err,done)=>{
@@ -437,7 +416,6 @@ app.get('/question-delete/:id',(req,res)=>{
 })
 
 // create team route
-
 app.get('/team-management',(req,res)=>{
     res.render('team',{
         title : 'Team',
@@ -445,6 +423,5 @@ app.get('/team-management',(req,res)=>{
         nav : false
     })
 })
-
 
 module.exports = app;

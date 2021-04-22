@@ -77,63 +77,63 @@ const linkDB = require('./Models/link');
 
 let gfs ;
 
-// connection.once('open',()=>{
-//     gfs = Grid(connection.db, mongoose.mongo)
-//     gfs.collection('uploads')
-// })
-
-// // Create storage engine
-// const storage = new GridFsStorage({
-//     url: URI,
-//     file: (req, file) => {
-//       return new Promise((resolve, reject) => {
-//         crypto.randomBytes(16, (err, buf) => {
-//           if (err) {
-//             return reject(err);
-//           }
-//           const filename = buf.toString('hex') + path.extname(file.originalname);
-//           const fileInfo = {
-//             filename: filename,
-//             bucketName: 'uploads'
-//           };
-//           resolve(fileInfo);
-//         });
-//       });
-//     }
-// });
-
-// const upload = multer({ storage });
-
-// // images 
-// app.post('/fileUpload', upload.single('image'),(req,res)=>{
-//     res.redirect('/image')
-// })
+mongoose.connection.once('open',()=>{
+    gfs = Grid(mongoose.connection.db, mongoose.mongo)
+    gfs.collection('uploads')
+})
 
 
-// app.get('/image',(req,res)=>{
-//     gfs.files.find().toArray((err, files) => {
-//         // Check if files
-//         if (!files || files.length === 0) {
-//           res.render('index', { files: false });
-//         } else {
-//           files.map(file => {
-//             if (
-//               file.contentType === 'image/jpeg' ||
-//               file.contentType === 'image/png'
-//             ) {
-//               file.isImage = true;
-//             } else {
-//               file.isImage = false;
-//             }
-//           });
-//           res.render('image',{
-//               files,
-//               title : 'image',
-//               nav: false
-//             })
-//         }
-//       });
-// })
+// Create storage engine
+const storage = new GridFsStorage({
+    url: db,
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'uploads'
+          };
+          resolve(fileInfo);
+        });
+      });
+    }
+});
+
+const upload = multer({ storage });
+
+// // // images 
+app.post('/fileUpload', upload.single('image'),(req,res)=>{
+    req.flash('message','File is Uploaded')
+    res.redirect('/image')
+})
+
+
+app.get('/image',ensureAuthenticated,(req,res)=>{
+    gfs.files.find().toArray((err, files) => {
+        // Check if files
+        if (!files || files.length === 0) {
+          res.render('index', { files: false });
+        } else {
+          files.map(file => {
+              console.log(file.filename)
+            if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+              file.isImage = true;
+            } else {
+              file.isImage = false;
+            }
+          });
+          res.render('image',{
+              files,
+              title : 'image',
+              nav: false
+            })
+        }
+      });
+})
 
 app.get('/dashboard',ensureAuthenticated, (req,res)=>{
     var users = 0;

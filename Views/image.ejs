@@ -1,8 +1,29 @@
 
+<%- include ('partials/navbar') -%>
+<%- include ('partials/messages') -%>
+<%- include ('partials/important') -%>
 
 
+ 
+<div class="container mt-5">
+    <div class="">
+        <% if(img) { %>
+            <div class="present_wr">
+                <% img.forEach(m => { %>
+                <img src="<%= m.coverImagePath %>" alt="<%= user.username%>" style="width:200px;height:auto">
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p class="text-center" style="font-size: 30px;">No file to show</p>
+            <%}%>
+    </div>
+</div>
 
 
-<% for(var i = 0; i< files.length; i++) { %>
-  <img src="image/<%= files[i].filename %>" width="200">
-<%}%>  
+<style>
+    img{
+        border: 3px solid #eee;
+        border-radius: 3px;
+        object-fit: cover;
+    }
+</style>

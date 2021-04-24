@@ -104,8 +104,8 @@ textarea{
 .textarea{
     resize: none;
     font-family: monospace !important;
-    background-color: #1d2124 !important;
-    color: #23b945 !important;
+    /* background-color: #1d2124 !important;
+    color: #23b945 !important; */
     font-weight: 100 !important;
     cursor: text;
 }
@@ -188,8 +188,8 @@ h2{
 
 /* display profile */
 .Dp{
-    height: 150px;
-    width: 150px;
+    height: 170px;
+    width: auto;
     border: 3px solid #e4e4e4;
     border-radius: 5px;
 }

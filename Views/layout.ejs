@@ -15,12 +15,42 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
+
+
+    
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                FilePond.registerPlugin(
+                    FilePondPluginImagePreview,
+                    FilePondPluginImageResize,
+                    FilePondPluginFileEncode
+                );
+                // https://pqina.nl/filepond/docs/patterns/api/filepond-object/#setting-options
+                FilePond.setOptions({
+                    stylePanelAspectRatio: 150 / 100,
+                    imageResizeTargetWidth: 100,
+                    imageResizeTargetHeight: 150,
+                })
+                FilePond.parse(document.body);
+            });
+    
+        </script>
 </head>
 <body>
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <%- body %>    
 </body>
 </html>

@@ -2,7 +2,7 @@
   <div class="note" data-toggle="modal" data-target="#saveNote"><i class="fa fa-sticky-note fa-2x"></i></div>
   <div class="images" data-toggle="modal" data-target="#images"><i class="fas fa-images  fa-2x"></i></div>
   <div class="reminder" data-toggle="modal" data-target="#reminder"><i class="fa fa-bell-o fa-2x"></i></div>
-  <div class="todo" data-toggle="modal" data-target="#todo"><i class="fas fa-clipboard-list fa-2x"></i></div>
+  <!-- <div class="todo" data-toggle="modal" data-target="#todo"><i class="fas fa-clipboard-list fa-2x"></i></div> -->
 </div>
 
 <style>
@@ -54,6 +54,7 @@
     background: rgb(5, 47, 102);
     cursor: pointer;
     transition: .1s ease-in;
+    border-bottom-right-radius: 13px;
   }
 
   .todo {
@@ -85,6 +86,10 @@
   .todo:hover .fa-clipboard-list {
     transform: scale(1.1);
   }
+  .filepond--item{
+            width: 140px;
+            height: 200px;
+        }
 </style>
 
 
@@ -191,8 +196,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <form style="display: grid" enctype="multipart/form-data" action="/fileUpload" method="post">
-          <input type="file" name="image" multiple="true" required class="inputImage" id="img" onchange="readFile(this.files)" />
+        <form action="/other/fileUpload" method="post" style="display:flex;justify-content: center;" >
+          <input type="file" name="img" class="filepond filepond--item" id="img" onchange="readFile(this.files)" />
           <label for="img" id="label_for_img"></label>
       </div>
       <div class="modal-footer">
@@ -209,6 +214,22 @@
     const name = e[0].name;
     document.getElementById('label_for_img').textContent = "File name : " + name
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageResize,
+                FilePondPluginFileEncode
+            );
+            
+            FilePond.setOptions({
+                stylePanelAspectRatio: 150 / 100,
+                imageResizeTargetWidth: 100,
+                imageResizeTargetHeight: 150,
+            })
+            FilePond.parse(document.body);
+        });
+
 </script>
 
 

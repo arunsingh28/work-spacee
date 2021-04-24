@@ -1,34 +1,70 @@
 const express = require('express')
-const { ensureAuthenticated,forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const mongoose = require('mongoose');
+
+const Image = require('../Models/image');
 
 const otherR = express.Router();
 
 
+const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
 
-otherR.get('/',ensureAuthenticated,(req,res)=>{
-    res.render('otherStuff',{
-        title : 'Other',
-        nav : false,
-        user : req.user,
+
+
+otherR.get('/', ensureAuthenticated, (req, res) => {
+    res.render('otherStuff', {
+        title: 'Other',
+        nav: false,
+        user: req.user,
     })
 })
 
 
-// otherR.get('/image',ensureAuthenticated,(req,res)=>{
-//     res.render('image',{
-//         title : 'images',
-//         nav : false,
-//         user : req.user
-//     })
-// })
+otherR.get('/fileUpload', ensureAuthenticated, (req, res) => {
+    res.redirect('/other')
+})
 
-otherR.get('/image',ensureAuthenticated,(req,res)=>{
-    
-    
+otherR.post('/fileUpload', async (req, res, next) => {
+    const { img } = req.body;
+    const allot = req.user._id;
+    const movie = new Image({ allot });
+
+    saveImage(movie, img);
+
+    try {
+        const newMovie = await movie.save();
+        res.redirect('/other/image')
+    } catch (err) {
+        console.log(err)
+    }
+
+});
+
+
+function saveImage(movie, imgEncoded) {
+    if (imgEncoded == null) return;
+    const img = JSON.parse(imgEncoded);
+    if (img != null && imageMimeTypes.includes(img.type)) {
+        movie.img = new Buffer.from(img.data, "base64");
+        movie.imgType = img.type;
+    }
+}
+
+otherR.get('/image', ensureAuthenticated, (req, res) => {
+    const allot = req.user._id
+    Image.find({ allot },(err,img)=>{
+        res.render('image',{
+            img,
+            user : req.user,
+            nav : false,
+            title : 'Image'
+        })
+    })
 })
 
 
 module.exports = otherR;
+
 
 
 

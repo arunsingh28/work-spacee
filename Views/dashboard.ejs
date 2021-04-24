@@ -1,214 +1,253 @@
-
 <%- include('partials/navbar')%>
-<%- include('partials/important')%>
-<%- include('partials/messages')%>
-<%- include('partials/messanger')%>
-<div class="desktop">
-<div class="container">
-    <div class="jumbotron bg-image rounded-bottom">
-        <h1 class="display-4">Welcome <%= user.name %></h1>
-        <p class="lead">Fell Happy To see You Again.</p>
-        <hr class="my-4">
-        <img src="/bg.jpg" alt="<%= user.name %>" class="Dp">
-        <p class="text-light">Complete Your Pending Work</p>
-      </div>
-<div class="container">
-    <div class="row mt-2">
-         <div class="col-4">
-<div class="accordion shadow-lg" id="accordionExample">
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h2 class="mb-0">
-          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" >
-            Online Peoples <a href="#" class="badge badge-primary float-right online-person"></a>
-          </button>
-        </h2>
-      </div>
-
-      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">
-            <div class="list-group user-list" style="max-height: 200px; overflow-y:auto;"></div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header" id="headingTwo">
-        <h2 class="mb-0">
-          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Create Reminders
-          </button>
-        </h2>
-      </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-        <div class="card-body">
-            <form action="/reminder" method="post">
-                <div class="form-group">
-                    <label for="reminder">Reminder</label> 
-                    <textarea name="reminder" id="reminder" cols="32" rows="3" required placeholder="Enter your Reminder"></textarea>
-                    <button type="submit" class="btn btn-primary mt-2">Save</button>
-                </div>
-            </form>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header" id="headingThree">
-        <h2 class="mb-0">
-          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Total Links <a href="#" class="badge badge-primary float-right"><%= link.length%></a>
-          </button>
-        </h2>
-      </div>
-      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-        <div class="card-body">
-            <div class="list-group" style="max-height: 240px; overflow-y:auto;">
-              <% for(var l = 0 ; l < link.length; l++) { %>
-                <a href=<%= link[l].link %> target="_blank" class="list-group-item list-group-item-action"><%= link[l].For %></a>
-              <% } %>  
-            </div>
-        </div>
-      </div>
-    </div>
-    <!-- other project -->
-    <div class="card">
-      <div class="card-header" id="headingFour">
-        <h2 class="mb-0">
-          <button class="btn btn-block text-left collapsed text-primary" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            Other Projects
-          </button>
-        </h2>
-      </div>
-
-      <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">
-            <div class="list-group">
-                <a href="https://vegihub.in" class="list-group-item list-group-item-action">Vegihub</a>
-                <a href="https://shapeyou.herokuapp.com" class="list-group-item list-group-item-action">ShapeYou</a>
-                <a href="#" class="list-group-item list-group-item-action">ChatApp</a>  
-              </div>
-        </div>
-      </div>
-    </div>
-    
-  </div>
+  <%- include('partials/important')%>
+    <%- include('partials/messages')%>
+      <!-- <%- include('partials/messanger')%> -->
+      <div class="desktop">
+        <div class="container">
+          <div class="jumbotron bg-image rounded-bottom">
+            <h1 class="display-4">Welcome <%= user.name %>
+            </h1>
+            <p class="lead">Feel Happy To see You Again.</p>
+            <hr class="my-4">
+            <img src="<%= user.coverImagePath %>" alt="<%= user.name %>" class="Dp">
             
-        </div>
-        <div class="col-8">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Reminders</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="profile-tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" data-toggle="modal" data-target="#saveNote">Notes</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Links</a>
-                </li>
-              </ul>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active bg-light shadow-lg" id="home" role="tabpanel" aria-labelledby="home-tab">
-                   <!-- start reimnder -->
-                  
-                      <% for(var i=0; i< reminder.length; i++) { %>
-                        <div class="accordion" id="accordionExample">
+          </div>
+          <div class="container">
+            <div class="row mt-2">
+              <div class="col-4">
+                <div class="accordion shadow-lg" id="accordionExample">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button class="btn btn-block text-left collapsed text-primary" type="button"
+                          data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          Online Peoples <a href="#" class="badge badge-primary float-right online-person"></a>
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <div class="list-group user-list" style="max-height: 200px; overflow-y:auto;"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-block text-left collapsed text-primary" type="button"
+                          data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                          aria-controls="collapseTwo">
+                          Create Reminders
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <form action="/reminder" method="post">
+                          <div class="form-group">
+                            <label for="reminder">Reminder</label>
+                            <textarea name="reminder" id="reminder" cols="32" rows="3" required
+                              placeholder="Enter your Reminder"></textarea>
+                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingThree">
+                      <h2 class="mb-0">
+                        <button class="btn btn-block text-left collapsed text-primary" type="button"
+                          data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                          aria-controls="collapseThree">
+                          Total Links <a href="#" class="badge badge-primary float-right">
+                            <%= link.length%>
+                          </a>
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                      data-parent="#accordionExample">
+                      <div class="card-body">
+                        <div class="list-group" style="max-height: 240px; overflow-y:auto;">
+                          <% for(var l=0 ; l < link.length; l++) { %>
+                            <a href=<%=link[l].link %> target="_blank" class="list-group-item list-group-item-action">
+                              <%= link[l].For %></a>
+                            <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- other project -->
+                  <div class="card">
+                    <div class="card-header" id="headingFour">
+                      <h2 class="mb-0">
+                        <button class="btn btn-block text-left collapsed text-primary" type="button"
+                          data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                          aria-controls="collapseFour">
+                          Other Projects
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingOne"
+                      data-parent="#accordionExample">
+                      <div class="card-body">
+                        <div class="list-group">
+                          <a href="https://vegihub.in" class="list-group-item list-group-item-action">Vegihub</a>
+                          <a href="https://shapeyou.herokuapp.com"
+                            class="list-group-item list-group-item-action">ShapeYou</a>
+                          <a href="#" class="list-group-item list-group-item-action">ChatApp</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="col-8">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                      aria-controls="home" aria-selected="true">Reminders</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="profile-tab" href="#profile" role="tab" aria-controls="profile"
+                      aria-selected="false" data-toggle="modal" data-target="#saveNote">Notes</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                      aria-controls="contact" aria-selected="false">Links</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active bg-light shadow-lg" id="home" role="tabpanel"
+                    aria-labelledby="home-tab" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;border-top-right-radius: 5px">
+                    <!-- start reimnder -->
+                   
+                    <% for(var i=0; i < reminder.length; i++) { %>
+                      <div class="accordion" id="accordionExample">
                         <div class="card">
                           <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
-                              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#reminder1" aria-expanded="true" aria-controls="collapseOne">
-                              <code>  <%= reminder[i].date %></code>
+                              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                data-target="#reminder1" aria-expanded="true" aria-controls="collapseOne">
+                                <code>  <%= reminder[i].date %></code>
                               </button>
                             </h2>
                           </div>
-                          <div id="reminder1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div id="reminder1" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordionExample">
                             <div class="card-body border-bottom">
                               <%= reminder[i].reminder %>
                             </div>
                             <form action="/delete-reminder" method="post">
-                              <input type="hidden" name="reminderId" value=<%= reminder[i]._id%>>
-                              <button class="btn btn-danger m-2" style="width: 100px;margin-left: 20px;"><i class="fa fa-trash" aria-hidden="true"></i>
+                              <input type="hidden" name="reminderId" value=<%=reminder[i]._id%>>
+                              <button class="btn btn-danger m-2" style="width: 100px;margin-left: 20px;"><i
+                                  class="fa fa-trash" aria-hidden="true"></i>
                               </button>
                             </form>
                           </div>
                         </div>
-
                       </div>
                       <% } %>
+
+                      <% if(reminder.length == 0){ %>
+                        <p class="text-center" style="padding: 30px 0px;">All clear</p>
+                        <% } %>
                         <!--end reminer  -->
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                </div>
-                <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                  <% for(var j=0; j < link.length; j++) { %> 
-                    <ul class="list-group list-group-flush rounded">
+                  </div>
+                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  </div>
+                  <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <% for(var j=0; j < link.length; j++) { %>
+                      <ul class="list-group list-group-flush rounded">
                         <li class="list-group-item list-group-item-action border-bottom" style="word-break: break-all;">
-                        <label for="for"><%= link[j].For %></label><br>
-                        <a  href=<%= link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
-                        <form action="/link-delete" method="POST">
-                        <input type="hidden" value="<%=link[j]._id %>" name="AID">
-                        <button type="submit" class="flex float-right btn btn-danger" style="margin-top: -47px;">Delete</button>
-                        </form>
+                          <label for="for">
+                            <%= link[j].For %>
+                          </label><br>
+                          <a href=<%=link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
+                          <form action="/link-delete" method="POST">
+                            <input type="hidden" value="<%=link[j]._id %>" name="AID">
+                            <button type="submit" class="flex float-right btn btn-danger"
+                              style="margin-top: -47px;">Delete</button>
+                          </form>
                         </li>
-                    </ul>
-                  <% } %>  
-                      <form action="/link" method="post" class="form-group mt-3 shadow-lg">
-                        <input type="text" class="form-control mb-2" placeholder="Link For What ?" name="For">
-                        <div class="input-group mb-3">
-                          <input type="text" class="form-control" placeholder="Enter Link" name="link">
-                          <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Save</button>
+                      </ul>
+                      <% } %>
+                        <form action="/link" method="post" class="form-group mt-3 shadow-lg">
+                          <input type="text" class="form-control mb-2" placeholder="Link For What ?" name="For">
+                          <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Enter Link" name="link">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Save</button>
+                            </div>
                           </div>
-                        </div>
-                    </form>
+                        </form>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
         </div>
-    </div>
-   </div>
-  </div>
-</div>
+      </div>
 
-<div class="mobile">
-  <h3 class="bg-blue pl-2">WorkSpace</h3>
-  <img src="/mobile.svg" alt="image" class="img-fluid">
-  <p class="text-center mt-5">Dear <span id="user_name"><%= user.name %></span> You Are Using Small Screen <b>WorkSpace</b> is not Compatible with Mobile <i class="fa fa-mobile"></i>.<br>Switch to Desktop <i class="fa fa-desktop"></i> or Laptop <i class="fa fa-laptop"></i>.<br><b>From support Team</b><br>
-  <a href="/logout" class="btn btn-primary mt-3"><i class="fas fa-sign-out-alt"></i> Logout</a>
-  </p> 
-</div>
+      <div class="mobile">
+        <h3 class="bg-blue pl-2">WorkSpace</h3>
+        <img src="/mobile.svg" alt="image" class="img-fluid">
+        <p class="text-center mt-5">Dear <span id="user_name">
+            <%= user.name %>
+          </span> You Are Using Small Screen <b>WorkSpace</b> is not Compatible with Mobile <i
+            class="fa fa-mobile"></i>.<br>Switch to Desktop <i class="fa fa-desktop"></i> or Laptop <i
+            class="fa fa-laptop"></i>.<br><b>From support Team</b><br>
+          <a href="/logout" class="btn btn-primary mt-3"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </p>
+      </div>
 
-<div class="container-fluid">
-  <%- include('partials/dashFooter')%>
-</div>
-<script src="socket.js"></script>   
-<style>
-    .bg-image{
-        background-image: linear-gradient(50deg,rgba(46, 101, 173, 0.4),rgba(11, 33, 46, 0.7)),url(bg.jpg);
-        background-origin: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    .mobile{
-      display: none;
-    }
-    .mobile h3{
-      line-height: 50px;
-      color: #fff;
-    }
-    #user_name{
-      font-weight: bold;
-      text-transform: capitalize;
-    }
-    @media screen and (max-width : 500px){
-    .desktop{
-      display: none; 
-    }
-    .mobile{
-      display: block;
-    }
-    nav{
-      display: none !important
-    }
-    .important{
-      display: none !important
-    }
-}
-</style>
+      <div class="container-fluid">
+        <%- include('partials/dashFooter')%>
+      </div>
+      <script src="socket.js"></script>
+      <style>
+        .bg-image {
+          background-image: linear-gradient(50deg, rgb(0 0 0 / 53%), rgb(66 129 167 / 70%)), url(bg.jpg);
+          background-origin: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        .mobile {
+          display: none;
+        }
+
+        .mobile h3 {
+          line-height: 50px;
+          color: #fff;
+        }
+
+        #user_name {
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+
+        @media screen and (max-width : 500px) {
+          .desktop {
+            display: none;
+          }
+
+          .mobile {
+            display: block;
+          }
+
+          nav {
+            display: none !important
+          }
+
+          .important {
+            display: none !important
+          }
+        }
+      </style>

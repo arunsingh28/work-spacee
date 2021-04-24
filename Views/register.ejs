@@ -1,0 +1,84 @@
+<%- include ('partials/navbar') -%>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Create Account</h5>
+      </div>
+      <div class="modal-body">
+        <section>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="row">
+                  <div class="col text-center message">
+                    <h1>Register</h1>
+                    <!-- <p class="text-h3">Register YourSelf for Saving Time and do more as You aspact from Yourself.</p> -->
+                  </div>
+                </div>
+                <form action="/register" method="post" onsubmit="return valiDate()">
+                  <div class="row align-items-center">
+                    <div class="col mt-4">
+                      <input type="text" class="form-control" name="name" id="fullName" placeholder="Full Name">
+                    </div>
+                  </div>
+                  <div class="row align-items-center">
+                    <div class="col mt-4">
+                      <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name"
+                        required>
+                    </div>
+                  </div>
+                  <div class="row align-items-center mt-4">
+                    <div class="col">
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                    </div>
+                  </div>
+                  <div class="row align-items-center mt-4">
+                    <div class="col">
+                      <input type="password" class="form-control pass" name="password" placeholder="password"
+                        autocomplete="off" required>
+                    </div>
+                    <div class="col">
+                      <input type="password" class="form-control confirm" placeholder="Confirm Password"
+                        autocomplete="off" required>
+                    </div>
+                  </div>
+                  <div class="row align-items-center mt-4">
+                    <div class="col">
+                      <label for="date">Date of Birth</label>
+                      <input type="date" class="form-control" name="date" placeholder="Date of Birth" required>
+                    </div>
+                  </div>
+
+
+                  <div class="row align-items-center mt-4">
+                    <div class="col">
+                      <label for="pic">Profile Picture</label>
+                      <input type="file" class="filepond filepond--item" id="pic" name="img" required>
+                    </div>
+                  </div>
+
+
+                  <div class="row justify-content-start mt-4">
+                    <div class="col">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" name="tc" id="tc">
+                          I Read and Accept <a href="#" data-toggle="modal" data-target="#staticBackdrop">Terms and
+                            Conditions</a>
+                        </label>
+                      </div>
+                      <button class="btn btn-primary mt-4 btn-block" type="submit">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    </section>
+  </div>
+  <div class="modal-footer">
+    <a href="https://work.vegihub.in"><button class="btn btn-warning">Close</button></a>
+  </div>
+  </div>
+  </div>

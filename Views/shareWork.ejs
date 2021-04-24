@@ -1,11 +1,11 @@
 <%- include ('partials/navbar') -%>
-<%- include ('partials/messanger') -%>
+<!-- <%- include ('partials/messanger') -%> -->
 <%- include ('partials/important') -%>
 
 <div class="container">
 <% for(var i=0; i < note.length; i++) {%>
-  <div class="card mt-2 card1" style="background-color: #2c363e;margin-top: 2rem !important;">
-      <div class="card-header" style="color: darkorange;">
+  <div class="card mt-2 card1" style="margin-top: 2rem !important;">
+      <div class="card-header">
        <%= note[i].public %> <code class="float-right">Publish on  <%= note[i].date %></code>
       </div>
       <div class="card-body">
@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  body{
+  /* body{
     background-color: #02090e !important;
     padding-bottom: 50px !important;
   }
@@ -59,6 +59,6 @@
   }
   .reminder{
     background: #ffc107 !important;
-  }
+  } */
 
 </style>

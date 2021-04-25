@@ -355,34 +355,44 @@ app.post('/delete-account', ensureAuthenticated, (req, res) => {
     }
 });
 
+
+app.get('/forgot-password',(req,res)=>{
+    res.render('forgot',{
+        nav : true,
+        title : 'Recovery'
+    })
+})
+
 // fotgot password
 app.post('/forgot-password', (req, res) => {
     const { email, password, date } = req.body;
-    userDB.find({ email: email }, (err, user) => {
-        if (err) throw err;
-        if (user.date == date) {
-            bcrypt.compare(password, user.password, (err, isMatch) => {
-                if (err) throw err;
-                if (isMatch) {
-                    bcrypt.genSalt(10, (err, salt) => {
-                        if (err) throw err;
-                        bcrypt.hash(password, salt, (err, hash) => {
-                            if (err) throw err;
-                            userDB.update({ _id: user._id },
-                                {
-                                    $set: { password: hash }
-                                }).then(() => {
-                                    req.flash('success_msg', 'Password Change Successfully');
-                                    res.redirect('/');
-                                }).catch((err => console.log(err)))
+    userDB.findOne({email},(err,user)=>{
+        if(!user){
+            console.log('email is not registed.')
+            req.flash('error','This email is not registered.')
+            res.redirect('/forgot-password')
+        }else{
+            if(user.date === date){
+            bcrypt.genSalt(10,(err,salt)=>{
+                if(err) throw err;
+                bcrypt.hash(password,salt,(err,hash)=>{
+                    if(err) throw err;
+                    userDB.update({email},
+                        {
+                            $set : { password : hash }
                         })
-                    })
-                }
+                        .then(() => {
+                            req.flash('error_msg', 'Password Change Successfully.')
+                            res.redirect('/login')
+                        })
+                        .catch(err => console.log(err))
+                })
             })
-        }
-        if (!user) {
-            req.flash('error', 'No Account found with this email !');
-            res.redirect('/');
+            }else{
+                console.log('date not match')
+                req.flash('error','Date of Birth is not match')
+                res.redirect('/forgot-password')
+            }
         }
     })
 })

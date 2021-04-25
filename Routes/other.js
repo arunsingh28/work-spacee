@@ -3,6 +3,7 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const mongoose = require('mongoose');
 
 const Image = require('../Models/image');
+const User = require('../Models/register');
 
 const otherR = express.Router();
 
@@ -33,6 +34,7 @@ otherR.post('/fileUpload', async (req, res, next) => {
 
     try {
         const newMovie = await movie.save();
+        req.flash('error_msg','Image is Saved')
         res.redirect('/other/image')
     } catch (err) {
         console.log(err)
@@ -60,6 +62,19 @@ otherR.get('/image', ensureAuthenticated, (req, res) => {
             title : 'Image'
         })
     })
+})
+
+otherR.get('/image/d/:id',ensureAuthenticated,(req,res)=>{
+    const { id } = req.params;
+    Image.remove({_id : id})
+    .then(()=>{
+        req.flash('error_msg','Pic is Deleted.')
+        res.redirect('/other/image')
+    }).catch(err => console.log(err))
+})
+
+otherR.post('/change-profile',(req,res)=>{
+    const { img } = req.body;
 })
 
 

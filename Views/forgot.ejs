@@ -1,0 +1,39 @@
+
+
+
+<%- include ('partials/navbar') -%>
+<%- include ('partials/messages') -%>
+
+
+  <div class="modal-dialog mt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+      </div>
+      <div class="modal-body">
+        <form action="/forgot-password" method="post" onsubmit="val()">
+          <div class="msg"></div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" required name="email" placeholder="Your Email ">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="date">Your Date of Birth</label>
+            <input type="date" class="form-control" id="date" name="date" required aria-describedby="emailHelp">
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <label for="date">New Password</label>
+              <input type="password" class="form-control" name="password" required id="password" placeholder="Password" autocomplete="off">
+            </div>
+            <div class="col">
+              <label for="date">Confirm Password </label>
+              <input type="password" class="form-control" id="cPassword" required placeholder="Confirm Password" autocomplete="off">
+            </div> 
+          </div>
+          <button type="submit" class="btn btn-primary btn-block mt-4">Change password</button>
+      </form>
+      </div>
+    </div>
+  </div>

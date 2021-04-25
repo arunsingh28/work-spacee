@@ -11,6 +11,7 @@
             <div class="present_wr">
                 <% img.forEach(m => { %>
                 <img src="<%= m.coverImagePath %>" alt="<%= user.username%>" style="width:200px;height:auto">
+                <a href="image/d/<%= m._id%>" class="btn btn-danger">Delete</a>
                 <% }) %>
             </div>
         <% } else { %>
@@ -25,5 +26,10 @@
         border: 3px solid #eee;
         border-radius: 3px;
         object-fit: cover;
+    }
+    .present_wr{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
     }
 </style>

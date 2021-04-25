@@ -279,7 +279,6 @@ app.post('/save-note', ensureAuthenticated, (req, res) => {
 
 // link
 app.post('/link', ensureAuthenticated, (req, res) => {
-
     const { link, For } = req.body;
     const AID = req.user._id;
     const newLink = linkDB({ link, AID, For })
@@ -293,11 +292,10 @@ app.post('/link', ensureAuthenticated, (req, res) => {
 
 app.post('/link-delete', ensureAuthenticated, (req, res) => {
     const { AID } = req.body;
-    back_url = req.originalUrl
     linkDB.remove({ _id: AID }, (err, done) => {
         if (err) throw err;
         req.flash('down_msg', 'link Delete Succssfuly');
-        res.redirect(back_url)
+        res.redirect('/')
     })
 })
 
@@ -368,7 +366,6 @@ app.post('/forgot-password', (req, res) => {
     const { email, password, date } = req.body;
     userDB.findOne({email},(err,user)=>{
         if(!user){
-            console.log('email is not registed.')
             req.flash('error','This email is not registered.')
             res.redirect('/forgot-password')
         }else{
@@ -389,7 +386,6 @@ app.post('/forgot-password', (req, res) => {
                 })
             })
             }else{
-                console.log('date not match')
                 req.flash('error','Date of Birth is not match')
                 res.redirect('/forgot-password')
             }

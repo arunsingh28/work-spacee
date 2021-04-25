@@ -23,17 +23,17 @@
       </div>
     <% for(var i=0; i < note.length; i++) {%>
     <div class="card mt-2 card1" style="margin-top: 2rem !important;">
-        <div class="card-header" style="color: darkorange;">
+        <div class="card-header">
          <%= note[i].public %> <code class="float-right">Publish on  <%= note[i].date %></code>
         </div>
         <div class="card-body">
           <blockquote class="blockquote mb-0">
             <textarea class="form-control textarea" wrap="off" rows="13" spellcheck="off"><%= note[i].note%></textarea>
             <!-- <code class="blockquote-footer"><cite title="Source Title" style="color: gold;"><%= note[i].writer %></cite></code> -->
-            <div class="mt-3">
+            <!-- <div class="mt-3">
             <button class="btn btn-info float-right note-btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
             <button class="btn btn-danger float-right mr-5 note-btn"><i class="fa fa-trash-o"></i> Delete</button>
-            </div>
+            </div> -->
           </blockquote>
         </div>
       </div>

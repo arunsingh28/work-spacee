@@ -21,7 +21,7 @@ const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
 
 // routers
 app.get('/', forwardAuthenticated, (req, res) => {
-    return res.redirect('https://work.vegihub.in')
+    return res.redirect('https://nervous-volhard-fadbc2.netlify.app')
 })
 
 app.get('/orignal', (req, res) => {

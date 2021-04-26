@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- meta tags -->
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="JEzOEZD9ke-W13ZVgQCxHVz1Fzi0wQitCfOulJ9RxIQ" />
+    <meta name="google-site-verification" content="JEzOEZD9ke-W13ZVgQCxHVz1Fzi0wQitCfOulJ9RxIQ"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="Site">
+    <meta property="og:title" content="workspace" />
+    <meta property="og:description" content="WorkSpace for storing private data" />
+    <meta property="og:image" itemprop="image" content="/favicon/apple-touch-icon.png">
+    <meta property="og:type" content="website" />
     <title><%= title %> - WorkSpace</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -17,20 +23,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet">
-
-
-    
-
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 FilePond.registerPlugin(
                     FilePondPluginImagePreview,
                     FilePondPluginImageResize,
-                    FilePondPluginFileEncode
+                    FilePondPluginFileEncode 
                 );
-                // https://pqina.nl/filepond/docs/patterns/api/filepond-object/#setting-options
                 FilePond.setOptions({
                     stylePanelAspectRatio: 150 / 100,
                     imageResizeTargetWidth: 100,
@@ -46,7 +46,6 @@
     <script src="main.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>

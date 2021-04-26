@@ -9,7 +9,6 @@ const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const app = express.Router();
 
 
-
 const userDB = require('../Models/register');
 const noteDB = require('../Models/note');
 const reminderDB = require('../Models/reminder');
@@ -22,11 +21,7 @@ const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
 
 // routers
 app.get('/', forwardAuthenticated, (req, res) => {
-    // res.render('home',{
-    //     title : 'Home',
-    //     nav : true
-    // })
-    res.redirect('https://work.vegihub.in')
+    return res.redirect('https://work.vegihub.in')
 })
 
 app.get('/orignal', (req, res) => {
@@ -45,7 +40,7 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/register', (req, res) => {
-    res.render('register', { title: 'Register', nav: true })
+    return res.render('register', { title: 'Register', nav: true })
 })
 
 app.post('/register',async (req, res) => {
@@ -63,12 +58,12 @@ app.post('/register',async (req, res) => {
                         if(err) throw err;
                         movie.password = hash
                         const newMovie = await movie.save()
-                        res.redirect('/login')
+                        return res.redirect('/login')
                     })
                 })
             }else{
                 req.flash('message', 'This Email already Registered')
-                res.redirect('/login')
+                return res.redirect('/login')
             }
         })
 
@@ -122,7 +117,7 @@ app.get('/note', ensureAuthenticated, (req, res) => {
         if (err) throw err
         if (!note) {
             req.flash('error_msg', 'No Note Present')
-            res.redirect('/')
+            return res.redirect('/')
         }
         res.render('note', {
             title: 'Notes',
@@ -192,13 +187,13 @@ app.post('/reminder', ensureAuthenticated, (req, res) => {
     const date = fullTime;
     const newReminder = reminderDB({ reminder, AID, date })
     if (reminder.length == 0) {
-        res.redirect('/')
+        return res.redirect('/all-reminder')
     }
     else {
         newReminder.save()
             .then(() => {
                 req.flash('down_msg', 'Your reminder set Successfuly')
-                res.redirect('/')
+                return res.redirect('/all-reminder')
             })
             .catch((err) => console.log(err));
     }
@@ -240,17 +235,17 @@ app.post('/save-note', ensureAuthenticated, (req, res) => {
         const AID = req.user._id
         const newNote = noteDB({ note, public, writer, date, AID });
         if (note.length == 0) {
-            res.redirect('/')
+            return res.redirect('/note')
         } else {
             newNote.save()
                 .then(() => {
                     req.flash('down_msg', 'Note Save to Private Note.');
-                    res.redirect('/');
+                    return res.redirect('/note');
                 })
                 .catch((err) => {
                     if (err) throw err;
                     req.flash('error_msg', 'Error While Saveing Note Save Again');
-                    res.redirect('/');
+                    return res.redirect('/note');
                 })
         }
     } else {
@@ -266,12 +261,12 @@ app.post('/save-note', ensureAuthenticated, (req, res) => {
             newNote.save()
                 .then(() => {
                     req.flash('down_msg', 'Note Save to Private Note.');
-                    res.redirect('/');
+                    return res.redirect('/note');
                 })
                 .catch((err) => {
                     if (err) throw err;
                     req.flash('error_msg', 'Error While Saveing Note Save Again');
-                    res.redirect('/');
+                    return res.redirect('/note');
                 })
         }
     }
@@ -284,8 +279,8 @@ app.post('/link', ensureAuthenticated, (req, res) => {
     const newLink = linkDB({ link, AID, For })
     newLink.save()
         .then(() => {
-            req.flash('error', 'Links Save')
-            res.redirect('/')
+            req.flash('error_msg', 'Link Save Successfully')
+            return res.redirect('/')
         })
         .catch(err => console.log(err))
 })
@@ -294,8 +289,8 @@ app.post('/link-delete', ensureAuthenticated, (req, res) => {
     const { AID } = req.body;
     linkDB.remove({ _id: AID }, (err, done) => {
         if (err) throw err;
-        req.flash('down_msg', 'link Delete Succssfuly');
-        res.redirect('/')
+        req.flash('error_msg', 'link Delete Succssfuly');
+        return res.redirect('/')
     })
 })
 
@@ -315,14 +310,14 @@ app.post('/change-password', ensureAuthenticated, (req, res) => {
                     })
                         .then(() => {
                             req.flash('success_msg', 'Password Change Successfully.')
-                            res.redirect('/logout')
+                            return res.redirect('/logout')
                         })
                         .catch(err => console.log(err))
                 })
             })
         } else {
             req.flash('down_msg', 'Wrong Password');
-            res.redirect('/account-settings')
+            return res.redirect('/account-settings')
         }
     });
 })
@@ -339,16 +334,16 @@ app.post('/delete-account', ensureAuthenticated, (req, res) => {
                 reminderDB.remove({ AID: req.user._id })
                 userDB.deleteOne({ _id: req.user._id })
                     .then(() => {
-                        req.flash('error', 'Account is Delete');
+                        req.flash('error_msg', 'Account is Delete');
                         res.redirect('/logout')
                     })
             } else {
-                req.flash('error', 'Password Incoorect');
+                req.flash('error_msg', 'Password Incoorect');
                 res.redirect('/account-settings');
             }
         })
     } else {
-        req.flash('error', 'incorrect Email');
+        req.flash('error_msg', 'incorrect Email');
         res.redirect('/account-settings');
     }
 });
@@ -363,11 +358,15 @@ app.get('/forgot-password',(req,res)=>{
 
 // fotgot password
 app.post('/forgot-password', (req, res) => {
-    const { email, password, date } = req.body;
+    const { email, password, date , cpass } = req.body;
+    if(password != cpass ){
+        req.flash('error_msg','Password not match with Confirm password !')
+        return res.redirect('/forgot-password')
+    }
     userDB.findOne({email},(err,user)=>{
         if(!user){
-            req.flash('error','This email is not registered.')
-            res.redirect('/forgot-password')
+            req.flash('error_msg','This email is not registered.')
+            return res.redirect('/forgot-password')
         }else{
             if(user.date === date){
             bcrypt.genSalt(10,(err,salt)=>{
@@ -380,31 +379,30 @@ app.post('/forgot-password', (req, res) => {
                         })
                         .then(() => {
                             req.flash('error_msg', 'Password Change Successfully.')
-                            res.redirect('/login')
+                            return res.redirect('/login')
                         })
                         .catch(err => console.log(err))
                 })
             })
             }else{
-                req.flash('error','Date of Birth is not match')
-                res.redirect('/forgot-password')
+                req.flash('error_msg','Date of Birth is not match')
+                return res.redirect('/forgot-password')
             }
         }
     })
 })
 
-app.get('/all-user-info', (req, res) => {
-    back_url = req.originalUrl
-    userDB.find({}, (err, user) => {
-        if (err) throw err;
-        res.send(user)
-    })
-})
+// app.get('/all-user-info', (req, res) => {
+//     userDB.find({}, (err, user) => {
+//         if (err) throw err;
+//         return res.send(user)
+//     })
+// })
 
 app.post('/delete-reminder', (req, res) => {
     const { reminderId } = req.body;
     reminderDB.remove({ _id: reminderId })
-        .then(() => { res.redirect('/') })
+        .then(() => { return res.redirect('/') })
         .catch((err => console.log(err)))
 })
 
@@ -427,7 +425,7 @@ app.post('/question-save', (req, res) => {
     const newQuestion = new questionDB({ AID, question, date, allotUser })
     newQuestion.save()
         .then(() => {
-            res.redirect('/q&a')
+            return res.redirect('/q&a')
         })
         .catch(err => console.log(err))
 })
@@ -437,7 +435,7 @@ app.post('/answer-save', (req, res) => {
     const newAnswer = new anserDB({ questionID, userID, answer, allotUser });
     newAnswer.save()
         .then(() => {
-            res.redirect('/q&a')
+            return res.redirect('/q&a')
         })
         .catch(err => console.log(err))
 })
@@ -446,9 +444,11 @@ app.get('/question-delete/:id', (req, res) => {
     const { id } = req.params;
     questionDB.remove({ _id: id }, (err, done) => {
         if (!done) {
-            res.send(err)
+            req.flash('error_msg','Something went wrong while deleting question try again after sometime.')
+            return res.redirect('/q&a')
         } else {
-            res.redirect('/q&a')
+            req.flash('error_msg','Question Delete Succesfully.')
+            return res.redirect('/q&a')
         }
     })
 })

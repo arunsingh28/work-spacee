@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-blue">
     <div class="nav-wraper container">
-      <a class="navbar-brand" href="/">〄 WorkSpace</a>
+      <a class="navbar-brand" href="/">〄 WorkSpacee</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -117,21 +117,21 @@ style="background: #4d677c;"
         <form action="/forgot-password" method="post" onsubmit="return val()">
           <div class="msg"></div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Your Email ">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Your Email ">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
             <label for="date">Your Date of Birth</label>
-            <input type="date" class="form-control" id="date" name="date" aria-describedby="emailHelp">
+            <input type="date" class="form-control" id="date" name="date">
           </div>
           <div class="row align-items-center mt-4">
             <div class="col">
-              <label for="date">New Password</label>
+              <label for="password">New Password</label>
               <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off">
             </div>
             <div class="col">
-              <label for="date">Confirm Password </label>
+              <label for="cPassword">Confirm Password </label>
               <input type="password" class="form-control" id="cPassword" placeholder="Confirm Password" autocomplete="off">
             </div> 
           </div>
@@ -151,7 +151,7 @@ style="background: #4d677c;"
     const div = document.createElement('div');
     div.className = 'temp';
     div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Password Error!</strong>Please check .
+    <strong>Password not Match with confirm password!</strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

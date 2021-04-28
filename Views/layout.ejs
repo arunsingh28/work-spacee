@@ -15,8 +15,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
     <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="footer.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel="stylesheet" href="footer.css"> -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
@@ -41,9 +41,9 @@
     
         </script>
 </head>
-<body>
+<body onload="reset()">
     <script src="/socket.io/socket.io.js"></script>
-    <script src="main.js"></script>  
+    <!-- <script src="main.js"></script>   -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
@@ -52,4 +52,81 @@
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
     <%- body %>    
 </body>
+
+<script>
+    
+valiDate = () =>{
+    var fullName = document.getElementById('fullName').value;
+    var cPassword = document.querySelector('.confirm').value;
+    var password = document.querySelector('.pass').value;
+    const tc = document.getElementById('tc').checked;
+
+    if(cPassword != password){
+    const div = document.createElement('div');
+    div.className = 'row';
+    div.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Password Error !</strong> Password Not Maching. Try Again
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>`;
+    document.querySelector('.message').appendChild(div);
+    return false;
+    }
+    if(fullName.length <= 5 ){
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Full Name !</strong> Please Enter Your Full Name Try Again .
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>`;
+        document.querySelector('.message').appendChild(div);  
+        return false;
+    }
+    if(password.length <= 5 ){
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Password Error!</strong>Enter(5 char max)Password.Try Again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>`;
+        document.querySelector('.message').appendChild(div);  
+        return false;
+    } 
+    if(tc == false){
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Terms & Conditions !</strong>Please Check T&C to Continue.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>`;
+      document.querySelector('.message').appendChild(div);  
+      return false;
+    }
+}
+
+passWord = () => {
+  const newPassword = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('cPassword').value;
+  if(newPassword != confirmPassword){
+    const div = document.createElement('div');
+    div.className = 'temp';
+    div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Password Error!</strong>Please check .
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>`;
+        document.querySelector('.give').appendChild(div); 
+        return false;
+  }
+}
+
+</script>
 </html>

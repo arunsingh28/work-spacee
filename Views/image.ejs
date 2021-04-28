@@ -6,18 +6,26 @@
 
  
 <div class="container mt-5">
-    <div class="">
+    <div class="preview" id="preview">
+        <div class="x">X</div>
+        <div>
+            <img id="preIMG-IMG">
+        </div>
+    </div>
         <% if(img) { %>
             <div class="present_wr">
                 <% img.forEach(m => { %>
-                <img src="<%= m.coverImagePath %>" alt="<%= user.username%>" style="width:200px;height:auto">
-                <a href="image/d/<%= m._id%>" class="btn btn-danger">Delete</a>
+                <img src="<%= m.coverImagePath %>" alt="<%= user.username%>" id="imgPre" class="mt-3" style="width:200px;height:auto">
+               <div style="display: flex;width: 21%;" class="mt-3">
+                <a href="image/d/<%= m._id%>" class="btn btn-danger btn-block">Delete</a>
+                <!-- <button class="btn btn-info ml-5">Preview</button> -->
+                </div>
                 <% }) %>
             </div>
         <% } else { %>
             <p class="text-center" style="font-size: 30px;">No file to show</p>
             <%}%>
-    </div>
+    
 </div>
 
 
@@ -26,10 +34,56 @@
         border: 3px solid #eee;
         border-radius: 3px;
         object-fit: cover;
+        cursor: pointer;
     }
     .present_wr{
         display: flex;
         flex-direction: column;
         align-items: start;
     }
+    .preview{
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+
+        height: 450px;
+        width: 600px;
+        background-color: #000;
+        border-radius: 5px;
+        box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.4);
+    }
+    .show{
+        display: block;
+    }
+    .hide{
+        display: none;
+    }
+    .x{
+        color: #eee;
+        float: right;
+        padding: 5px 10px;
+        font-size: 20px;
+        background-color: rgb(94, 94, 94);
+        border-top-right-radius: 5px;
+        cursor: pointer;
+
+    }
 </style>
+
+<script>
+    var img = document.getElementById('imgPre').src;
+    var pre = document.getElementById('preview');
+    var x = document.getElementsByClassName('x')[0];
+
+    img.addEventListener('click',()=>{
+        pre.classList.add('show')
+        document.getElementById('preIMG-IMG').src = img
+    })
+
+    x.addEventListener('click',()=>{
+        pre.classList.add('hide')
+    })
+
+</script>

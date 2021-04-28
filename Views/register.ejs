@@ -1,84 +1,192 @@
 <%- include ('partials/navbar') -%>
-<%- include ("partials/messages")%>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Create Account</h5>
-      </div>
-      <div class="modal-body">
-        <section>
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="row">
-                  <div class="col text-center message">
-                    <h1>Register</h1>
-                    <!-- <p class="text-h3">Register YourSelf for Saving Time and do more as You aspact from Yourself.</p> -->
-                  </div>
-                </div>
-                <form action="/register" method="post" onsubmit="return valiDate()">
-                  <div class="row align-items-center">
-                    <div class="col mt-4">
-                      <input type="text" class="form-control" name="name" id="fullName" placeholder="Full Name">
+  <%- include ("partials/messages")%>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Create Account</h5>
+        </div>
+        <div class="modal-body">
+          <section>
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                  <div class="row">
+                    <div class="col text-center message">
+                      <h1>Register</h1>
+                      <!-- <p class="text-h3">Register YourSelf for Saving Time and do more as You aspact from Yourself.</p> -->
                     </div>
                   </div>
-                  <div class="row align-items-center">
-                    <div class="col mt-4">
-                      <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name"
-                        required>
-                    </div>
-                  </div>
-                  <div class="row align-items-center mt-4">
-                    <div class="col">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-                    </div>
-                  </div>
-                  <div class="row align-items-center mt-4">
-                    <div class="col">
-                      <input type="password" class="form-control pass" name="password" placeholder="password"
-                        autocomplete="off" required>
-                    </div>
-                    <div class="col">
-                      <input type="password" class="form-control confirm" placeholder="Confirm Password"
-                        autocomplete="off" required>
-                    </div>
-                  </div>
-                  <div class="row align-items-center mt-4">
-                    <div class="col">
-                      <label for="date">Date of Birth</label>
-                      <input type="date" class="form-control" name="date" placeholder="Date of Birth" required>
-                    </div>
-                  </div>
-
-
-                  <div class="row align-items-center mt-4">
-                    <div class="col">
-                      <label for="pic">Profile Picture</label>
-                      <input type="file" class="filepond filepond--item" id="pic" name="img" required>
-                    </div>
-                  </div>
-
-
-                  <div class="row justify-content-start mt-4">
-                    <div class="col">
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" name="tc" id="tc">
-                          I Read and Accept <a href="#" data-toggle="modal" data-target="#staticBackdrop">Terms and
-                            Conditions</a>
-                        </label>
+                  <form action="/register" method="post" onsubmit="return valiDate()">
+                    <div class="row align-items-center">
+                      <div class="col mt-4">
+                        <input type="text" class="form-control" name="name" id="fullName" placeholder="Full Name">
                       </div>
-                      <button class="btn btn-primary mt-4 btn-block" type="submit">Submit</button>
-                </form>
+                    </div>
+                    <div class="row align-items-center">
+                      <div class="col mt-4">
+                        <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name"
+                          required>
+                      </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                      <div class="col">
+                        <input type="email" class="form-control" name="email" id="email-register" value="" placeholder="Email" required>
+                      </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                      <div class="col">
+                        <input type="password" class="form-control pass" name="password" placeholder="password"
+                        required id="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                      </div>
+                      <div class="col">
+                        <input type="password" class="form-control confirm" placeholder="Confirm Password"
+                           required>
+                      </div>
+                    </div>
+
+                    <!-- password validation messages -->
+                    <div id="message">
+                      <h4>Password must contain the following:</h4>
+                      <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                      <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                      <p id="number" class="invalid">A <b>number</b></p>
+                      <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                    </div>
+
+
+                    <div class="row align-items-center mt-4">
+                      <div class="col">
+                        <label for="date">Date of Birth</label>
+                        <input type="date" class="form-control" name="date" placeholder="Date of Birth" required>
+                      </div>
+                    </div>
+
+
+                    <div class="row align-items-center mt-4">
+                      <div class="col">
+                        <label for="pic">Profile Picture</label>
+                        <input type="file" class="filepond filepond--item" id="pic" name="img" required>
+                        
+                      </div>
+                    </div>
+
+
+                    <div class="row justify-content-start mt-4">
+                      <div class="col">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="tc" id="tc">
+                            I Read and Accept <a href="#" data-toggle="modal" data-target="#staticBackdrop">Terms and
+                              Conditions</a>
+                          </label>
+                        </div>
+                        <button class="btn btn-primary mt-4 btn-block" type="submit">Submit</button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
+        </div>
       </div>
+      </section>
     </div>
-    </section>
-  </div>
-  <div class="modal-footer">
-    <a href="https://work.vegihub.in"><button class="btn btn-warning">Close</button></a>
-  </div>
-  </div>
-  </div>
+    <div class="modal-footer">
+      <a href="https://work.vegihub.in"><button class="btn btn-warning">Close</button></a>
+    </div>
+    </div>
+    </div>
+
+
+    <script>
+  
+
+      var myInput = document.getElementById("psw");
+      var letter = document.getElementById("letter");
+      var capital = document.getElementById("capital");
+      var number = document.getElementById("number");
+      var length = document.getElementById("length");
+
+      myInput.onfocus = () => {
+        document.getElementById('message').style.display = 'block'
+      }
+
+      myInput.onblur = () => {
+        document.getElementById('message').style.display = 'none'
+      }
+
+      myInput.onkeyup = () => {
+        var lowerCaseLetter = /[a-z]/g;
+        var upperCaseLetters = /[A-Z]/g;
+        var numbers = /[0-9]/g;
+
+        if (myInput.value.match(lowerCaseLetter)) {
+          letter.classList.remove('invalid')
+          letter.classList.add('valid')
+        } else {
+          letter.classList.remove('valid')
+          letter.classList.add('invalid')
+        }
+
+        if (myInput.value.match(upperCaseLetters)) {
+          capital.classList.remove("invalid");
+          capital.classList.add("valid");
+        } else {
+          capital.classList.remove("valid");
+          capital.classList.add("invalid");
+        }
+
+        if (myInput.value.match(numbers)) {
+          number.classList.remove("invalid");
+          number.classList.add("valid");
+        } else {
+          number.classList.remove("valid");
+          number.classList.add("invalid");
+        }
+        if(myInput.value.length >= 8) {
+          length.classList.remove("invalid");
+          length.classList.add("valid");
+        } else {
+          length.classList.remove("valid");
+          length.classList.add("invalid");
+        }
+      }
+    </script>
+
+    <style>
+      #message {
+        display: none;
+        background: #eee;
+        color: rgb(37, 37, 37);
+        position: relative;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+      }
+
+      #message p {
+        padding: 0px 35px;
+        font-size: 15px;
+      }
+
+      /* Add a green text color and a checkmark when the requirements are right */
+      .valid {
+        color: green;
+      }
+
+      .valid:before {
+        position: relative;
+        left: -20px;
+        content: "✔";
+      }
+
+      /* Add a red text color and an "x" when the requirements are wrong */
+      .invalid {
+        color: rgb(255, 62, 62);
+      }
+
+      .invalid:before {
+        position: relative;
+        left: -20px;
+        content: "✖";
+      }
+      
+    </style>

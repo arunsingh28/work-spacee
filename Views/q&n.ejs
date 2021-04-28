@@ -4,11 +4,11 @@
 <!-- <%- include('partials/messanger')%> -->
 
 <div class="container">
-    <div class="jumbotron rounded-bottom shadow-sm" style="padding: 1.2rem 2rem !important; background: rgba(174, 201, 202, 0.582);">
+    <div class="jumbotron rounded-bottom shadow-sm mt-4" style="padding: 1.2rem 2rem !important; background: rgba(174, 201, 202, 0.582);">
         <form action="/question-save" method="post">
           <label for="question" class="display-question">What is Your Question ?</label>
           <input type="hidden" value="<%= user._id%>" name="allotUser">
-          <input type="text" class="form-control question-input" placeholder="Type here..." name="question">
+          <textarea rows="5" type="text" autocomplete="off" class="form-control question-input mt-3" placeholder="Type here..." name="question"></textarea>
           <button type="submit" class="btn btn-primary my-3 submit">Submit</button>
         </form>
     </div>
@@ -21,13 +21,13 @@
       <% for(var i=0; i < anser.length; i++) {%>
         <% if(anser[i].questionID == question[j]._id) {%>
           <i class="from-answer"><b>Ans from <%= anser[i].userID%></b></i>
-          <p class="lead answer shadow-sm"><%= anser[i].answer%></p>
+          <p class="lead shadow-sm answer"><%= anser[i].answer%></p>
         <%}%>
       <%}%>  
       <form action="/answer-save" method="post">
         <input type="hidden" name="questionID" value="<%= question[j]._id%>">
         <input type="hidden" name="userID" value="<%= user.nickName %>">
-       <input type="text" class="form-control question-input" placeholder="Type Your Answer here ..." name="answer" autocomplete="off"/>
+       <textarea type="text" class="form-control question-input" rows="5" placeholder="Type Your Answer here ..." name="answer" autocomplete="off"></textarea>
        <% if(question[j].allotUser == user._id) {%>
         <button type="submit" class="btn btn-primary my-3" >Submit</button>
         <a href="/question-delete/<%= question[j]._id%>"><button class="btn btn-danger my-3 ml-3 submit" type="button" >Delete</button></a>
@@ -40,8 +40,29 @@
   <% } %>   
 
 </div>
+<style>
+  .float-right{
+    font-size: 12px;
+  }
+  .display-question{
+    font-size: 20px;
+    text-transform:capitalize;
+  }
+  .from-answer{
+    padding: 0px 5px;
+    border-left: 1px dashed;
+    border-right: 1px dashed;
+    border-top: 1px dashed;
+  }
+  .answer{
+    border: 1px dashed;
+    padding: 5px;
+  }
+  .lead{
+    font-size: 1.1rem;
+  }
+  textarea:focus{
+    font-family: 'Courier New', Courier, monospace;
+  }
+</style>
 
-
-<script>
-
-</script>

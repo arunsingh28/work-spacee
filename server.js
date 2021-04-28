@@ -77,6 +77,7 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
         users++;
         socket.emit('online', req.user.nickName);
         socket.emit('user', users)
+        
         socket.on('disconnect', () => {
             users--;
             socket.emit('offline', req.user.nickName)

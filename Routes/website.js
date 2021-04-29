@@ -137,7 +137,7 @@ app.get('/note/d/:id', ensureAuthenticated, (req, res) => {
             req.flash('error_msg', 'Error occur while deleting note')
             return res.redirect('/note')
         } else {
-            req.flash('error_msg', 'Note Deleted Successfully.')
+            req.flash('error_msg', 'Note successfully deleted.')
             return res.redirect('/note')
         }
     })
@@ -225,7 +225,7 @@ app.post('/reminder', ensureAuthenticated, (req, res) => {
     else {
         newReminder.save()
             .then(() => {
-                req.flash('error_msg', 'Your reminder set Successfuly')
+                req.flash('error_msg', 'Reminder set successfully')
                 return res.redirect('/all-reminder')
             })
             .catch((err) => console.log(err));

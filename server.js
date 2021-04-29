@@ -103,12 +103,15 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
 })
 
 
+// for invalid urls
 
-
-// app.use('/*', (req,res) =>{
-//     req.flash('message','Welcome back')
-//     res.redirect('/')
-// })
+app.use('/*', (req,res) =>{
+    var url = req.baseUrl;
+    var host = req.hostname;
+    var protocol = req.protocol;
+    req.flash('error_msg',`${protocol}://${host}${url} is invalid URL.`)
+    return res.redirect('/login')
+})
 
 
 // other stuff

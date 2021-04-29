@@ -27,7 +27,7 @@
         <div class="card-header">
          <%= note[i].type %> <code class="float-right">Publish on  <%= note[i].date %></code>
         </div>
-        <form method="post" action="/note/edit">
+        <form method="post" action="/note/edit/<%=note[i]._id%>">
         <div class="card-body">
           <blockquote class="blockquote mb-0">
             <textarea class="form-control textarea" id="newNoteOI" name="note" wrap="off" rows="13" spellcheck="off"><%= note[i].note%></textarea>

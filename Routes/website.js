@@ -43,26 +43,26 @@ app.get('/register', (req, res) => {
     return res.render('register', { title: 'Register', nav: true })
 })
 
-app.post('/register',async (req, res) => {
+app.post('/register', async (req, res) => {
     const { name, nickName, email, password, date, img } = req.body;
     const movie = new userDB({
         name, nickName, email, date, password
     })
     saveImage(movie, img)
     try {
-        userDB.findOne({ email },async (err, docs) => {
+        userDB.findOne({ email }, async (err, docs) => {
             if (!docs) {
                 bcrypt.genSalt(10, async (err, salt) => {
                     if (err) throw err;
                     bcrypt.hash(movie.password, salt, async (err, hash) => {
-                        if(err) throw err;
+                        if (err) throw err;
                         movie.password = hash
                         const newMovie = await movie.save()
-                        req.flash('error_msg','Account is Created you can log in now.')
+                        req.flash('error_msg', 'Account is Created you can log in now.')
                         return res.redirect('/login')
                     })
                 })
-            }else{
+            } else {
                 req.flash('message', 'This Email already Registered')
                 return res.redirect('/login')
             }
@@ -101,13 +101,13 @@ app.get('/logout', (req, res) => {
 })
 
 app.get('/share-work', ensureAuthenticated, (req, res) => {
-    noteDB.find({type : 'public'}, (err, note) => {
+    noteDB.find({ type: 'public' }, (err, note) => {
         if (err) throw err;
         res.render('shareWork', {
             title: 'ShareWork',
             nav: false,
             user: req.user,
-            note 
+            note
         })
     })
 })
@@ -130,33 +130,34 @@ app.get('/note', ensureAuthenticated, (req, res) => {
 })
 
 // for deleting note
-app.get('/note/d/:id',ensureAuthenticated,(req,res)=>{
+app.get('/note/d/:id', ensureAuthenticated, (req, res) => {
     const { id } = req.params;
-    noteDB.remove({_id:id},(err,done)=>{
-        if(err){
-            req.flash('error_msg','Error occur while deleting note')
+    noteDB.remove({ _id: id }, (err, done) => {
+        if (err) {
+            req.flash('error_msg', 'Error occur while deleting note')
             return res.redirect('/note')
-        }else{
-            req.flash('error_msg','Note Deleted Successfully.')
+        } else {
+            req.flash('error_msg', 'Note Deleted Successfully.')
             return res.redirect('/note')
         }
     })
 })
 
 // for editing note
-app.post('/note/edit',(req,res)=>{
-   const { note } = req.body;
-   const id = req.user._id
-   noteDB.update({ AID : id },{
-       $set : { note : note }
-   }).then(()=>{
-    req.flash('error_msg','Note is Edited')
-    return res.redirect('/note')
-   })
-   .catch(()=>{
-    req.flash('error_msg','Error occur while editing note')
-    return res.redirect('/note')
-   })
+app.post('/note/edit/:id', (req, res) => {
+    const { id } = req.params
+    const { note } = req.body
+    noteDB.update({_id:id},{
+        $set : {note:note}
+    })
+    .then(()=>{
+        req.flash('error_msg','Note successfully edited.')
+        return res.redirect('/note')
+    })
+    .catch(()=>{
+        req.flash('error_msg','Error occur while editing note.')
+        return res.redirect('/note')
+    })
 })
 
 
@@ -243,7 +244,7 @@ app.get('/account-settings', ensureAuthenticated, (req, res) => {
 // saving notes
 app.post('/save-note', ensureAuthenticated, (req, res) => {
     // time funciton
-    var type ;
+    var type;
     var time = new Date();
     var d = time.getDate(); // get Today Date
     var h = time.getHours() + 6; // get Hours
@@ -260,36 +261,36 @@ app.post('/save-note', ensureAuthenticated, (req, res) => {
     const { note, visible } = req.body;
     const AID = req.user._id
     const writer = req.user.name
-    if(visible === undefined ){
+    if (visible === undefined) {
         type = 'public'
         console.log(type)
-        let newNote = noteDB({note,type,date,AID,writer})
+        let newNote = noteDB({ note, type, date, AID, writer })
         newNote.save()
-        .then(()=>{ 
-            req.flash('error_msg','This note is visiable to other users.')
-            return res.redirect('/note')
-        })
-        .catch((e)=>{
-            req.flash('error_msg','something went wrong while saving public note')
-            return res.redirect('/')
-        })
+            .then(() => {
+                req.flash('error_msg', 'This note is visiable to other users.')
+                return res.redirect('/note')
+            })
+            .catch((e) => {
+                req.flash('error_msg', 'something went wrong while saving public note')
+                return res.redirect('/')
+            })
         // .catch(err => console.log(err))
-    }else{
+    } else {
         type = 'private'
         console.log(type)
-        let newNote = noteDB({note,type,date,AID,writer})
+        let newNote = noteDB({ note, type, date, AID, writer })
         newNote.save()
-        .then(()=>{
-            req.flash('error_msg','This note is visiable to you only.')
-            return res.redirect('/note') 
-        })
-        .catch((e)=>{
-            req.flash('error_msg','something went wrong while saving private note')
-            return res.redirect('/')
-        })
+            .then(() => {
+                req.flash('error_msg', 'This note is visiable to you only.')
+                return res.redirect('/note')
+            })
+            .catch((e) => {
+                req.flash('error_msg', 'something went wrong while saving private note')
+                return res.redirect('/')
+            })
         // .catch(err => console.log(err))
     }
-    
+
 })
 
 // link
@@ -369,43 +370,43 @@ app.post('/delete-account', ensureAuthenticated, (req, res) => {
 });
 
 
-app.get('/forgot-password',(req,res)=>{
-    res.render('forgot',{
-        nav : true,
-        title : 'Recovery'
+app.get('/forgot-password', (req, res) => {
+    res.render('forgot', {
+        nav: true,
+        title: 'Recovery'
     })
 })
 
 // fotgot password
 app.post('/forgot-password', (req, res) => {
-    const { email, password, date , cpass } = req.body;
-    if(password != cpass ){
-        req.flash('error_msg','Password not match with Confirm password !')
+    const { email, password, date, cpass } = req.body;
+    if (password != cpass) {
+        req.flash('error_msg', 'Password not match with Confirm password !')
         return res.redirect('/forgot-password')
     }
-    userDB.findOne({email},(err,user)=>{
-        if(!user){
-            req.flash('error_msg','This email is not registered.')
+    userDB.findOne({ email }, (err, user) => {
+        if (!user) {
+            req.flash('error_msg', 'This email is not registered.')
             return res.redirect('/forgot-password')
-        }else{
-            if(user.date === date){
-            bcrypt.genSalt(10,(err,salt)=>{
-                if(err) throw err;
-                bcrypt.hash(password,salt,(err,hash)=>{
-                    if(err) throw err;
-                    userDB.update({email},
-                        {
-                            $set : { password : hash }
-                        })
-                        .then(() => {
-                            req.flash('error_msg', 'Password Change Successfully.')
-                            return res.redirect('/login')
-                        })
-                        .catch(err => console.log(err))
+        } else {
+            if (user.date === date) {
+                bcrypt.genSalt(10, (err, salt) => {
+                    if (err) throw err;
+                    bcrypt.hash(password, salt, (err, hash) => {
+                        if (err) throw err;
+                        userDB.update({ email },
+                            {
+                                $set: { password: hash }
+                            })
+                            .then(() => {
+                                req.flash('error_msg', 'Password Change Successfully.')
+                                return res.redirect('/login')
+                            })
+                            .catch(err => console.log(err))
+                    })
                 })
-            })
-            }else{
-                req.flash('error_msg','Date of Birth is not match')
+            } else {
+                req.flash('error_msg', 'Date of Birth is not match')
                 return res.redirect('/forgot-password')
             }
         }
@@ -464,10 +465,10 @@ app.get('/question-delete/:id', (req, res) => {
     const { id } = req.params;
     questionDB.remove({ _id: id }, (err, done) => {
         if (!done) {
-            req.flash('error_msg','Something went wrong while deleting question try again after sometime.')
+            req.flash('error_msg', 'Something went wrong while deleting question try again after sometime.')
             return res.redirect('/q&a')
         } else {
-            req.flash('error_msg','Question Delete Succesfully.')
+            req.flash('error_msg', 'Question Delete Succesfully.')
             return res.redirect('/q&a')
         }
     })

@@ -105,14 +105,14 @@
       </div>
       <div class="modal-body">
         <form action="/save-note" method="post">
-          <textarea name="note" style="width: 100%;" required class="input-form" cols="54" rows="6" placeholder="Write Your Notes"></textarea>
+          <textarea name="note" style="width: 100%;padding: 5px;" required class="input-form" cols="54" rows="6" placeholder="Write Your Notes"></textarea>
       </div>
       <div class="modal-footer note-footer-note">
-        <p class="lead" id="hygY" style="font-size: 15px;">By default note are public.Mark the box to make it private</p>
+        <p class="lead ml-5" id="hygY" style="font-size: 15px">By default note is public.</p>
         <div class="toggle float-right">
-          <label class="switch" style="margin-bottom:0 !important;">
+          <label class="switch pb-2" style="margin-bottom:0 !important;padding: 13.6px 38px !important;margin-top: -3.3px !important;">
             <input type="checkbox" id="public" name="visible" value=""/>
-            <span id="note-prii">Private</span>
+            <span id="note-prii" class="note-prii">Make it private</span>
           </label>
           
         </div>
@@ -128,18 +128,21 @@
     justify-content: start !important;
   }
   .toggle {
+    display: block;
     line-height: 12px;
     float: left;
-    padding: 8px 0px;
+    padding: 10px auto;
   }
   .RadWe_a{
-    background: #4caf50;
-    color: #fff;
+    background: #4caf50 !important;
+    color: #fff !important;
   }
   .hide{
     display: none;
   }
-  
+  .switch{
+    border: 1px solid #000;
+  }
   
 </style>
 <script>
@@ -154,7 +157,7 @@
     }else{
     document.getElementById('hygY').classList.remove('hide')
       disPrivate.classList.remove('RadWe_a')
-      disPrivate.innerHTML = 'Private'
+      disPrivate.innerText = 'Make it private'
       moonlight.value = 'public'
    }
   })
@@ -305,69 +308,8 @@
   .inputImage:hover::before {
     border: 2px dashed #fff;
   }
-/* 
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 25px;
-  }
 
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 7px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-
-  input:checked+.slider {
-    background-color: #2196F3;
-  }
-
-  input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-
-  input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-
-  /* Rounded sliders
-  .slider.round {
-    border-radius: 34px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
-  } */
-
-
-  span{
+  .note-prii{
     padding: 3px 9px;
     background: #eee;
     border-radius: 3px;

@@ -58,6 +58,7 @@ app.post('/register',async (req, res) => {
                         if(err) throw err;
                         movie.password = hash
                         const newMovie = await movie.save()
+                        req.flash('error_msg','Account is Created you can log in now.')
                         return res.redirect('/login')
                     })
                 })
@@ -94,19 +95,19 @@ app.post('/login', (req, res, next) => {
 });
 
 app.get('/logout', (req, res) => {
+    req.flash('error_msg', ` You are logout successfully.`);
+    return res.redirect('/login');
     req.logout();
-    req.flash('sucess_msg', 'You are Logout Out');
-    res.redirect('/');
 })
 
 app.get('/share-work', ensureAuthenticated, (req, res) => {
-    noteDB.find({}, (err, note) => {
+    noteDB.find({type : 'public'}, (err, note) => {
         if (err) throw err;
         res.render('shareWork', {
             title: 'ShareWork',
             nav: false,
             user: req.user,
-            note
+            note 
         })
     })
 })
@@ -127,6 +128,37 @@ app.get('/note', ensureAuthenticated, (req, res) => {
         })
     }).sort({ title: -1 })
 })
+
+// for deleting note
+app.get('/note/d/:id',ensureAuthenticated,(req,res)=>{
+    const { id } = req.params;
+    noteDB.remove({_id:id},(err,done)=>{
+        if(err){
+            req.flash('error_msg','Error occur while deleting note')
+            return res.redirect('/note')
+        }else{
+            req.flash('error_msg','Note Deleted Successfully.')
+            return res.redirect('/note')
+        }
+    })
+})
+
+// for editing note
+app.post('/note/edit',(req,res)=>{
+   const { note } = req.body;
+   const id = req.user._id
+   noteDB.update({ AID : id },{
+       $set : { note : note }
+   }).then(()=>{
+    req.flash('error_msg','Note is Edited')
+    return res.redirect('/note')
+   })
+   .catch(()=>{
+    req.flash('error_msg','Error occur while editing note')
+    return res.redirect('/note')
+   })
+})
+
 
 app.get('/what-is-next', ensureAuthenticated, (req, res) => {
     res.render('next', {
@@ -192,7 +224,7 @@ app.post('/reminder', ensureAuthenticated, (req, res) => {
     else {
         newReminder.save()
             .then(() => {
-                req.flash('down_msg', 'Your reminder set Successfuly')
+                req.flash('error_msg', 'Your reminder set Successfuly')
                 return res.redirect('/all-reminder')
             })
             .catch((err) => console.log(err));
@@ -210,66 +242,54 @@ app.get('/account-settings', ensureAuthenticated, (req, res) => {
 
 // saving notes
 app.post('/save-note', ensureAuthenticated, (req, res) => {
-
     // time funciton
+    var type ;
     var time = new Date();
     var d = time.getDate(); // get Today Date
     var h = time.getHours() + 6; // get Hours
     var m = time.getMinutes() - 30; // get Minite
     var month = time.getMonth() + 1;
     var year = time.getFullYear();
-    var fullTime;
+    var date;
     if (h < 12) {
-        fullTime = d + "-" + month + "-" + year + " Time " + h + ":" + m + " " + "AM";
+        date = d + "-" + month + "-" + year + " Time " + h + ":" + m + " " + "AM";
     } else {
         h -= 12;
-        fullTime = d + "-" + month + "-" + year + " Time " + h + ":" + m + " " + "PM";
+        date = d + "-" + month + "-" + year + " Time " + h + ":" + m + " " + "PM";
     }
-
-    const { note, public } = req.body;
-    if (public == undefined) {
-        // private
-        const writer = req.user.name;
-        const date = fullTime;
-        const public = 'Private';
-        const AID = req.user._id
-        const newNote = noteDB({ note, public, writer, date, AID });
-        if (note.length == 0) {
+    const { note, visible } = req.body;
+    const AID = req.user._id
+    const writer = req.user.name
+    if(visible === undefined ){
+        type = 'public'
+        console.log(type)
+        let newNote = noteDB({note,type,date,AID,writer})
+        newNote.save()
+        .then(()=>{ 
+            req.flash('error_msg','This note is visiable to other users.')
             return res.redirect('/note')
-        } else {
-            newNote.save()
-                .then(() => {
-                    req.flash('down_msg', 'Note Save to Private Note.');
-                    return res.redirect('/note');
-                })
-                .catch((err) => {
-                    if (err) throw err;
-                    req.flash('error_msg', 'Error While Saveing Note Save Again');
-                    return res.redirect('/note');
-                })
-        }
-    } else {
-        // public
-        const writer = req.user.name;
-        const date = fullTime;
-        const public = 'Public';
-        const AID = req.user._id
-        const newNote = noteDB({ note, public, writer, date, AID })
-        if (note.length == 0) {
-            res.redirect(back_url)
-        } else {
-            newNote.save()
-                .then(() => {
-                    req.flash('down_msg', 'Note Save to Private Note.');
-                    return res.redirect('/note');
-                })
-                .catch((err) => {
-                    if (err) throw err;
-                    req.flash('error_msg', 'Error While Saveing Note Save Again');
-                    return res.redirect('/note');
-                })
-        }
+        })
+        .catch((e)=>{
+            req.flash('error_msg','something went wrong while saving public note')
+            return res.redirect('/')
+        })
+        // .catch(err => console.log(err))
+    }else{
+        type = 'private'
+        console.log(type)
+        let newNote = noteDB({note,type,date,AID,writer})
+        newNote.save()
+        .then(()=>{
+            req.flash('error_msg','This note is visiable to you only.')
+            return res.redirect('/note') 
+        })
+        .catch((e)=>{
+            req.flash('error_msg','something went wrong while saving private note')
+            return res.redirect('/')
+        })
+        // .catch(err => console.log(err))
     }
+    
 })
 
 // link

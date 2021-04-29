@@ -105,24 +105,61 @@
       </div>
       <div class="modal-body">
         <form action="/save-note" method="post">
-          <textarea name="note" id="" class="input-form" cols="54" rows="6" placeholder="Write Your Notes"></textarea>
+          <textarea name="note" style="width: 100%;" required class="input-form" cols="54" rows="6" placeholder="Write Your Notes"></textarea>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer note-footer-note">
+        <p class="lead" id="hygY" style="font-size: 15px;">By default note are public.Mark the box to make it private</p>
         <div class="toggle float-right">
-          Private
           <label class="switch" style="margin-bottom:0 !important;">
-            <input type="checkbox" id="public" name="public">
-            <span class="slider round"></span>
+            <input type="checkbox" id="public" name="visible" value=""/>
+            <span id="note-prii">Private</span>
           </label>
-          public
+          
         </div>
-        <button type="submit" class="btn btn-primary">Save Note</button>
+        <button type="submit" class="btn btn-primary btn-block">Save Note</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-
+<style>
+  .note-footer-note{
+    padding: 5px !important;
+    justify-content: start !important;
+  }
+  .toggle {
+    line-height: 12px;
+    float: left;
+    padding: 8px 0px;
+  }
+  .RadWe_a{
+    background: #4caf50;
+    color: #fff;
+  }
+  .hide{
+    display: none;
+  }
+  
+  
+</style>
+<script>
+  let moonlight = document.getElementById('public');
+  const disPrivate = document.getElementById('note-prii');
+  moonlight.addEventListener('click',()=>{
+    if(moonlight.checked == true){
+      document.getElementById('hygY').classList.add('hide')
+      disPrivate.classList.add('RadWe_a')
+      disPrivate.innerHTML = 'Now its Private Note'
+      moonlight.value = 'private'
+    }else{
+    document.getElementById('hygY').classList.remove('hide')
+      disPrivate.classList.remove('RadWe_a')
+      disPrivate.innerHTML = 'Private'
+      moonlight.value = 'public'
+   }
+  })
+  
+</script>
 
 <!-- model for reminder -->
 
@@ -268,12 +305,12 @@
   .inputImage:hover::before {
     border: 2px dashed #fff;
   }
-
+/* 
   .switch {
     position: relative;
     display: inline-block;
     width: 60px;
-    height: 34px;
+    height: 25px;
   }
 
   .switch input {
@@ -297,9 +334,9 @@
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
+    height: 20px;
+    width: 20px;
+    left: 7px;
     bottom: 4px;
     background-color: white;
     -webkit-transition: .4s;
@@ -320,16 +357,19 @@
     transform: translateX(26px);
   }
 
-  /* Rounded sliders */
+  /* Rounded sliders
   .slider.round {
     border-radius: 34px;
   }
 
   .slider.round:before {
     border-radius: 50%;
-  }
+  } */
 
-  .toggle {
-    margin-right: 171px;
+
+  span{
+    padding: 3px 9px;
+    background: #eee;
+    border-radius: 3px;
   }
 </style>

@@ -3,11 +3,11 @@
 <%- include ('partials/important') -%>
 <%- include ("partials/messages")%>
 
-<div class="container">
+<div class="container pb-5">
 <% for(var i=0; i < note.length; i++) {%>
   <div class="card mt-2 card1" style="margin-top: 2rem !important;">
       <div class="card-header">
-       <%= note[i].public %> <code class="float-right">Publish on  <%= note[i].date %></code>
+       <%= note[i].type %> <code class="float-right">Publish on  <%= note[i].date %></code>
       </div>
       <div class="card-body">
         <blockquote class="blockquote mb-0">
@@ -23,6 +23,14 @@
 
 
 <style>
+  .border{
+    padding: 10px;
+    border: 1px solid #000;
+  }
+  p{
+    padding: 10px;
+    border: 1px solid #000;
+  }
   /* body{
     background-color: #02090e !important;
     padding-bottom: 50px !important;

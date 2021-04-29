@@ -55,6 +55,9 @@ body{
 }
 .toogle{
     bottom: 16px;
+    margin-right: 217px !important;
+    line-height: 32px;
+    font-size: 16px;
 }
 /*
 .question-input{

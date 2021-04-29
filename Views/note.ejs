@@ -25,16 +25,18 @@
     <% for(var i=0; i < note.length; i++) {%>
     <div class="card mt-2 card1" style="margin-top: 2rem !important;">
         <div class="card-header">
-         <%= note[i].public %> <code class="float-right">Publish on  <%= note[i].date %></code>
+         <%= note[i].type %> <code class="float-right">Publish on  <%= note[i].date %></code>
         </div>
+        <form method="post" action="/note/edit">
         <div class="card-body">
           <blockquote class="blockquote mb-0">
-            <textarea class="form-control textarea" wrap="off" rows="13" spellcheck="off"><%= note[i].note%></textarea>
+            <textarea class="form-control textarea" id="newNoteOI" name="note" wrap="off" rows="13" spellcheck="off"><%= note[i].note%></textarea>
             <!-- <code class="blockquote-footer"><cite title="Source Title" style="color: gold;"><%= note[i].writer %></cite></code> -->
-            <!-- <div class="mt-3">
-            <button class="btn btn-info float-right note-btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
-            <button class="btn btn-danger float-right mr-5 note-btn"><i class="fa fa-trash-o"></i> Delete</button>
-            </div> -->
+            <div class="mt-3">
+            <button type="submit" class="btn btn-info note-btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+            </form>
+            <a href="/note/d/<%=note[i]._id %>" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+            </div>
           </blockquote>
         </div>
       </div>
@@ -44,6 +46,13 @@
      <% } %> 
 </div>
 
+<!-- <script>
+  const newNote = document.getElementById(newNoteOI);
+  function checkNote(e){
+    e.preventDefault()
+    newNote.value
+  }
+</script> -->
 
 <style>
   /* body{

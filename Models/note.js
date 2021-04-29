@@ -13,7 +13,7 @@ const noteSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    public : {
+    type : {
         type : String,
         required : true
     },

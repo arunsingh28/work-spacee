@@ -12,6 +12,19 @@
             <img id="preIMG-IMG">
         </div>
     </div>
+    <% if(img.length == 0) {%>
+        <p class="lead messages_rmpUD shadow-lg border">
+            You don't have any image to view. For uploading image click on upload button.
+            <button
+            class="btn btn-primary btn-lg mt-3 px-5"
+            style="
+            display: block;
+            margin: 0 auto;
+            "
+            data-toggle="modal" data-target="#images"
+            >Upload</button>
+        </p>
+        <%} else {%>
         <% if(img) { %>
             <div class="present_wr">
                 <% img.forEach(m => { %>
@@ -25,11 +38,21 @@
         <% } else { %>
             <p class="text-center" style="font-size: 30px;">No file to show</p>
             <%}%>
+            <%}%>
     
 </div>
 
 
 <style>
+    .messages_rmpUD{
+        padding: 10px 30px;
+        border: 1px solid #000;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border-radius: 5px;
+    }
     img{
         border: 3px solid #eee;
         border-radius: 3px;

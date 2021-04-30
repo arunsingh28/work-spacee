@@ -34,8 +34,8 @@ otherR.post('/fileUpload', async (req, res, next) => {
 
     try {
         const newMovie = await movie.save();
-        req.flash('error_msg','Image is Saved')
-        res.redirect('/other/image')
+        req.flash('success_msg','👍 image successfully saved.')
+        return res.redirect('/other/image')
     } catch (err) {
         console.log(err)
     }
@@ -68,9 +68,12 @@ otherR.get('/image/d/:id',ensureAuthenticated,(req,res)=>{
     const { id } = req.params;
     Image.remove({_id : id})
     .then(()=>{
-        req.flash('error_msg','Pic is Deleted.')
-        res.redirect('/other/image')
-    }).catch(err => console.log(err))
+        req.flash('success_msg','👍 image successfully deleted.')
+        return res.redirect('/other/image')
+    }).catch(()=>{
+        req.flash('error','Error occour while deling image.')
+        return res.redirect('/other/image')
+    })
 })
 
 otherR.post('/change-profile',(req,res)=>{

@@ -106,13 +106,13 @@ app.use('/other', require('./Routes/other'))
 
 
 // for invalid urls
-app.use('/*', (req,res) =>{
-    var url = req.baseUrl;
-    var host = req.hostname;
-    var protocol = req.protocol;
-    req.flash('error_msg',`${protocol}://${host}${url} is invalid URL.`)
-    return res.redirect('/login')
-})
+// app.use('/*', (req,res) =>{
+//     var url = req.baseUrl;
+//     var host = req.hostname;
+//     var protocol = req.protocol;
+//     req.flash('error_msg',`${protocol}://${host}${url} is invalid URL.`)
+//     return res.redirect('/login')
+// })
 
 
 

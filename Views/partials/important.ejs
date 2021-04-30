@@ -2,6 +2,7 @@
   <div class="note" data-toggle="modal" data-target="#saveNote"><i class="fa fa-sticky-note fa-2x"></i></div>
   <div class="images" data-toggle="modal" data-target="#images"><i class="fas fa-images  fa-2x"></i></div>
   <div class="reminder" data-toggle="modal" data-target="#reminder"><i class="fa fa-bell-o fa-2x"></i></div>
+  <div class="share" data-toggle="modal" data-target="#share"><i class="fa fa-share fa-2x"></i></div>
   <!-- <div class="todo" data-toggle="modal" data-target="#todo"><i class="fas fa-clipboard-list fa-2x"></i></div> -->
 </div>
 
@@ -54,10 +55,10 @@
     background: rgb(5, 47, 102);
     cursor: pointer;
     transition: .1s ease-in;
-    border-bottom-right-radius: 13px;
+    /* border-bottom-right-radius: 13px; */
   }
 
-  .todo {
+  .share {
     height: 60px;
     width: 72px;
     display: flex;
@@ -74,22 +75,23 @@
   .note:hover .fa-sticky-note {
     transform: scale(1.1);
   }
-
   .images:hover .fa-images {
     transform: scale(1.1);
   }
-
   .reminder:hover .fa-bell-o {
     transform: scale(1.1);
   }
-
+  .share:hover .fa-share{
+    transform: scale(1.1);
+  }
   .todo:hover .fa-clipboard-list {
     transform: scale(1.1);
   }
 
+
   .filepond--item {
-    width: 140px;
-    height: 200px;
+    width: 140px !important;
+    height: 200px !important;
   }
 </style>
 
@@ -126,6 +128,52 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal for share -->
+<div class="modal fade" id="share" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Share Center</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="filter" name="q" class="form-control" placeholder="search by name...">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+  $(()=>{
+       $('#filter').autocomplete({
+           source : (req,res)=>{
+            $.ajax({
+                url : 's/',
+                dataType : "jsonp",
+                type : "GET",
+                data : req,
+                success : (data)=>{ console.log(data._id) },
+                error : (err)=>{console.log(err)}
+                
+            })
+           },
+           minLength : 1,
+           select : (e,ui)=>{
+               if(ui.item){
+                   $('#filter').text(ui.item.label)
+               }
+           },
+       })
+    })
+</script>
+
 <style>
   .note-footer-note {
     padding: 5px !important;

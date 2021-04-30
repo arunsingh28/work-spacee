@@ -3,13 +3,14 @@
 <%- include ('partials/important') -%>
 <%- include ("partials/messages")%>
 
-<div class="container">
-    <!-- <div class="jumbotron jumbotron-fluid border-bottom bg-image">
+<div class="container pb-5">
+    <div class="jumbotron jumbotron-fluid border-bottom bg-image"
+    style="border-bottom-left-radius: 8px !important;border-bottom-right-radius: 8px !important"
+    >
         <div class="container">
           <h1 class="display-4 text-center">Notes</h1>
-          <p class="lead text-center">Make Your Own Notes will Help You next.</p>
         </div>
-    </div> -->
+    </div>
 
     <% if(note.length <= 0) {%>
       <div class="img-notFound">
@@ -45,6 +46,10 @@
      <!-- for loop -->
      <% } %> 
 </div>
+
+
+<%- include('partials/dashFooter')%>
+
 
 <!-- <script>
   const newNote = document.getElementById(newNoteOI);

@@ -34,7 +34,7 @@ otherR.post('/fileUpload', async (req, res, next) => {
 
     try {
         const newMovie = await movie.save();
-        req.flash('success_msg','👍 image successfully saved.')
+        req.flash('success_msg', '👍 image successfully saved.')
         return res.redirect('/other/image')
     } catch (err) {
         console.log(err)
@@ -54,31 +54,33 @@ function saveImage(movie, imgEncoded) {
 
 otherR.get('/image', ensureAuthenticated, (req, res) => {
     const allot = req.user._id
-    Image.find({ allot },(err,img)=>{
-        res.render('image',{
+    Image.find({ allot }, (err, img) => {
+        res.render('image', {
             img,
-            user : req.user,
-            nav : false,
-            title : 'Image'
+            user: req.user,
+            nav: false,
+            title: 'Image'
         })
     })
 })
 
-otherR.get('/image/d/:id',ensureAuthenticated,(req,res)=>{
+otherR.get('/image/d/:id', ensureAuthenticated, (req, res) => {
     const { id } = req.params;
-    Image.remove({_id : id})
-    .then(()=>{
-        req.flash('success_msg','👍 image successfully deleted.')
-        return res.redirect('/other/image')
-    }).catch(()=>{
-        req.flash('error','Error occour while deling image.')
-        return res.redirect('/other/image')
-    })
+    Image.remove({ _id: id })
+        .then(() => {
+            req.flash('success_msg', '👍 image successfully deleted.')
+            return res.redirect('/other/image')
+        }).catch(() => {
+            req.flash('error', 'Error occour while deling image.')
+            return res.redirect('/other/image')
+        })
 })
 
-otherR.post('/change-profile',(req,res)=>{
+otherR.post('/change-profile', (req, res) => {
     const { img } = req.body;
 })
+
+
 
 
 

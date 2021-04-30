@@ -3,7 +3,7 @@
 <%- include ("partials/messages")%>
 <!-- <%- include('partials/messanger')%> -->
 
-<div class="container">
+<div class="container pb-5">
     <div class="jumbotron rounded-bottom shadow-sm mt-4" style="padding: 1.2rem 2rem !important; background: rgba(174, 201, 202, 0.582);">
         <form action="/question-save" method="post">
           <label for="question" class="display-question">What is Your Question ?</label>
@@ -40,6 +40,9 @@
   <% } %>   
 
 </div>
+
+<%- include('partials/dashFooter')%>
+
 <style>
   .float-right{
     font-size: 12px;

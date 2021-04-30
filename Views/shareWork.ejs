@@ -4,46 +4,48 @@
     <%- include ("partials/messages")%>
 
       <div class="container pb-5">
-        <% if(note.length == 0) {%>
+        <% if(note.length==0) {%>
           <p class="lead">There is no work.</p>
-        <%} else {%>
-        <% for(var i=0; i < note.length; i++) {%>
-          <div class="card mt-2 card1" style="margin-top: 2rem !important;">
-            <div class="card-header">
-              <%= note[i].type %> <code class="float-right">Publish on  <%= note[i].date %></code>
-            </div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <textarea  class="form-control textarea" id="noteMaxHeight"
-                  disabled><%= note[i].note%></textarea>
-                <code
-                  class="blockquote-footer"><cite title="Source Title" style="color: gold;"><%= note[i].writer %></cite></code>
-              </blockquote>
-            </div>
-          </div>
-          <% } %>
-          <% } %>
+          <%} else {%>
+            <% for(var i=0; i < note.length; i++) {%>
+              <div class="card mt-2 card1" style="margin-top: 2rem !important;">
+                <div class="card-header">
+                  <%= note[i].type %> <code class="float-right">Publish on  <%= note[i].date %></code>
+                </div>
+                <div class="card-body">
+                  <blockquote class="blockquote mb-0">
+                    <textarea class="form-control textarea" id="noteMaxHeight" disabled><%= note[i].note%></textarea>
+                    <code
+                      class="blockquote-footer"><cite title="Source Title" style="color: gold;"><%= note[i].writer %></cite></code>
+                  </blockquote>
+                </div>
+              </div>
+              <% } %>
+                <% } %>
       </div>
 
-      <script>
-        const area = document.getElementById('noteMaxHeight').value
-          area.length < area.length+30
-          area.rows = 10*-area.length
-      </script>
+      <%- include('partials/dashFooter')%>
 
 
-      <style>
-        .border {
-          padding: 10px;
-          border: 1px solid #000;
-        }
+        <script>
+          const area = document.getElementById('noteMaxHeight').value
+          area.length < area.length + 30
+          area.rows = 10 * -area.length
+        </script>
 
-        p {
-          padding: 10px;
-          border: 1px solid #000;
-        }
 
-        /* body{
+        <style>
+          .border {
+            padding: 10px;
+            border: 1px solid #000;
+          }
+
+          p {
+            padding: 10px;
+            border: 1px solid #000;
+          }
+
+          /* body{
     background-color: #02090e !important;
     padding-bottom: 50px !important;
   }
@@ -79,4 +81,4 @@
   .reminder{
     background: #ffc107 !important;
   } */
-      </style>
+        </style>

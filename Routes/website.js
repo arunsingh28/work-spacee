@@ -492,6 +492,28 @@ app.get('/team-management', (req, res) => {
 })
 
 
+app.get('/se',(req,res)=>{
+    res.render('search',{title:'se'})
+})
+
+// search API
+app.get('/s',(req,res)=>{
+    const q = req.query["term"];
+    userDB.find({ name: { $regex: new RegExp(q) , $options: '$i'}}).sort({'updated_at':-1}).sort({'created_at':-1})
+    .then(data=>{
+        var result = []
+        data.forEach(user=>{
+            let obj={
+                id : user._id,
+                label : user.name
+            };
+            result.push(obj)
+        })
+        res.jsonp(result)
+    })
+    .catch(err => console.log(err))
+})
+
 
 
 module.exports = app;

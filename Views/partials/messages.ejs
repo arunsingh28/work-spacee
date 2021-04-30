@@ -9,29 +9,18 @@
   <% } %> 
 
 
-  <% if(success_msg != ''){ %>
-  <div class="alert alert-success alert-dismissible fade show suc" role="alert">
-    <%= success_msg %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <% } %> 
   
-  <% if(error_msg != ''){ %>
-  <div class="alert alert-danger alert-dismissible fade show suc2" role="alert">
-    <%= error_msg %>
+  <% if(success_msg != ''){ %>
+  <div class="alert alert-danger alert-dismissible fade show suc2" id="alert" role="alert">
+    <%= success_msg %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <% } %>
 
- <% if(down_msg != '') { %>
-    <div class="notification">
-      <%= down_msg %>
-    </div>
-  <% } %>
+
+
   
   <!-- errors while registration -->
  <% if(error != ''){ %>
@@ -43,30 +32,42 @@
   </div>
   <% } %>
 
+
   <style>
-    .notification{
-      display: block;
-      z-index: 999999999;
-      padding: 30px;
-      background: red;
-      height: 100px;
-      width: 200px;
-      position: absolute;
-      top:50%;
-      left:50%;
-      transform: translate(-50%,-50%);
-    }
     .suc2{
       position: fixed;
-      bottom: 20px;
+      top: 40px;
       right: 10px;
       z-index: 1;
+      animation-name: fade;
+      animation-delay: 4s;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+    }
+    @keyframes fade{
+      0%{
+        display: block;
+        opacity: 1;
+      }
+      50%{
+        display: block;
+        opacity: .5;
+      }
+      100%{
+        display: none;
+        opacity: 0;
+      }
     }
     .alert-danger{
       box-shadow: 1px 0px 7px 0px #00000075;
       color: #ffffff;
-      background-color: #2196F3;
-      border-color: #52abd4;
-      background-image: linear-gradient(45deg, #134974, transparent);
+      background-color: #3f51b5;
+      border-color: #631fdc;
+      background-image: linear-gradient(45deg, #7b2fff, #af17ca);
     }
   </style>
+
+  <script>
+    
+    
+  </script>

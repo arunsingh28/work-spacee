@@ -29,10 +29,6 @@ const userSchema = new mongoose.Schema({
     imgType: {
         type: String,
         required: true
-    },
-    reminder : {
-        type : Array,
-        default : []
     }
 });
 

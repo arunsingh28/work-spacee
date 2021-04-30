@@ -58,7 +58,7 @@ app.post('/register', async (req, res) => {
                         if (err) throw err;
                         movie.password = hash
                         const newMovie = await movie.save()
-                        req.flash('error_msg', 'Account is Created you can log in now.')
+                        req.flash('success_msg', 'Account is Created you can log in now.')
                         return res.redirect('/login')
                     })
                 })
@@ -95,7 +95,7 @@ app.post('/login', (req, res, next) => {
 });
 
 app.get('/logout', (req, res) => {
-    req.flash('error_msg', ` You are logout successfully.`);
+    req.flash('success_msg', ` You are logout successfully.`);
     return res.redirect('/login');
     req.logout();
 })
@@ -117,7 +117,7 @@ app.get('/note', ensureAuthenticated, (req, res) => {
     noteDB.find({ AID: id }, (err, note) => {
         if (err) throw err
         if (!note) {
-            req.flash('error_msg', 'No Note Present')
+            req.flash('success_msg', 'No Note Present')
             return res.redirect('/')
         }
         res.render('note', {
@@ -134,10 +134,10 @@ app.get('/note/d/:id', ensureAuthenticated, (req, res) => {
     const { id } = req.params;
     noteDB.remove({ _id: id }, (err, done) => {
         if (err) {
-            req.flash('error_msg', 'Error occur while deleting note')
+            req.flash('success_msg', 'Error occur while deleting note')
             return res.redirect('/note')
         } else {
-            req.flash('error_msg', 'Note successfully deleted.')
+            req.flash('success_msg', 'Note successfully deleted.')
             return res.redirect('/note')
         }
     })
@@ -151,11 +151,11 @@ app.post('/note/edit/:id', (req, res) => {
         $set : {note:note}
     })
     .then(()=>{
-        req.flash('error_msg','Note successfully edited.')
+        req.flash('success_msg','Note successfully edited.')
         return res.redirect('/note')
     })
     .catch(()=>{
-        req.flash('error_msg','Error occur while editing note.')
+        req.flash('success_msg','Error occur while editing note.')
         return res.redirect('/note')
     })
 })
@@ -225,7 +225,7 @@ app.post('/reminder', ensureAuthenticated, (req, res) => {
     else {
         newReminder.save()
             .then(() => {
-                req.flash('error_msg', 'Reminder set successfully')
+                req.flash('success_msg', 'Reminder set successfully')
                 return res.redirect('/all-reminder')
             })
             .catch((err) => console.log(err));
@@ -267,7 +267,7 @@ app.post('/save-note', ensureAuthenticated, (req, res) => {
         let newNote = noteDB({ note, type, date, AID, writer })
         newNote.save()
             .then(() => {
-                req.flash('error_msg', 'This note is visiable to other users.')
+                req.flash('success_msg', 'This note is visiable to other users.')
                 return res.redirect('/note')
             })
             .catch((e) => {
@@ -281,7 +281,7 @@ app.post('/save-note', ensureAuthenticated, (req, res) => {
         let newNote = noteDB({ note, type, date, AID, writer })
         newNote.save()
             .then(() => {
-                req.flash('error_msg', 'This note is visiable to you only.')
+                req.flash('success_msg', 'This note is visiable to you only.')
                 return res.redirect('/note')
             })
             .catch((e) => {
@@ -300,7 +300,7 @@ app.post('/link', ensureAuthenticated, (req, res) => {
     const newLink = linkDB({ link, AID, For })
     newLink.save()
         .then(() => {
-            req.flash('error_msg', 'Link Save Successfully')
+            req.flash('success_msg', 'Link Save Successfully')
             return res.redirect('/')
         })
         .catch(err => console.log(err))
@@ -310,7 +310,7 @@ app.post('/link-delete', ensureAuthenticated, (req, res) => {
     const { AID } = req.body;
     linkDB.remove({ _id: AID }, (err, done) => {
         if (err) throw err;
-        req.flash('error_msg', 'link Delete Succssfuly');
+        req.flash('success_msg', 'link Delete Succssfuly');
         return res.redirect('/')
     })
 })
@@ -355,7 +355,7 @@ app.post('/delete-account', ensureAuthenticated, (req, res) => {
                 reminderDB.remove({ AID: req.user._id })
                 userDB.deleteOne({ _id: req.user._id })
                     .then(() => {
-                        req.flash('error_msg', 'Account is Delete');
+                        req.flash('success_msg', 'Account delete successfully.');
                         res.redirect('/logout')
                     })
             } else {
@@ -399,7 +399,7 @@ app.post('/forgot-password', (req, res) => {
                                 $set: { password: hash }
                             })
                             .then(() => {
-                                req.flash('error_msg', 'Password Change Successfully.')
+                                req.flash('success_msg', 'Password shange successfully.')
                                 return res.redirect('/login')
                             })
                             .catch(err => console.log(err))
@@ -468,7 +468,7 @@ app.get('/question-delete/:id', (req, res) => {
             req.flash('error_msg', 'Something went wrong while deleting question try again after sometime.')
             return res.redirect('/q&a')
         } else {
-            req.flash('error_msg', 'Question Delete Succesfully.')
+            req.flash('success_msg', 'Question Delete Succesfully.')
             return res.redirect('/q&a')
         }
     })

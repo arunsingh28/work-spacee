@@ -112,88 +112,95 @@
 
                 </div>
 
-              </div>
-              <div class="col-8">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                      aria-controls="home" aria-selected="true">Reminders</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" href="#profile" role="tab" aria-controls="profile"
-                      aria-selected="false" data-toggle="modal" data-target="#saveNote">Notes</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                      aria-controls="contact" aria-selected="false">Links</a>
-                  </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                  <div class="tab-pane fade show active bg-light shadow-lg" id="home" role="tabpanel"
-                    aria-labelledby="home-tab" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;border-top-right-radius: 5px">
-                    <!-- start reimnder -->
-                   
-                    <% for(var i=0; i < reminder.length; i++) { %>
-                      <div class="accordion" id="accordionExample">
-                        <div class="card">
-                          <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                                data-target="#reminder1" aria-expanded="true" aria-controls="collapseOne">
-                                <code>  <%= reminder[i].date %></code>
-                              </button>
-                            </h2>
-                          </div>
-                          <div id="reminder1" class="collapse show" aria-labelledby="headingOne"
-                            data-parent="#accordionExample">
-                            <div class="card-body border-bottom">
-                              <%= reminder[i].reminder %>
+                <!-- flex -->
+                <div class="col-8">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                        aria-controls="home" aria-selected="true">Reminders</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="profile-tab" href="#profile" role="tab" aria-controls="profile"
+                        aria-selected="false" data-toggle="modal" data-target="#saveNote">Notes</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                        aria-controls="contact" aria-selected="false">Links</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active bg-light shadow-lg" id="home" role="tabpanel"
+                      aria-labelledby="home-tab" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;border-top-right-radius: 5px">
+                      <!-- start reimnder -->
+                     
+                      <% for(var i=0; i < reminder.length; i++) { %>
+                        <div class="accordion" id="accordionExample">
+                          <div class="card">
+                            <div class="card-header" id="headingOne">
+                              <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                  data-target="#reminder1" aria-expanded="true" aria-controls="collapseOne">
+                                  <code>  <%= reminder[i].date %></code>
+                                </button>
+                              </h2>
                             </div>
-                            <form action="/delete-reminder" method="post">
-                              <input type="hidden" name="reminderId" value=<%=reminder[i]._id%>>
-                              <button class="btn btn-danger m-2" style="width: 100px;margin-left: 20px;"><i
-                                  class="fa fa-trash" aria-hidden="true"></i>
-                              </button>
-                            </form>
+                            <div id="reminder1" class="collapse show" aria-labelledby="headingOne"
+                              data-parent="#accordionExample">
+                              <div class="card-body border-bottom">
+                                <%= reminder[i].reminder %>
+                              </div>
+                              <form action="/delete-reminder" method="post">
+                                <input type="hidden" name="reminderId" value=<%=reminder[i]._id%>>
+                                <button class="btn btn-danger m-2" style="width: 100px;margin-left: 20px;"><i
+                                    class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                              </form>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <% } %>
-
-                      <% if(reminder.length == 0){ %>
-                        <p class="text-center" style="padding: 30px 0px;">All clear</p>
                         <% } %>
-                        <!--end reminer  -->
-                  </div>
-                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                  </div>
-                  <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <% for(var j=0; j < link.length; j++) { %>
-                      <ul class="list-group list-group-flush rounded">
-                        <li class="list-group-item list-group-item-action border-bottom" style="word-break: break-all;">
-                          <label for="for">
-                            <%= link[j].For %>
-                          </label><br>
-                          <a href=<%=link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
-                          <form action="/link-delete" method="POST">
-                            <input type="hidden" value="<%=link[j]._id %>" name="AID">
-                            <button type="submit" class="flex float-right btn btn-danger"
-                              style="margin-top: -47px;">Delete</button>
-                          </form>
-                        </li>
-                      </ul>
-                      <% } %>
-                        <form action="/link" method="post" class="form-group mt-3 shadow-lg">
-                          <input type="text" class="form-control mb-2" placeholder="Link For What ?" name="For">
-                          <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Enter Link" name="link">
-                            <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Save</button>
+  
+                        <% if(reminder.length == 0){ %>
+                          <p class="text-center" style="padding: 30px 0px;">All clear</p>
+                          <% } %>
+                          <!--end reminer  -->
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    </div>
+                    <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                      <% for(var j=0; j < link.length; j++) { %>
+                        <ul class="list-group list-group-flush rounded">
+                          <li class="list-group-item list-group-item-action border-bottom" style="
+                            word-wrap: break-word;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                          ">
+                            <label for="for">
+                              <%= link[j].For %>
+                            </label><br>
+                            <a href=<%=link[j].link %> id="for" target="_blank"><%= link[j].link %></a>
+                            <form action="/link-delete" method="POST">
+                              <input type="hidden" value="<%=link[j]._id %>" name="AID">
+                              <button type="submit" class="flex float-right btn btn-danger"
+                                style="margin-top: -47px;">Delete</button>
+                            </form>
+                          </li>
+                        </ul>
+                        <% } %>
+                          <form action="/link" method="post" class="form-group mt-3 shadow-lg">
+                            <input type="text" class="form-control mb-2" placeholder="Link For What ?" name="For">
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control" placeholder="Enter Link" name="link">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Save</button>
+                              </div>
                             </div>
-                          </div>
-                        </form>
+                          </form>
+                    </div>
                   </div>
                 </div>
+                <!-- flex end -->
               </div>
             </div>
           </div>

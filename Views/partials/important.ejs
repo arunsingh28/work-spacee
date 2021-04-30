@@ -86,10 +86,11 @@
   .todo:hover .fa-clipboard-list {
     transform: scale(1.1);
   }
-  .filepond--item{
-            width: 140px;
-            height: 200px;
-        }
+
+  .filepond--item {
+    width: 140px;
+    height: 200px;
+  }
 </style>
 
 
@@ -105,16 +106,19 @@
       </div>
       <div class="modal-body">
         <form action="/save-note" method="post">
-          <textarea name="note" style="width: 100%;padding: 5px;" required class="input-form" cols="54" rows="6" placeholder="Write Your Notes"></textarea>
+          <textarea name="note" style="width: 100%;padding: 5px;" required class="input-form" cols="54" rows="6"
+            placeholder="Write Your Notes"></textarea>
       </div>
       <div class="modal-footer note-footer-note">
-        <p class="lead ml-5" id="hygY" style="font-size: 15px;border: 1px solid #000;padding: 10px 9px;">By default note is public.</p>
+        <p class="lead ml-5" id="hygY" style="font-size: 15px;border: 1px solid #000;padding: 10px 9px;">By default note
+          is public.</p>
         <div class="toggle float-right">
-          <label class="switch pb-2" style="margin-bottom:0 !important;padding: 13.6px 38px !important;margin-top: -3.3px !important;">
-            <input type="checkbox" id="public" name="visible" value=""/>
+          <label class="switch pb-2"
+            style="margin-bottom:0 !important;padding: 13.6px 38px !important;margin-top: -3.3px !important;">
+            <input type="checkbox" id="public" name="visible" value="" />
             <span id="note-prii" class="note-prii">Make it private</span>
           </label>
-          
+
         </div>
         <button type="submit" class="btn btn-primary btn-block">Save Note</button>
         </form>
@@ -123,45 +127,48 @@
   </div>
 </div>
 <style>
-  .note-footer-note{
+  .note-footer-note {
     padding: 5px !important;
     justify-content: start !important;
   }
+
   .toggle {
     display: block;
     line-height: 12px;
     float: left;
     padding: 10px auto;
   }
-  .RadWe_a{
+
+  .RadWe_a {
     background: #4caf50 !important;
     color: #fff !important;
   }
-  .hide{
+
+  .hide {
     display: none;
   }
-  .switch{
+
+  .switch {
     border: 1px solid #000;
   }
-  
 </style>
 <script>
   let moonlight = document.getElementById('public');
   const disPrivate = document.getElementById('note-prii');
-  moonlight.addEventListener('click',()=>{
-    if(moonlight.checked == true){
+  moonlight.addEventListener('click', () => {
+    if (moonlight.checked == true) {
       document.getElementById('hygY').classList.add('hide')
       disPrivate.classList.add('RadWe_a')
       disPrivate.innerHTML = 'Now its Private Note'
       moonlight.value = 'private'
-    }else{
-    document.getElementById('hygY').classList.remove('hide')
+    } else {
+      document.getElementById('hygY').classList.remove('hide')
       disPrivate.classList.remove('RadWe_a')
       disPrivate.innerText = 'Make it private'
       moonlight.value = 'public'
-   }
+    }
   })
-  
+
 </script>
 
 <!-- model for reminder -->
@@ -178,19 +185,45 @@
       <div class="modal-body">
         <form action="/reminder" method="post">
           <div class="form-group">
-            <label for="reminder">Enter Your Reminder</label>
+            <label for="reminder">Reminder Title</label>
             <input type="text" class="form-control" id="reminder" name="reminder" placeholder="Reminder...">
           </div>
 
       </div>
       <div class="modal-footer">
         <a href="/all-reminder" class="btn btn-secondary">View All Reminders</a>
-        <button type="submit" class="btn btn-primary">Set Reminder</button>
+        <button type="submit" class="btn btn-primary" onclick="newList()">Set Reminder</button>
         </form>
       </div>
+
+      <!-- show if reminder is set -->
+
+      <!-- <div class="reminderIspresent px-3">
+        <h4 class="modal-title">Today's Reminder</h4>
+        <div class="modal-body">
+
+          <ul class="list-group" id="list__group_reminder">
+            <li class="list-group-item">
+              <input class="form-check-input ml-2" id="YUnsOP" type="checkbox">
+              <article class="ml-5" id="taskIU_S">Complate the task</article>
+            </li>
+
+
+
+          </ul>
+
+        </div>
+      </div> -->
+
+
     </div>
   </div>
 </div>
+
+
+
+
+
 
 <!-- todo list -->
 <div class="modal fade" id="todo">
@@ -236,7 +269,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/other/fileUpload" method="post" style="display:flex;justify-content: center;" >
+        <form action="/other/fileUpload" method="post" style="display:flex;justify-content: center;">
           <input type="file" name="img" class="filepond filepond--item" id="img" onchange="readFile(this.files)" />
           <label for="img" id="label_for_img"></label>
       </div>
@@ -256,19 +289,19 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-            FilePond.registerPlugin(
-                FilePondPluginImagePreview,
-                FilePondPluginImageResize,
-                FilePondPluginFileEncode
-            );
-            
-            FilePond.setOptions({
-                stylePanelAspectRatio: 150 / 100,
-                imageResizeTargetWidth: 100,
-                imageResizeTargetHeight: 150,
-            })
-            FilePond.parse(document.body);
-        });
+    FilePond.registerPlugin(
+      FilePondPluginImagePreview,
+      FilePondPluginImageResize,
+      FilePondPluginFileEncode
+    );
+
+    FilePond.setOptions({
+      stylePanelAspectRatio: 150 / 100,
+      imageResizeTargetWidth: 100,
+      imageResizeTargetHeight: 150,
+    })
+    FilePond.parse(document.body);
+  });
 
 </script>
 
@@ -309,7 +342,7 @@
     border: 2px dashed #fff;
   }
 
-  .note-prii{
+  .note-prii {
     padding: 3px 9px;
     background: #eee;
     border-radius: 3px;

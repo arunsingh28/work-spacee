@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    reminder : {
+        type : Array,
+        default : []
+    }
 });
 
 userSchema.virtual('coverImagePath').get(function (){

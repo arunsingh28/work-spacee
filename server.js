@@ -102,9 +102,11 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
     })
 })
 
+// other stuff
+app.use('/other', require('./Routes/other'))
+
 
 // for invalid urls
-
 app.use('/*', (req,res) =>{
     var url = req.baseUrl;
     var host = req.hostname;
@@ -114,8 +116,6 @@ app.use('/*', (req,res) =>{
 })
 
 
-// other stuff
-app.use('/other', require('./Routes/other'))
 
 
 const PORT = process.env.PORT || 70;

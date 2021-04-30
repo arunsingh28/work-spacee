@@ -142,6 +142,9 @@
       </div>
       <div class="modal-body">
         <input type="text" id="filter" name="q" class="form-control" placeholder="search by name...">
+        <ul class="list-group userlistPO">
+          
+        </ul>
       </div>
     </div>
   </div>
@@ -159,7 +162,7 @@
                 dataType : "jsonp",
                 type : "GET",
                 data : req,
-                success : (data)=>{ console.log(data._id) },
+                success : ( data )=>{ res(data);console.log(data) },
                 error : (err)=>{console.log(err)}
                 
             })
@@ -167,7 +170,11 @@
            minLength : 1,
            select : (e,ui)=>{
                if(ui.item){
-                   $('#filter').text(ui.item.label)
+                  const li = document.createElement('li')
+                  li.classList.add('list-group-item')
+                  li.innerText = ui.item.username
+                  document.getElementsByClassName('userlistPO')[0].appendChild(li)
+                  //  $('.collID').text(ui.item.id)
                }
            },
        })

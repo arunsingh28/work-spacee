@@ -505,7 +505,7 @@ app.get('/s',(req,res)=>{
         data.forEach(user=>{
             let obj={
                 id : user._id,
-                label : user.name
+                username : user.nickName
             };
             result.push(obj)
         })

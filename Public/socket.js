@@ -1,32 +1,39 @@
-const socket = io({transports : ['websocket'], upgrade : false});
+const socket = io();
 
 
-  socket.on('online', message =>{
-    outputMessage(message);
-  })
-  
-  socket.on('user', user =>{
-    document.querySelector('.online-person').innerHTML = user;
-  })
 
-  socket.on('useroff', user =>{
-    document.querySelector('.online-person').innerHTML = user;
-  })
 
-socket.on('offline', message =>{
-  deleteUser();
+
+// socket.on('online', (user) =>{
+//   onlineUser.push(user.user)
+//   let div = document.createElement('div')
+//   onlineUser.map((user)=>{
+//     div.innerHTML = `<p class="list-group-item list-group-item-action">${user}<span class="user-active float-right"></span></p>`
+//     document.querySelector('.user-list').appendChild(div)
+//   })
+// })
+
+
+
+socket.on('online', user => {
+  outputMessage(user)
 })
 
-  function outputMessage(message){
+
+socket.on('offline', user => {
+  var findDiv = document.querySelectorAll('.user-online' + user)
+  findDiv.forEach(el => el.classList.add('hide'))
+})
+
+
+
+
+
+function outputMessage(username) {
     let div = document.createElement('div');
     div.classList.add('user-online');
-    div.innerHTML = `<p class="list-group-item list-group-item-action">${message}<span class="user-active float-right"></span></p>`
+    div.innerHTML = `<p class="list-group-item list-group-item-action">${username.onLine}<span class="user-active float-right"></span></p>`
     document.querySelector('.user-list').appendChild(div)
+}
 
-    function deleteUser(){
-      div.classList.remove('user-online')
-    }
-  }
 
- 
-  

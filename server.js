@@ -9,6 +9,7 @@ const socket = require('socket.io');
 const morgan = require('morgan');
 const path = require('path');
 const helmet = require('helmet')
+const _ = require("lodash");
 
 const { ensureAuthenticated } = require('./config/auth');
 
@@ -65,24 +66,38 @@ app.use('/', require('./Routes/website'))
 
 const reminderDB = require('./Models/reminder');
 const linkDB = require('./Models/link');
-const image = require('./Models/image')
+const image = require('./Models/image');
+
 
 
 
 
 app.get('/dashboard', ensureAuthenticated, (req, res) => {
-    var users = 0;
-    io.on('connection', socket => {
-        users++;
-        socket.emit('online', req.user.nickName);
-        socket.emit('user', users)
-        
-        socket.on('disconnect', () => {
-            users--;
-            socket.emit('offline', req.user.nickName)
+    let users = {};
+    io.on('connection', (socket) => {
+        // user
+        let onLine = req.user.nickName
+        // check if user exits
+        if(!users[onLine]) users[onLine] = []
+
+        users[onLine].push(socket.id)
+
+        io.sockets.emit('online', {onLine} );
+
+        socket.on('disconnect',()=>{
+            _.remove(users[onLine],(u)=> u === socket.id)
+            if(users[onLine].length === 0){
+                io.sockets.emit('offline',onLine)
+                delete users[onLine]
+            }
+            socket.disconnect();
         })
-        socket.emit('useroff', users)
+
+        
     })
+
+ 
+
     const AID = req.user._id;
     reminderDB.find({ AID }, (err, reminder) => {
         if (err) throw err;
@@ -94,7 +109,8 @@ app.get('/dashboard', ensureAuthenticated, (req, res) => {
                     nav: false,
                     user: req.user,
                     reminder: reminder,
-                    link
+                    link,
+                    users
                 })
             })
         })
@@ -106,13 +122,13 @@ app.use('/other', require('./Routes/other'))
 
 
 // for invalid urls
-// app.use('/*', (req,res) =>{
-//     var url = req.baseUrl;
-//     var host = req.hostname;
-//     var protocol = req.protocol;
-//     req.flash('error_msg',`${protocol}://${host}${url} is invalid URL.`)
-//     return res.redirect('/login')
-// })
+app.use('/*', (req,res) =>{
+    var url = req.baseUrl;
+    var host = req.hostname;
+    var protocol = req.protocol;
+    req.flash('error_msg',`${protocol}://${host}${url} is invalid URL.`)
+    return res.redirect('/login')
+})
 
 
 

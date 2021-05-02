@@ -24,6 +24,41 @@
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
+    .messages_rmpUD{
+        width: 90%;
+        padding: 10px 17px !important;
+    }
+    .btn-lg{
+        font-size: 1rem !important;
+        padding: 6px 20px !important;
+    }
+    .mobile_slider{
+        display: block !important;
+        height: 47px;
+        width: 40px;
+        position: absolute;
+        top: 52%;
+        right: -40px;
+        background: #3f51b5;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    .fa-caret-left{
+        color: aliceblue;
+        transform: rotate(180deg);
+    }
+    .note{
+        border-top-right-radius: 0px !important;
+    }
+    .share{
+        border-bottom-right-radius: 0px !important;
+    }
+    .important{
+        left: 35px !important;
+    }
 }
 @media screen and (min-width:600px ) {
     .innerBGbg-image{

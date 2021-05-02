@@ -3,6 +3,9 @@
   <div class="images" data-toggle="modal" data-target="#images"><i class="fas fa-images  fa-2x"></i></div>
   <div class="reminder" data-toggle="modal" data-target="#reminder"><i class="fa fa-bell-o fa-2x"></i></div>
   <div class="share" data-toggle="modal" data-target="#share"><i class="fa fa-share fa-2x"></i></div>
+  <div class="mobile_slider">
+    <i class="fas fa-caret-left fa-2x" id="mobiL"></i>
+  </div>
   <!-- <div class="todo" data-toggle="modal" data-target="#todo"><i class="fas fa-clipboard-list fa-2x"></i></div> -->
 </div>
 
@@ -14,10 +17,11 @@
     background: #fff;
     position: fixed;
     top: 50%;
-    left: 35px;
+    left: 35px !important;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 13px;
     transform: translate(-50%, 0);
+    transition: left .1s ease-in-out;
   }
 
   .note {
@@ -43,6 +47,9 @@
     background: rgb(14, 50, 80);
     cursor: pointer;
     transition: .1s ease-in;
+  }
+  .mobile_slider{
+    display: none;
   }
 
   .reminder {
@@ -358,10 +365,36 @@
     FilePond.parse(document.body);
   });
 
+
+
+
+  const arrow = document.getElementById('mobiL')
+  const box = document.getElementsByClassName('important')[0]
+  const mobileBox = document.getElementsByClassName('mobile_slider')[0]
+
+  arrow.addEventListener('click',()=>{
+    box.classList.toggle('swip')
+    arrow.classList.toggle('rotate')
+    mobileBox.classList.toggle('newBox')
+  })
+
 </script>
 
 
 <style>
+  .swip{
+    left: -36px !important;
+  }
+  .rotate{
+    transform: rotate(0deg) !important;
+  }
+  .newBox{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+  }
+
   #label_for_img {
     font-size: 12px;
     margin-top: 25px;

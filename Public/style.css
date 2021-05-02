@@ -32,12 +32,7 @@ body{
 .shdow:hover{
     box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
 }
-/* textarea{
-    border: 1px solid;
-    padding:5px 10px;
-    outline: none;
-    border-radius: 3px;
-} */
+
 
 /* notification */
 .noti{
@@ -59,42 +54,11 @@ body{
     line-height: 32px;
     font-size: 16px;
 }
-/*
-.question-input{
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0px !important;
-    border-bottom: 1px solid #333 !important;
-    outline: none !important;
-}
-.display-question{
-    font-size: 20px;
-    font-weight: 500;
-}
-.answer{
-    padding: 5px 10px;
-    background: #cacaca;
-    border-radius: 5px;
-}
-.from-answer{
-    background: #cacaca;
-    padding: 10px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-} */
 
 .alert{
     margin: 1rem !important;
 }
 
-/* 
-.display-task{
-    padding: .8rem .5rem;
-    margin: .5rem;
-    background: #eee;
-    border-radius: 5px;
-} 
-*/
 
 .project-title{
     font-size: 18px;
@@ -110,19 +74,6 @@ body{
 .list-group-item{
     margin-top: 10px !important;
 }
-/* 
-.textarea{
-    resize: none;
-    font-family: monospace !important;
-    background-color: #1d2124 !important;
-    color: #23b945 !important;
-    font-weight: 100 !important;
-    cursor: text;
-}
-.note-btn{
-    padding : 3px 35px !important;
-} */
-
 
 .img-notFound{
     position: absolute;

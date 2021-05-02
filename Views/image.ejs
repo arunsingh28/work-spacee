@@ -5,7 +5,7 @@
 
 
  
-<div class="container mt-5">
+<div class="container mt-5 pb-5">
     <div class="preview" id="preview">
         <div class="x">X</div>
         <div>
@@ -28,10 +28,10 @@
         <% if(img) { %>
             <div class="present_wr">
                 <% img.forEach(m => { %>
-                <img src="<%= m.coverImagePath %>" alt="<%= user.username%>" id="imgPre" class="mt-3" style="width:200px;height:auto">
-               <div style="display: flex;width: 21%;" class="mt-3">
-                <a href="image/d/<%= m._id%>" class="btn btn-danger btn-block">Delete</a>
-                <!-- <button class="btn btn-info ml-5">Preview</button> -->
+                <div class="flex-GRID">
+                    <img src="<%= m.coverImagePath %>" alt="<%= user.username%>" id="imgPre" class="mt-3" style="width:200px;height:auto">
+                    <a href="image/d/<%= m._id%>" class="btn btn-danger btn-block mt-2 btn_FULL">Delete</a>
+                    <input type="hidden" class="pb-4">
                 </div>
                 <% }) %>
             </div>
@@ -94,6 +94,14 @@
         border-top-right-radius: 5px;
         cursor: pointer;
 
+    }
+    @media screen and (min-width:300px) and (max-width:550px){
+        .present_wr{
+         align-items: center !important;
+        }
+        img{
+            width: 100% !important;
+        }
     }
 </style>
 

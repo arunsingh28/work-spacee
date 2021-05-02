@@ -8,17 +8,17 @@
        <% if(nav == false) { %> 
         <ul class="navbar-nav mx-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link juHH" href="/"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="/share-work">Share Work</a>
+            <a class="nav-link juHH" href="/share-work"><i class="fas fa-share"></i> Share Work</a>
           </li>
           <!-- <li class="nav-item active">
             <a class="nav-link" href="/todo-list">Todo</a>
           </li> -->
           <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Important Link 
+            <a class="nav-link juHH" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-caret-down"></i> Tools
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="/note"><i class="fas fa-book-open circle"></i>&nbsp;&nbsp; Notes</a>
@@ -112,6 +112,14 @@
   }
   .dropdown-item:hover{
     background-color: #a2ccee !important;
+  }
+  .juHH{
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+  }
+  .juHH:hover{
+    background: #3c8dcf !important;
   }
 </style>
 

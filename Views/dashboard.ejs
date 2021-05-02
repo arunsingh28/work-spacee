@@ -6,14 +6,22 @@
       <div class="desktop">
         <div class="container">
           <div class="jumbotron bg-image rounded-bottom">
-            <h1 class="display-4">Welcome <%= user.name %>
+            <div class="innerBGbg-image"></div>
+            <!-- <div class="innerBGbg-image" style="left: 93% !important;"></div> -->
+
+            <h1 class="display-4 text-center IK_SjsI" style="
+            width: 50%;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background: -webkit-linear-gradient(#84f989,#17b7ff);
+            ">Welcome <%= user.name %>
             </h1>
-            <p class="lead">Feel Happy To see You Again.</p>
+            <p class="lead text-center IK_SjsI">Feel Happy To see You Again.</p>
             <hr class="my-4">
             <img src="<%= user.coverImagePath %>" alt="<%= user.name %>" class="Dp">
             
           </div>
-          <div class="container">
+          <div class="container pb-5">
             <div class="row mt-2">
               <div class="col-4">
                 <div class="accordion shadow-lg" id="accordionExample">
@@ -86,7 +94,7 @@
                     </div>
                   </div>
                   <!-- other project -->
-                  <div class="card">
+                  <div class="card mb-5">
                     <div class="card-header" id="headingFour">
                       <h2 class="mb-0">
                         <button class="btn btn-block text-left collapsed text-primary" type="button"
@@ -115,7 +123,7 @@
                 <!-- </div> -->
 
                 <!-- flex -->
-                <div class="col-8">
+                <div class="col-8 pb-5">
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
@@ -227,11 +235,56 @@
 
       <script src="socket.js"></script>
       <style>
-        .bg-image {
-          background-image: linear-gradient(50deg, rgb(0 0 0 / 53%), rgb(66 129 167 / 70%)), url(bg.jpg);
+       .IK_SjsI{
+         font-weight: bold;
+         padding: 5px;
+         position: inherit;
+         background-color: #dee1fc;
+         margin: 0 auto;
+         width: 33%;
+         color: #000;
+         border-radius: 3px;
+       }
+        .Dp{
+          padding: 3px;
+          display: block;
+          margin: 0 auto;
+          border: 6px solid #3f51b5 !important;
+          object-fit: cover;
+          object-position: top;
+          height: 190px !important;
+          width: 190px !important;
+          border-radius: 100px !important;
+          transition: border .2s ease-in-out;
+          cursor: pointer;
+          z-index: 999;
+          position: relative;
+        }
+        .Dp:hover{
+          padding: 2px;
+          border: 2px dashed #9a3be7 !important;
+          box-shadow: 0px 0px 15px 16px rgba(0,0,0,.04);
+        }
+
+        .innerBGbg-image{
+          background-color:transparent;
+          fill:rgb(207, 156, 236);
+          height: 357px;
+          width: 100%;
+          background-size:60px 60px;
+          position: absolute;
+          bottom: 1px;
+          left: 50%;
+          transform: translate(-50%);
+          background-repeat:repeat;
+          background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' fill-opacity='1' style='enable-background:new 0 0 500 500'%3E%3Cstyle%3E .st0{fill:rgba(207, 156, 236,0.7)} %3C/style%3E%3Ccircle class='st0' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='336.6' r='12.7'/%3E%3Cg%3E%3Ccircle class='st0' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='.7' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='419.5' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='500.7' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='170.9' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='253.8' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='88' r='12.7'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        .bg-image{
+          background-image: linear-gradient(50deg, rgb(27 16 29), rgb(12 94 158));
           background-origin: center;
           background-size: cover;
           background-repeat: no-repeat;
+          position: relative;
         }
         .mobile {
           display: none;
@@ -259,3 +312,5 @@
           }
         }
       </style>
+
+

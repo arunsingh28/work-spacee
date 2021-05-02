@@ -1,0 +1,32 @@
+@media screen and (min-width:300px) and (max-width:550px){
+    .sidenav{
+        height: 50% !important;
+    }
+    .IK_SjsI{
+        width: 100% !important;
+    }
+    .innerBGbg-image{
+        height: 418px !important;
+    }
+    .col-4{
+        -webkit-box-flex: 0 !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .col-8{
+        -webkit-box-flex: 0 !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .LLineEW{
+        word-wrap: break-word !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+}
+@media screen and (min-width:600px ) {
+    .innerBGbg-image{
+        height: 357px !important;
+    }
+}

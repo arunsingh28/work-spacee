@@ -156,7 +156,7 @@
                             </div>
                             <div id="reminder1" class="collapse show" aria-labelledby="headingOne"
                               data-parent="#accordionExample">
-                              <div class="card-body border-bottom">
+                              <div class="card-body border-bottom LLineEW">
                                 <%= reminder[i].reminder %>
                               </div>
                               <form action="/delete-reminder" method="post">
@@ -299,13 +299,13 @@
         }
         @media screen and (max-width : 500px) {
           .desktop {
-            display: none;
-          }
-          .mobile {
             display: block;
           }
+          .mobile {
+            display: none;
+          }
           nav {
-            display: none !important
+            display: block !important
           }
           .important {
             display: none !important

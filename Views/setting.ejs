@@ -1,93 +1,289 @@
 <%- include ('partials/navbar') -%>
-<%- include ('partials/important') -%>
-<!-- <%- include ('partials/messanger') -%> -->
-<%- include ('partials/messages') -%>
+  <%- include ('partials/important') -%>
+    <!-- <%- include ('partials/messanger') -%> -->
+    <%- include ('partials/messages') -%>
 
-<div class="container pb-5">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Setting</li>
-        </ol>
-      </nav>
-     
-      <!-- change password -->
-      <div class="card">
-        <div class="card-header">
-          Change Password
-        </div>
-        <div class="card-body">
-            <form action="/change-password" method="POST" class="container" onsubmit="return passWord()">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Current Password</label>
-                  <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Password.." name="currentPassword" required>
+      <div class="container pb-5">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Setting</li>
+          </ol>
+        </nav>
+
+        <!-- collapse start -->
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Profile
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body center_DEVuG">
+                <img src="<%= user.coverImagePath %>" alt="<%= user.nickName %>" class="UsrKI shadow-sm">
+                <div class="form-row mt-3">
+                  <div class="col">
+                    <label for="name">Name</label>
+                    <input class="form-control" id="name" value="<%=user.name%>" disabled>
+                  </div>
+                  <div class="col">
+                    <label for="nickname">Nickname</label>
+                    <input class="form-control" id="nickname" value="<%=user.nickName%>" disabled>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">New Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Password.." name="newPassword" required>
-                  <small id="emailHelp" class="form-text text-muted">Create Strong Password.</small>
+                <div class="form-group rowUDAd mt-3">
+                  <label for="email">Email</label>
+                  <input type="text" class="form-control" id="email" value="<%=user.email%>" disabled>
                 </div>
-                <div class="form-group">
+                <div class="form-row mt-3">
+                  <div class="col">
+                    <label for="dob">D.O.B</label>
+                    <input type="text" class="form-control" id="dob" value="<%=user.date%>" disabled>
+                  </div>
+                  <div class="col">
+                    <label for="dob">Join on</label>
+                    <input type="text" class="form-control" id="dob" value="<%=user.join%>" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                  aria-expanded="false" aria-controls="collapseTwo">
+                  Change Password
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <form action="/change-password" method="POST" class="container" onsubmit="return passWord()">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Current Password</label>
+                    <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      placeholder="(current) password..." name="currentPassword" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">New Password</label>
+                    <input type="password" class="form-control" placeholder="new password..." name="newPassword"
+                      id="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    <small id="emailHelp" class="form-text text-muted">Create Strong Password.</small>
+
+                    <!-- password validation messages -->
+                    <div id="message mt-2">
+                      <h4>Password must contain the following:</h4>
+                      <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                      <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                      <p id="number" class="invalid">A <b>number</b></p>
+                      <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" id="cPassword" placeholder="Password.." required>
+                    <input type="password" class="form-control" id="cPassword" placeholder="confirm password..."
+                      required>
                     <small id="emailHelp" class="form-text text-muted">Should be same as above.</small>
                   </div>
-                <button type="submit" class="btn btn-primary">Change Password</button>
-                <button type="reset" class="btn btn-success">Reset</button>
-              </form>
-              <div class="give"></div>
+                  <button type="submit" class="btn btn-primary">Change Password</button>
+                </form>
+                <div class="give"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  Delete Account
+                </button>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body">
+                <form action="/delete-account" method="POST" class="container">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" value="<%=user.email%>" id="email"
+                      aria-describedby="emailHelp" disabled placeholder="Enter Your Email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Enter Your Password</label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1"
+                      placeholder="Enter Your Password" required>
+                  </div>
+                  <button type="submit" class="btn btn-danger">Delete Account</button>
+                  <button type="reset" class="btn btn-success">Reset</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+        <!-- collapse end -->
+
+
+
+
+
+        <!-- IMAGE CHANGE -->
+        <!-- <div class="card mt-4">
+          <div class="card-header">
+            Change Profile Pic
+          </div>
+          <div class="card-body">
+            <form action="/other/change-profile" method="post">
+              <input type="file" class="filepond filepond--item" name="img" id="img" required>
+              <button type="submit" class="btn btn-primary btn-block">Change Profile</button>
+            </form>
+          </div>
+        </div> -->
+
+
       </div>
 
-      <div class="card mt-4">
-        <div class="card-header">
-         Delete Account Parmanently
-        </div>
-        <div class="card-body">
-            <form action="/delete-account" method="POST" class="container">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Type Your Email</label>
-                  <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email" required>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Enter Your Password</label>
-                  <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter Your Password" required>
-                </div>
-                <button type="submit" class="btn btn-danger">Delete Account</button>
-                <button type="reset" class="btn btn-success">Reset</button>
-              </form>
-        </div>
-      </div>
 
 
-      <!-- IMAGE CHANGE -->
-      <div class="card mt-4">
-        <div class="card-header">
-          Change Profile Pic
-         </div>
-         <div class="card-body">
-          <form action="/other/change-profile" method="post">
-          <input type="file" class="filepond filepond--item" name="img" id="img" required>
-          <button type="submit" class="btn btn-primary btn-block">Change Profile</button>
-          </form>
-         </div>
-      </div>
+      <%- include('partials/dashFooter')%>
+
+        <style>
+          .alert-warning {
+            color: #fff;
+            background: none !important;
+            border-color: black !important;
+            margin-bottom: 0px;
+          }
+
+          .alert-dismissible .close {
+            border-left: 3px solid #00bcd4 !important;
+          }
+          .UsrKI{
+            height: 250px;
+            width: 250px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 200px;
+            border:5px solid rgb(131, 65, 236);
+            display: block;
+            margin: 0 auto;
+          }
+          #message {
+            display: none;
+            background: #eee;
+            color: rgb(37, 37, 37);
+            position: relative;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+          }
+
+          #message p {
+            padding: 0px 35px;
+            font-size: 15px;
+          }
+
+          /* Add a green text color and a checkmark when the requirements are right */
+          .valid {
+            color: green;
+          }
+
+          .valid:before {
+            position: relative;
+            left: -20px;
+            content: "✔";
+          }
+
+          /* Add a red text color and an "x" when the requirements are wrong */
+          .invalid {
+            color: rgb(255, 62, 62);
+          }
+
+          .invalid:before {
+            position: relative;
+            left: -20px;
+            content: "✖";
+          }
+
+          @media screen and (max-width:500px) {
+            .center_DEVuG {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+            }
+
+            .UsrKI {
+              height: 230px;
+              width: 230px;
+              border-radius: 200px;
+              object-fit: cover;
+              object-position: center;
+              border: 5px solid rgb(120, 47, 204);
+            }
+
+            .rowUDAd {
+              width: 100% !important;
+            }
+          }
+        </style>
+
+        <script>
 
 
-</div>
+          var myInput = document.getElementById("psw");
+          var letter = document.getElementById("letter");
+          var capital = document.getElementById("capital");
+          var number = document.getElementById("number");
+          var length = document.getElementById("length");
 
+          myInput.onfocus = () => {
+            document.getElementById('message').style.display = 'block'
+          }
 
+          myInput.onblur = () => {
+            document.getElementById('message').style.display = 'none'
+          }
 
-<%- include('partials/dashFooter')%>
+          myInput.onkeyup = () => {
+            var lowerCaseLetter = /[a-z]/g;
+            var upperCaseLetters = /[A-Z]/g;
+            var numbers = /[0-9]/g;
 
-<style>
-    .alert-warning{
-        color: #fff;
-        background: none !important;
-        border-color: black !important;
-        margin-bottom: 0px;
-    }
-    .alert-dismissible .close{
-        border-left: 3px solid #00bcd4 !important;
-    }
-</style>
+            if (myInput.value.match(lowerCaseLetter)) {
+              letter.classList.remove('invalid')
+              letter.classList.add('valid')
+            } else {
+              letter.classList.remove('valid')
+              letter.classList.add('invalid')
+            }
+
+            if (myInput.value.match(upperCaseLetters)) {
+              capital.classList.remove("invalid");
+              capital.classList.add("valid");
+            } else {
+              capital.classList.remove("valid");
+              capital.classList.add("invalid");
+            }
+
+            if (myInput.value.match(numbers)) {
+              number.classList.remove("invalid");
+              number.classList.add("valid");
+            } else {
+              number.classList.remove("valid");
+              number.classList.add("invalid");
+            }
+            if (myInput.value.length >= 8) {
+              length.classList.remove("invalid");
+              length.classList.add("valid");
+            } else {
+              length.classList.remove("valid");
+              length.classList.add("invalid");
+            }
+          }
+        </script>

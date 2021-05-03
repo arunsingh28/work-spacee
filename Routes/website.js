@@ -45,9 +45,17 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const { name, nickName, email, password, date, img } = req.body;
+
+    const d = new Date()
+    let day = d.getDate()
+    let mont = d.getMonth()
+    let y = d.getUTCFullYear()
+    const join = y+"-"+mont+"-"+day;
+
     const movie = new userDB({
-        name, nickName, email, date, password
+        name, nickName, email, date, password, join
     })
+   
     saveImage(movie, img)
     try {
         userDB.findOne({ email }, async (err, docs) => {

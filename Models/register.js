@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    join : {
+        type : String,
+        default : '2-04-2021'
+    },
     email : {
         type : String,
         required : true,

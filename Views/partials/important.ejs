@@ -118,7 +118,8 @@
     }
     .fa-caret-left{
         color: aliceblue;
-        transform: rotate(180deg);
+        transform: rotate(0deg);
+        transition: all .2s ease-in-out;
     }
     .note{
         border-top-right-radius: 0px !important;
@@ -127,7 +128,7 @@
         border-bottom-right-radius: 0px !important;
     }
     .important{
-        left: 35px !important;
+        left: -36px !important;
     }
   }
 
@@ -419,10 +420,10 @@
 
 <style>
   .swip{
-    left: -36px !important;
+    left: 36px !important;
   }
   .rotate{
-    transform: rotate(0deg) !important;
+    transform: rotate(180deg) !important;
   }
   .newBox{
     border-top-left-radius: 0px;

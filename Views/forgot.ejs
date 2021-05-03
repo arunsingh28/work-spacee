@@ -1,42 +1,145 @@
-
-
-
 <%- include ('partials/navbar') -%>
-<%- include ('partials/messages') -%>
+  <%- include ('partials/messages') -%>
 
 
-  <div class="modal-dialog mt-5">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
-      </div>
-      <div class="modal-body">
-        <form action="/forgot-password" method="post" onsubmit="return val()">
-          <div class="msg"></div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" required name="email" placeholder="Your Email ">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-          <div class="form-group">
-            <label for="date">Your Date of Birth</label>
-            <input type="date" class="form-control" id="date" name="date" required aria-describedby="emailHelp">
-          </div>
-          <div class="row align-items-center mt-4">
-            <div class="col">
-              <label for="date">New Password</label>
-              <input type="password" class="form-control" name="password" required id="password" placeholder="Password" autocomplete="off">
+    <div class="modal-dialog mt-5 pb-5">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+        </div>
+        <div class="modal-body">
+          <form action="/forgot-password" method="post" onsubmit="return val()">
+            <div class="msg"></div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" required name="email"
+                placeholder="Your Email ">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
-            <div class="col">
-              <label for="date">Confirm Password </label>
-              <input type="password" class="form-control" name="cpass" id="cPassword" required placeholder="Confirm Password" autocomplete="off">
-            </div> 
-          </div>
-          <button type="submit" class="btn btn-primary btn-block mt-4">Change password</button>
-      </form>
+            <div class="form-group">
+              <label for="date">Your Date of Birth</label>
+              <input type="date" class="form-control" id="date" name="date" required aria-describedby="emailHelp">
+            </div>
+            <div class="row align-items-center mt-4">
+              <div class="col">
+                <label for="date">New Password</label>
+                <input type="password" class="form-control" name="password" required placeholder="Password"
+                  autocomplete="off" id="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+              </div>
+              <div class="col">
+                <label for="date">Confirm Password </label>
+                <input type="password" class="form-control" name="cpass" id="cPassword" required
+                  placeholder="Confirm Password" autocomplete="off">
+              </div>
+            </div>
+            <!-- password validation messages -->
+            <div id="message mt-2">
+              <h4>Password must contain the following:</h4>
+              <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+              <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+              <p id="number" class="invalid">A <b>number</b></p>
+              <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-4">Change password</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+    <style>
+      #message {
+        display: none;
+        background: #eee;
+        color: rgb(37, 37, 37);
+        position: relative;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        margin-left: 8px;
+        margin-top: 10px !important;
+      }
+
+      #message p {
+        padding: 0px 35px;
+        font-size: 15px;
+        margin-left: 30px !important;
+      }
+
+      /* Add a green text color and a checkmark when the requirements are right */
+      .valid {
+        color: green;
+      }
+
+      .valid:before {
+        position: relative;
+        left: -5px;
+        content: "✔";
+      }
+
+      /* Add a red text color and an "x" when the requirements are wrong */
+      .invalid {
+        color: rgb(255, 62, 62);
+      }
+
+      .invalid:before {
+        position: relative;
+        left: -5px;
+        content: "✖";
+      }
+    </style>
 
 
-  <%- include('partials/dashFooter')%>
+    <script>
+
+      var myInput = document.getElementById("psw");
+      var letter = document.getElementById("letter");
+      var capital = document.getElementById("capital");
+      var number = document.getElementById("number");
+      var length = document.getElementById("length");
+
+      myInput.onfocus = () => {
+        document.getElementById('message').style.display = 'block'
+      }
+
+      myInput.onblur = () => {
+        document.getElementById('message').style.display = 'none'
+      }
+
+      myInput.onkeyup = () => {
+        var lowerCaseLetter = /[a-z]/g;
+        var upperCaseLetters = /[A-Z]/g;
+        var numbers = /[0-9]/g;
+
+        if (myInput.value.match(lowerCaseLetter)) {
+          letter.classList.remove('invalid')
+          letter.classList.add('valid')
+        } else {
+          letter.classList.remove('valid')
+          letter.classList.add('invalid')
+        }
+
+        if (myInput.value.match(upperCaseLetters)) {
+          capital.classList.remove("invalid");
+          capital.classList.add("valid");
+        } else {
+          capital.classList.remove("valid");
+          capital.classList.add("invalid");
+        }
+
+        if (myInput.value.match(numbers)) {
+          number.classList.remove("invalid");
+          number.classList.add("valid");
+        } else {
+          number.classList.remove("valid");
+          number.classList.add("invalid");
+        }
+        if (myInput.value.length >= 8) {
+          length.classList.remove("invalid");
+          length.classList.add("valid");
+        } else {
+          length.classList.remove("valid");
+          length.classList.add("invalid");
+        }
+      }
+    </script>
+    <%- include('partials/dashFooter')%>

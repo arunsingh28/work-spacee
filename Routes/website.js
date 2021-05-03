@@ -345,7 +345,7 @@ app.post('/change-password', ensureAuthenticated, (req, res) => {
                 })
             })
         } else {
-            req.flash('error', 'Wrong Password');
+            req.flash('error', 'wrong current password');
             return res.redirect('/account-settings')
         }
     });

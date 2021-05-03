@@ -37,17 +37,19 @@ body{
 
 /* notification */
 .noti{
-    color: #fff;
+    font-family: 'Poppins', sans-serif; 
+    color: #ff2c2c !important;
 }
 .give{
+    font-family: 'Poppins', sans-serif; 
     position: fixed;
-    bottom: 10px;
-    left: 16px;
-    background: #232323;
-    z-index: 1;
+    top: 43px;
+    left: 61%;
+    transform: translateX(-8%);
+    z-index: 999999;
     border-radius: 6px;
-    box-shadow: 8px 1px 20px 6px rgba(0,0,0,0.22);
     transition: .3s cubic-bezier(1, -0.01, 0.51, 1.46);
+    width: 526px;
 }
 .toogle{
     bottom: 16px;

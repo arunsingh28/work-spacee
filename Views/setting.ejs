@@ -87,8 +87,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" id="cPassword" placeholder="confirm password..."
-                      required>
+                    <input type="password" class="form-control" id="cpsw" placeholder="confirm password..." required>
                     <small id="emailHelp" class="form-text text-muted">Should be same as above.</small>
                   </div>
                   <button type="submit" class="btn btn-primary">Change Password</button>
@@ -154,25 +153,25 @@
 
         <style>
           .alert-warning {
-            color: #fff;
-            background: none !important;
-            border-color: black !important;
+            color: rgb(245, 37, 37);
             margin-bottom: 0px;
           }
 
           .alert-dismissible .close {
             border-left: 3px solid #00bcd4 !important;
           }
-          .UsrKI{
+
+          .UsrKI {
             height: 250px;
             width: 250px;
             object-fit: cover;
             object-position: center;
             border-radius: 200px;
-            border:5px solid rgb(131, 65, 236);
+            border: 5px solid rgb(131, 65, 236);
             display: block;
             margin: 0 auto;
           }
+
           #message {
             display: none;
             background: #eee;
@@ -286,4 +285,25 @@
               length.classList.add("invalid");
             }
           }
+
+
+
+          const passWord = () => {
+            const newPassword = document.getElementById('psw').value;
+            const confirmPassword = document.getElementById('cpsw').value;
+
+            if (newPassword != confirmPassword) {
+              const div = document.createElement('div');
+              div.className = 'temp';
+              div.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <strong>Password is not matching with confirm password!</strong> Please check
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              </div>`;
+              document.querySelector('.give').appendChild(div);
+              return false;
+            }
+          }
+
         </script>

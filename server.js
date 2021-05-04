@@ -75,30 +75,28 @@ const image = require('./Models/image');
 app.get('/dashboard', ensureAuthenticated,(req, res) => {
     let users = {};
     
-    
-     io.on('connection', (socket) => {
-        // user
-        let onLine = req.user.nickName
-        // check if user exits
-        if (!users[onLine]) users[onLine] = []
 
-        users[onLine].push(socket.id)
+    //  io.on('connection', (socket) => {
+    //     // user
+    //     let onLine = req.user.nickName
+    //     // check if user exits
+    //     if (!users[onLine]) users[onLine] = []
 
-        io.sockets.emit('online', { onLine });
+    //     users[onLine].push(socket.id)
 
-        socket.on('disconnect', () => {
-            _.remove(users[onLine], (u) => u === socket.id)
-            if (users[onLine].length === 0) {
-                io.sockets.emit('offline', onLine)
-                delete users[onLine]
-            }
-            socket.disconnect();
-        })
+    //     io.sockets.emit('online', { onLine });
 
-
-    })
+    //     socket.on('disconnect', () => {
+    //         _.remove(users[onLine], (u) => u === socket.id)
+    //         if (users[onLine].length === 0) {
+    //             io.sockets.emit('offline', onLine)
+    //             delete users[onLine]
+    //         }
+    //         socket.disconnect();
+    //     })
 
 
+    // })
 
     const AID = req.user._id;
      reminderDB.find({ AID }, (err, reminder) => {
@@ -136,8 +134,9 @@ app.use('/*', (req, res) => {
 
 
 const PORT = process.env.PORT || 70;
-
+server.timeout = 0;
 server.listen(PORT, () => {
+    console.log(server.timeout)
     console.log(`Server Running On http://localhost:${PORT}`)
 })
 

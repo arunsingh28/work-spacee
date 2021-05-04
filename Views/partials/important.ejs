@@ -153,6 +153,10 @@
     .important {
       left: -36px !important;
     }
+    #filterUQN{
+      top: 83px !important;
+      width: 409px !important;
+    }
   }
 </style>
 
@@ -197,7 +201,7 @@
 
 <!-- Modal for share -->
 <div class="modal fade" id="share" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="position: relative;">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Share Center</h5>
@@ -205,9 +209,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body"
+      style="max-height: 390px;
+            overflow-y: scroll;" 
+      >
         <input type="text" id="filterUQN" class="form-control" placeholder="search by name...">
-        <ul class="list-group" id="userlistPO">
+        <ul class="list-group" style="margin-top: 33px;" id="userlistPO">
           <p></p>
         </ul>
       </div>
@@ -245,11 +252,12 @@
   const outputHTML = match => {
     if(match.length > 0){
       const html = match.map(name =>
-        ` <li class="list-group-item">
-          ${name.name}
-          <span class="btn btn-primary float-right"><i class="fa-user-plus"></i> Send Request</span>
-          <input type="hidden" value="${name._id}">
-          </li>
+        ` <div class="card mt-2">
+          <div class="card-body text-capitalize">
+          <span class="font-weight-normal" style="line-height:30px">${name.name}</span>
+          <a href="/friend/${name._id}" class="btn btn-outline-primary float-right"><i class="fas fa-user-plus"></i> Send Request</a>
+          </div>
+          </div>
         `
       ).join('')
       dis.innerHTML = html
@@ -283,6 +291,14 @@
 
   .switch {
     border: 1px solid #000;
+  }
+  #filterUQN{
+    position: fixed;
+    top: 102px;
+    left: 50%;
+    width: 458px;
+    z-index: 999;
+    transform: translate(-50%,-50%);
   }
 </style>
 <script>

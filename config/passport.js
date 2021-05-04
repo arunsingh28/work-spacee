@@ -28,8 +28,6 @@ module.exports = function(passport) {
   );
 
   passport.serializeUser(function(user, done) {
-    users++;
-    console.log(user.name,'user login:'+users);
     done(null, user.id);
   });
 

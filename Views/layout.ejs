@@ -17,21 +17,19 @@
   </title>
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
   <link rel="manifest" href="/favicon/site.webmanifest">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="footer.css">
-  <link rel="stylesheet" href="mobile.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/footer.css">
+  <link rel="stylesheet" href="/mobile.css">
   <script src="/bootstrap/jquery.js"></script>
   <script src="/fontawesome.js"></script>
   <link rel="stylesheet" href="/fontawesome.css">
-  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+  <link rel="stylesheet" href="/ajax.css">
+  <link rel="stylesheet" href="/filePOD.css">
+  <link rel="stylesheet" href="/preview.css">
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       FilePond.registerPlugin(
@@ -53,7 +51,6 @@
 <body>
   <div id="loader" class="center"></div>
   <script src="/socket.io/socket.io.js"></script>
-  <!-- <script src="main.js"></script>   -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
@@ -63,6 +60,11 @@
   <%- body %>
 
 </body>
+
+<pre>
+  <!-- https://code.jquery.com/jquery-3.5.1.slim.min.js -->
+  <!-- https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css -->
+</pre>
 
 <script>
 
@@ -142,15 +144,11 @@
 
   document.onreadystatechange = function () {
     if (document.readyState !== "complete") {
-      document.querySelector(
-        "body").style.visibility = "hidden";
-      document.querySelector(
-        "#loader").style.visibility = "visible";
+      document.querySelector("body").style.visibility = "hidden";
+      document.querySelector("#loader").style.visibility = "visible";
     } else {
-      document.querySelector(
-        "#loader").style.display = "none";
-      document.querySelector(
-        "body").style.visibility = "visible";
+      document.querySelector("#loader").style.display = "none";
+      document.querySelector("body").style.visibility = "visible";
     }
   };
 

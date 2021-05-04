@@ -50,12 +50,12 @@ app.post('/register', async (req, res) => {
     let day = d.getDate()
     let mont = d.getMonth()
     let y = d.getUTCFullYear()
-    const join = y+"-"+mont+"-"+day;
+    const join = y + "-" + mont + "-" + day;
 
     const movie = new userDB({
         name, nickName, email, date, password, join
     })
-   
+
     saveImage(movie, img)
     try {
         userDB.findOne({ email }, async (err, docs) => {
@@ -155,17 +155,17 @@ app.get('/note/d/:id', ensureAuthenticated, (req, res) => {
 app.post('/note/edit/:id', (req, res) => {
     const { id } = req.params
     const { note } = req.body
-    noteDB.update({_id:id},{
-        $set : {note:note}
+    noteDB.update({ _id: id }, {
+        $set: { note: note }
     })
-    .then(()=>{
-        req.flash('success_msg','👍 Note successfully edited.')
-        return res.redirect('/note')
-    })
-    .catch(()=>{
-        req.flash('error','Error occur while editing note.')
-        return res.redirect('/note')
-    })
+        .then(() => {
+            req.flash('success_msg', '👍 Note successfully edited.')
+            return res.redirect('/note')
+        })
+        .catch(() => {
+            req.flash('error', 'Error occur while editing note.')
+            return res.redirect('/note')
+        })
 })
 
 
@@ -421,17 +421,18 @@ app.post('/forgot-password', (req, res) => {
     })
 })
 
-// app.get('/all-user-info', (req, res) => {
-//     userDB.find({}, (err, user) => {
-//         if (err) throw err;
-//         return res.send(user)
-//     })
-// })
+
+app.get('/all', (req, res) => {
+    userDB.find({}, (err, user) => {
+        if (err) throw err;
+        return res.json({ data: user })
+    })
+})
 
 app.post('/delete-reminder', (req, res) => {
     const { reminderId } = req.body;
-    reminderDB.remove({ _id: reminderId })
-        .then(() => { return res.redirect('/') })
+    reminderDB.deleteOne({ _id: reminderId })
+        .then(() => { return res.redirect('/dashboard') })
         .catch((err => console.log(err)))
 })
 
@@ -454,11 +455,11 @@ app.post('/question-save', (req, res) => {
     const newQuestion = new questionDB({ AID, question, date, allotUser })
     newQuestion.save()
         .then(() => {
-            req.flash('success_msg','👍 Question submited successfully.')
+            req.flash('success_msg', '👍 Question submited successfully.')
             return res.redirect('/q&a')
         })
-        .catch(()=>{
-            req.flash('error','Errro occur while submiting question.Try Again letter')
+        .catch(() => {
+            req.flash('error', 'Errro occur while submiting question.Try Again letter')
             return res.redirect('/q&a')
         })
 })
@@ -468,11 +469,11 @@ app.post('/answer-save', (req, res) => {
     const newAnswer = new anserDB({ questionID, userID, answer, allotUser });
     newAnswer.save()
         .then(() => {
-            req.flash('success_msg','👍 Answer submited successfully.')
+            req.flash('success_msg', '👍 Answer submited successfully.')
             return res.redirect('/q&a')
         })
-        .catch(()=>{
-            req.flash('error','Errro occur while submiting answer.Try Again letter')
+        .catch(() => {
+            req.flash('error', 'Errro occur while submiting answer.Try Again letter')
             return res.redirect('/q&a')
         })
 })
@@ -500,26 +501,26 @@ app.get('/team-management', (req, res) => {
 })
 
 
-app.get('/se',(req,res)=>{
-    res.render('search',{title:'se'})
+app.get('/se', (req, res) => {
+    res.render('search', { title: 'se' })
 })
 
 // search API
-app.get('/s',(req,res)=>{
+app.get('/s', (req, res) => {
     const q = req.query["term"];
-    userDB.find({ name: { $regex: new RegExp(q) , $options: '$i'}}).sort({'updated_at':-1}).sort({'created_at':-1})
-    .then(data=>{
-        var result = []
-        data.forEach(user=>{
-            let obj={
-                id : user._id,
-                username : user.nickName
-            };
-            result.push(obj)
+    userDB.find({ name: { $regex: new RegExp(q), $options: '$i' } }).sort({ 'updated_at': -1 }).sort({ 'created_at': -1 })
+        .then(data => {
+            var result = []
+            data.forEach(user => {
+                let obj = {
+                    id: user._id,
+                    username: user.nickName
+                };
+                result.push(obj)
+            })
+            res.jsonp(result)
         })
-        res.jsonp(result)
-    })
-    .catch(err => console.log(err))
+        .catch(err => console.log(err))
 })
 
 

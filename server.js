@@ -17,10 +17,10 @@ const { ensureAuthenticated } = require('./config/auth');
 const app = express();
 const server = http.createServer(app)
 const io = socket(server);
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
-app.use(express.json({limit: '5mb'}))
-app.use(express.urlencoded({limit : '5mb', extended: true }));
+app.use(express.json({ limit: '5mb' }))
+app.use(express.urlencoded({ limit: '5mb', extended: true }));
 
 
 
@@ -29,9 +29,9 @@ require('./config/passport')(passport)
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
 
 
-mongoose.connect(db)
-.then(()=> console.log('database is connected'))
-.catch(err => console.log(err))
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+    .then(() => console.log('database is connected'))
+    .catch(err => console.log(err))
 
 
 
@@ -72,38 +72,40 @@ const image = require('./Models/image');
 
 
 
-app.get('/dashboard', ensureAuthenticated, (req, res) => {
+app.get('/dashboard', ensureAuthenticated,(req, res) => {
     let users = {};
-    io.on('connection', (socket) => {
+    
+    
+     io.on('connection', (socket) => {
         // user
         let onLine = req.user.nickName
         // check if user exits
-        if(!users[onLine]) users[onLine] = []
+        if (!users[onLine]) users[onLine] = []
 
         users[onLine].push(socket.id)
 
-        io.sockets.emit('online', {onLine} );
+        io.sockets.emit('online', { onLine });
 
-        socket.on('disconnect',()=>{
-            _.remove(users[onLine],(u)=> u === socket.id)
-            if(users[onLine].length === 0){
-                io.sockets.emit('offline',onLine)
+        socket.on('disconnect', () => {
+            _.remove(users[onLine], (u) => u === socket.id)
+            if (users[onLine].length === 0) {
+                io.sockets.emit('offline', onLine)
                 delete users[onLine]
             }
             socket.disconnect();
         })
 
-        
+
     })
 
- 
+
 
     const AID = req.user._id;
-    reminderDB.find({ AID }, (err, reminder) => {
+     reminderDB.find({ AID }, (err, reminder) => {
         if (err) throw err;
-        linkDB.find({ AID }, (err, link) => {
+         linkDB.find({ AID }, (err, link) => {
             if (err) throw err;
-            image.find({ allot : AID},(err,pic)=>{
+            image.find({ allot: AID }, (err, pic) => {
                 res.render('dashboard', {
                     title: 'Dashboard',
                     nav: false,
@@ -122,11 +124,11 @@ app.use('/other', require('./Routes/other'))
 
 
 // for invalid urls
-app.use('/*', (req,res) =>{
+app.use('/*', (req, res) => {
     var url = req.baseUrl;
     var host = req.hostname;
     var protocol = req.protocol;
-    req.flash('error_msg',`${protocol}://${host}${url} is invalid URL.`)
+    req.flash('error_msg', `${protocol}://${host}${url} is invalid URL.`)
     return res.redirect('/login')
 })
 

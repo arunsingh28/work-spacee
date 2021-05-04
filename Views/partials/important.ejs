@@ -4,7 +4,8 @@
     <i class="fas fa-sticky-note fa-2x"></i>
   </div>
 
-  <div class="images" data-toggle="modal" data-toggle="tooltip" data-placement="right" title="Image Uploader" data-target="#images">
+  <div class="images" data-toggle="modal" data-toggle="tooltip" data-placement="right" title="Image Uploader"
+    data-target="#images">
     <i class="fas fa-images  fa-2x"></i>
   </div>
 
@@ -61,7 +62,8 @@
     cursor: pointer;
     transition: .1s ease-in;
   }
-  .mobile_slider{
+
+  .mobile_slider {
     display: none;
   }
 
@@ -95,15 +97,19 @@
   .note:hover .fa-sticky-note {
     transform: scale(1.1);
   }
+
   .images:hover .fa-images {
     transform: scale(1.1);
   }
+
   .reminder:hover .fa-bell {
     transform: scale(1.1);
   }
-  .share:hover .fa-share{
+
+  .share:hover .fa-share {
     transform: scale(1.1);
   }
+
   .todo:hover .fa-clipboard-list {
     transform: scale(1.1);
   }
@@ -115,36 +121,39 @@
   }
 
   @media screen and (min-width:300px) and (max-width:550px) {
-    .mobile_slider{
-        display: block !important;
-        height: 47px;
-        width: 40px;
-        position: absolute;
-        top: 52%;
-        right: -40px;
-        background: #3f51b5;
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
+    .mobile_slider {
+      display: block !important;
+      height: 47px;
+      width: 40px;
+      position: absolute;
+      top: 52%;
+      right: -40px;
+      background: #3f51b5;
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
-    .fa-caret-left{
-        color: aliceblue;
-        transform: rotate(180deg);
-        transition: all .2s ease-in-out;
+
+    .fa-caret-left {
+      color: aliceblue;
+      transform: rotate(180deg);
+      transition: all .2s ease-in-out;
     }
-    .note{
-        border-top-right-radius: 0px !important;
+
+    .note {
+      border-top-right-radius: 0px !important;
     }
-    .share{
-        border-bottom-right-radius: 0px !important;
+
+    .share {
+      border-bottom-right-radius: 0px !important;
     }
-    .important{
-        left: -36px !important;
+
+    .important {
+      left: -36px !important;
     }
   }
-
 </style>
 
 
@@ -167,8 +176,7 @@
         <p class="lead ml-5" id="hygY" style="font-size: 15px;border: 1px solid #000;padding: 10px 9px;">By default note
           is public.</p>
         <div class="toggle float-right">
-          <label class="switch pb-2"
-            style="margin-bottom:0 !important;margin-top: -3.3px !important;">
+          <label class="switch pb-2" style="margin-bottom:0 !important;margin-top: -3.3px !important;">
             <input type="checkbox" id="public" name="visible" value="" />
             <span id="note-prii" class="note-prii">Make it private</span>
           </label>
@@ -182,7 +190,7 @@
 </div>
 
 <style>
-  .switch{
+  .switch {
     padding: 13.6px 38px !important
   }
 </style>
@@ -198,44 +206,34 @@
         </button>
       </div>
       <div class="modal-body">
-        <input type="text" id="filter" name="q" class="form-control" placeholder="search by name...">
-        <ul class="list-group userlistPO">
-          
+        <input type="text" id="filterUQN" class="form-control" placeholder="search by name...">
+        <ul class="list-group userlistPO" id="userlistPO">
+
         </ul>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-  $(()=>{
-       $('#filter').autocomplete({
-           source : (req,res)=>{
-            $.ajax({
-                url : 's/',
-                dataType : "jsonp",
-                type : "GET",
-                data : req,
-                success : ( data )=>{ res(data);console.log(data) },
-                error : (err)=>{console.log(err)}
-                
-            })
-           },
-           minLength : 1,
-           select : (e,ui)=>{
-               if(ui.item){
-                  const li = document.createElement('li')
-                  li.classList.add('list-group-item')
-                  li.innerText = ui.item.username
-                  document.getElementsByClassName('userlistPO')[0].appendChild(li)
-                  //  $('.collID').text(ui.item.id)
-               }
-           },
-       })
-    })
+  const search = document.getElementById('filterUQN')
+
+  const searchMatch = async searchText => {
+    const res = await fetch('/all')
+    const user = await res.json()
+    try {
+      let match = user.data.filter(name => {
+        const regex = new RegExp(`^${searchText}`, 'gi')
+        return console.log(regex)
+      })
+      console.log(match)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  search.addEventListener('input', () => searchMatch(search.value))
 </script>
 
 <style>
@@ -422,7 +420,7 @@
   const box = document.getElementsByClassName('important')[0]
   const mobileBox = document.getElementsByClassName('mobile_slider')[0]
 
-  arrow.addEventListener('click',()=>{
+  arrow.addEventListener('click', () => {
     box.classList.toggle('swip')
     arrow.classList.toggle('rotate')
     mobileBox.classList.toggle('newBox')
@@ -432,13 +430,15 @@
 
 
 <style>
-  .swip{
+  .swip {
     left: 36px !important;
   }
-  .rotate{
+
+  .rotate {
     transform: rotate(0deg) !important;
   }
-  .newBox{
+
+  .newBox {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border-top-right-radius: 5px !important;

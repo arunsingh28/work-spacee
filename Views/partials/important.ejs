@@ -207,8 +207,8 @@
       </div>
       <div class="modal-body">
         <input type="text" id="filterUQN" class="form-control" placeholder="search by name...">
-        <ul class="list-group userlistPO" id="userlistPO">
-
+        <ul class="list-group" id="userlistPO">
+          <p></p>
         </ul>
       </div>
     </div>
@@ -218,18 +218,41 @@
 
 <script>
   const search = document.getElementById('filterUQN')
-
+  const dis = document.getElementById('userlistPO')
+  const loader = `
+  <div class="d-flex justify-content-center py-5">
+  <div class="spinner-border text-primary" role="status">
+  </div>
+  </div>
+  `
   const searchMatch = async searchText => {
+    dis.innerHTML = loader;
     const res = await fetch('/all')
     const user = await res.json()
-    try {
+   
       let match = user.data.filter(name => {
         const regex = new RegExp(`^${searchText}`, 'gi')
-        return console.log(regex)
+        return name.name.match(regex)
       })
-      console.log(match)
-    } catch (error) {
-      console.log(error)
+
+      if(searchText.length === 0){
+        match = []
+      }
+
+      outputHTML(match)
+  }
+
+  const outputHTML = match => {
+    if(match.length > 0){
+      const html = match.map(name =>
+        ` <li class="list-group-item">
+          ${name.name}
+          <span class="btn btn-primary float-right"><i class="fa-user-plus"></i> Send Request</span>
+          <input type="hidden" value="${name._id}">
+          </li>
+        `
+      ).join('')
+      dis.innerHTML = html
     }
   }
 

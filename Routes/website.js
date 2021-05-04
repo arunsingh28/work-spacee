@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const PORT = process.env.PORT || 70;
-// const { s3 , upload } = require('../config/multer') 
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 
 // init app
@@ -17,7 +16,6 @@ const questionDB = require('../Models/question');
 const anserDB = require('../Models/answer');
 
 
-const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
 
 // routers
 app.get('/', forwardAuthenticated, (req, res) => {
@@ -44,7 +42,9 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-    const { name, nickName, email, password, date, img } = req.body;
+    const { name, nickName, email, password: plainText, date, img } = req.body;
+
+    console.log(req.body)
 
     const d = new Date()
     let day = d.getDate()
@@ -52,54 +52,39 @@ app.post('/register', async (req, res) => {
     let y = d.getUTCFullYear()
     const join = y + "-" + mont + "-" + day;
 
-    const movie = new userDB({
-        name, nickName, email, date, password, join
-    })
+    
 
-    saveImage(movie, img)
+    const password = await bcrypt.hash(plainText, 10)
+
     try {
-        userDB.findOne({ email }, async (err, docs) => {
-            if (!docs) {
-                bcrypt.genSalt(10, async (err, salt) => {
-                    if (err) throw err;
-                    bcrypt.hash(movie.password, salt, async (err, hash) => {
-                        if (err) throw err;
-                        movie.password = hash
-                        const newMovie = await movie.save()
-                        req.flash('success_msg', 'Account is Created you can log in now.')
-                        return res.redirect('/login')
-                    })
-                })
-            } else {
-                req.flash('message', 'This Email already Registered')
+        userDB.findOne({email},async(err,user)=>{
+            if(user){
+                req.flash('error','Email already in use')
                 return res.redirect('/login')
             }
+            else{
+                const res = await userDB.create({
+                    name,nickName,email,password,date,img,join
+                })
+            }
         })
-
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        if(error.code === 11000){
+            req.flash('error','Email already in use.')
+            return res.redirect('/login')
+        }
+        throw error
     }
+    res.json({status : 'ok'})
 })
 
 
-function saveImage(movie, imgEncoded) {
-    if (imgEncoded == null) return;
-    const img = JSON.parse(imgEncoded);
-    console.log("JSON parse: " + img);
-    if (img != null && imageMimeTypes.includes(img.type)) {
-        movie.img = new Buffer.from(img.data, "base64");
-        movie.imgType = img.type;
-    }
-}
-
-
-
 app.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/dashboard',
-        failureRedirect: '/login',
-        failureFlash: true
-    })(req, res, next);
+        passport.authenticate('local', {
+            successRedirect: `/dashboard`,
+            failureRedirect: '/login',
+            failureFlash: true
+        })(req, res, next);
 });
 
 app.get('/logout', (req, res) => {
@@ -422,12 +407,11 @@ app.post('/forgot-password', (req, res) => {
 })
 
 
-app.get('/all', (req, res) => {
-    userDB.find({}, (err, user) => {
-        if (err) throw err;
-        return res.json({ data: user })
-    })
+app.get('/all', async (req, res) => {
+    const data = await userDB.find({})
+    return res.json({data : data})
 })
+
 
 app.post('/delete-reminder', (req, res) => {
     const { reminderId } = req.body;
@@ -501,9 +485,7 @@ app.get('/team-management', (req, res) => {
 })
 
 
-app.get('/se', (req, res) => {
-    res.render('search', { title: 'se' })
-})
+
 
 // search API
 app.get('/s', (req, res) => {

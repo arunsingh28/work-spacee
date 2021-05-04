@@ -4,8 +4,7 @@
     <i class="fas fa-sticky-note fa-2x"></i>
   </div>
 
-  <div class="images" data-toggle="modal" data-toggle="tooltip" data-placement="right" title="Image Uploader"
-    data-target="#images">
+  <div class="images" data-toggle="modal" data-target="#image">
     <i class="fas fa-images  fa-2x"></i>
   </div>
 
@@ -153,7 +152,8 @@
     .important {
       left: -36px !important;
     }
-    #filterUQN{
+
+    #filterUQN {
       top: 83px !important;
       width: 409px !important;
     }
@@ -209,13 +209,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"
-      style="max-height: 390px;
-            overflow-y: scroll;" 
-      >
-        <input type="text" id="filterUQN" class="form-control" placeholder="search by name...">
+      <div class="modal-body" style="max-height: 390px;
+        overflow-y: scroll;">
+        <input type="text" id="filterUQN" class="form-control" autocomplete="off" placeholder="search by name...">
         <ul class="list-group" style="margin-top: 33px;" id="userlistPO">
-          <p></p>
         </ul>
       </div>
     </div>
@@ -236,34 +233,35 @@
     dis.innerHTML = loader;
     const res = await fetch('/all')
     const user = await res.json()
-   
-      let match = user.data.filter(name => {
-        const regex = new RegExp(`^${searchText}`, 'gi')
-        return name.name.match(regex)
 
-      })
+    let match = user.data.filter(name => {
+      const regex = new RegExp(`^${searchText}`, 'gi')
+      return name.name.match(regex)
 
-      if(searchText.length === 0){
-        match = []
-        dis.innerHTML = `<p class="text-center text-primary py-3">Search by name of the user</p>`
-      }
-      outputHTML(match)
+    })
+
+    if (searchText.length === 0) {
+      match = []
+      dis.innerHTML = `<p class="text-center text-primary py-3">Search by name of the user</p>`
+    }
+    outputHTML(match)
   }
 
   const outputHTML = match => {
-    if(match.length > 0){
+    if (match.length > 0) {
       const html = match.map(name =>
-        ` <div class="card mt-2">
+        ` <div class="card mt-2 hoverUdsq">
           <div class="card-body text-capitalize">
-          <span class="font-weight-normal" style="line-height:30px">${name.name}</span>
-          <a href="/friend/${name._id}" class="btn btn-outline-primary float-right"><i class="fas fa-user-plus"></i> Send Request</a>
+          <img src=${name.img} class="ReFss"/>  
+          <span class="font-weight-normal ml-2" style="line-height:30px;font:small-caption">${name.name}</span>
+          <a href="/friend/${name._id}" class="btn btn-outline-primary float-right mt-2"><i class="fas fa-user-plus"></i> Send Request</a>
           </div>
           </div>
         `
       ).join('')
       dis.innerHTML = html
     }
-    if(match.length <= 0){
+    if (match.length <= 0) {
       dis.innerHTML = `<p class="text-center text-danger py-3">no user found </p>`
     }
   }
@@ -272,6 +270,21 @@
 </script>
 
 <style>
+  .ReFss{
+    object-fit: cover;
+    object-position: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 40px;
+    border: 2px solid rgb(159, 60, 240);
+  }
+  .hoverUdsq{
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+  }
+  .hoverUdsq:hover{
+    background: #f3f4f5;
+  }
   .note-footer-note {
     padding: 5px !important;
     justify-content: start !important;
@@ -296,13 +309,14 @@
   .switch {
     border: 1px solid #000;
   }
-  #filterUQN{
+
+  #filterUQN {
     position: fixed;
     top: 102px;
     left: 50%;
     width: 458px;
     z-index: 999;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
 </style>
 <script>
@@ -349,26 +363,6 @@
         </form>
       </div>
 
-      <!-- show if reminder is set -->
-
-      <!-- <div class="reminderIspresent px-3">
-        <h4 class="modal-title">Today's Reminder</h4>
-        <div class="modal-body">
-
-          <ul class="list-group" id="list__group_reminder">
-            <li class="list-group-item">
-              <input class="form-check-input ml-2" id="YUnsOP" type="checkbox">
-              <article class="ml-5" id="taskIU_S">Complate the task</article>
-            </li>
-
-
-
-          </ul>
-
-        </div>
-      </div> -->
-
-
     </div>
   </div>
 </div>
@@ -412,120 +406,136 @@
 
 
 <!-- images -->
-<div class="modal fade" id="images">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Image Uploader</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/other/fileUpload" method="post" style="display:flex;justify-content: center;">
-          <input type="file" name="img" class="filepond filepond--item" id="img" onchange="readFile(this.files)" />
-          <label for="img" id="label_for_img"></label>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-block">Upload</button>
+
+  <div class="modal fade" id="image">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Image Uploader</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+         <div class="modal-body">
+           <form id="form_IDs">
+            <div id="showOIx"></div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-block btn-primary">Upload</button>
+          </div>
         </form>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 
 
-<script>
-  const readFile = (e) => {
-    const name = e[0].name;
-    document.getElementById('label_for_img').textContent = "File name : " + name
-  }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    FilePond.registerPlugin(
-      FilePondPluginImagePreview,
-      FilePondPluginImageResize,
-      FilePondPluginFileEncode
-    );
+  <script>
+    var uppy = Uppy.Core()
 
-    FilePond.setOptions({
-      stylePanelAspectRatio: 150 / 100,
-      imageResizeTargetWidth: 100,
-      imageResizeTargetHeight: 150,
+      .use(Uppy.Dashboard, {
+        inline: true,
+        target: '#showOIx'
+      })
+      .use(Uppy.Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+
+    let pic
+    uppy.on('complete', (result) => {
+      const index = result.successful.map(i => i.response);
+      pic = index.map(j => j.uploadURL).join('')
     })
-    FilePond.parse(document.body);
-  });
+
+    const up = document.getElementById('form_IDs')
+    up.addEventListener('submit',async(e)=>{
+      e.preventDefault();
+      const result = await fetch('/other/fileUpload',{
+        method : 'POST',
+        headers : {
+          'Content-Type':'application/json'
+        },
+        body : JSON.stringify({
+          pic
+        })
+      }).then(res => res.json(),location.reload())
+      
+      if(result.status === 'ok'){
+        alert('file uploaded')
+        location.reload()
+      }else{
+        alert(result.error)
+      }
+    })
+    
+         
 
 
+    const arrow = document.getElementById('mobiL')
+    const box = document.getElementsByClassName('important')[0]
+    const mobileBox = document.getElementsByClassName('mobile_slider')[0]
+
+    arrow.addEventListener('click', () => {
+      box.classList.toggle('swip')
+      arrow.classList.toggle('rotate')
+      mobileBox.classList.toggle('newBox')
+    })
+
+  </script>
 
 
-  const arrow = document.getElementById('mobiL')
-  const box = document.getElementsByClassName('important')[0]
-  const mobileBox = document.getElementsByClassName('mobile_slider')[0]
+  <style>
+    .swip {
+      left: 36px !important;
+    }
 
-  arrow.addEventListener('click', () => {
-    box.classList.toggle('swip')
-    arrow.classList.toggle('rotate')
-    mobileBox.classList.toggle('newBox')
-  })
+    .rotate {
+      transform: rotate(0deg) !important;
+    }
 
-</script>
+    .newBox {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-top-right-radius: 5px !important;
+      border-bottom-right-radius: 5px !important;
+    }
 
+    #label_for_img {
+      font-size: 12px;
+      margin-top: 25px;
+      text-align: center;
+      pointer-events: none;
+      background: #4caf50;
+      color: #fff;
+      border-radius: 2px;
+      line-height: 35px;
+    }
 
-<style>
-  .swip {
-    left: 36px !important;
-  }
+    .inputImage::-webkit-file-upload-button {
+      visibility: hidden;
+    }
 
-  .rotate {
-    transform: rotate(0deg) !important;
-  }
+    .inputImage::before {
+      content: 'Drag Images here / Select Images (max 4)';
+      display: inline-block;
+      background-image: linear-gradient(130deg, #0f91fb, #356ba5);
+      color: #fff;
+      border-radius: 5px;
+      padding: 50px 30px;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 20px;
+      border: 2px dashed;
+    }
 
-  .newBox {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 5px !important;
-    border-bottom-right-radius: 5px !important;
-  }
+    .inputImage:hover::before {
+      border: 2px dashed #fff;
+    }
 
-  #label_for_img {
-    font-size: 12px;
-    margin-top: 25px;
-    text-align: center;
-    pointer-events: none;
-    background: #4caf50;
-    color: #fff;
-    border-radius: 2px;
-    line-height: 35px;
-  }
-
-  .inputImage::-webkit-file-upload-button {
-    visibility: hidden;
-  }
-
-  .inputImage::before {
-    content: 'Drag Images here / Select Images (max 4)';
-    display: inline-block;
-    background-image: linear-gradient(130deg, #0f91fb, #356ba5);
-    color: #fff;
-    border-radius: 5px;
-    padding: 50px 30px;
-    outline: none;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 20px;
-    border: 2px dashed;
-  }
-
-  .inputImage:hover::before {
-    border: 2px dashed #fff;
-  }
-
-  .note-prii {
-    padding: 3px 9px;
-    background: #eee;
-    border-radius: 3px;
-  }
-</style>
+    .note-prii {
+      padding: 3px 9px;
+      background: #eee;
+      border-radius: 3px;
+    }
+  </style>

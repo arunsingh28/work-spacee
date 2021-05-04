@@ -16,31 +16,29 @@
                       <!-- <p class="text-h3">Register YourSelf for Saving Time and do more as You aspact from Yourself.</p> -->
                     </div>
                   </div>
-                  <form action="/register" method="post" onsubmit="return valiDate()">
+                  <form id="register-form" onsubmit="return valiDate()">
                     <div class="row align-items-center">
                       <div class="col mt-4">
-                        <input type="text" class="form-control" name="name" id="fullName" placeholder="Full Name">
+                        <input type="text" class="form-control" id="fullName" placeholder="Full Name">
                       </div>
                     </div>
                     <div class="row align-items-center">
                       <div class="col mt-4">
-                        <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Nick Name"
-                          required>
+                        <input type="text" class="form-control" id="nickName" placeholder="Nick Name" required>
                       </div>
                     </div>
                     <div class="row align-items-center mt-4">
                       <div class="col">
-                        <input type="email" class="form-control" name="email" id="email-register" value="" placeholder="Email" required>
+                        <input type="email" class="form-control" id="emailReg" value="" placeholder="Email" required>
                       </div>
                     </div>
                     <div class="row align-items-center mt-4">
                       <div class="col">
-                        <input type="password" class="form-control pass" name="password" placeholder="password"
-                        required id="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                        <input type="password" class="form-control pass" placeholder="password" required id="psw"
+                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                       </div>
                       <div class="col">
-                        <input type="password" class="form-control confirm" placeholder="Confirm Password"
-                           required>
+                        <input type="password" class="form-control confirm" placeholder="Confirm Password" required>
                       </div>
                     </div>
 
@@ -57,7 +55,7 @@
                     <div class="row align-items-center mt-4">
                       <div class="col">
                         <label for="date">Date of Birth</label>
-                        <input type="date" class="form-control" name="date" placeholder="Date of Birth" required>
+                        <input type="date" class="form-control" id="dateDOB" placeholder="Date of Birth" required>
                       </div>
                     </div>
 
@@ -65,8 +63,7 @@
                     <div class="row align-items-center mt-4">
                       <div class="col">
                         <label for="pic">Profile Picture</label>
-                        <input type="file" class="filepond filepond--item" id="pic" name="img" required>
-                        
+                        <div class="DashboardContainer"></div>
                       </div>
                     </div>
 
@@ -75,7 +72,7 @@
                       <div class="col">
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="tc" id="tc">
+                            <input type="checkbox" class="form-check-input" id="tc">
                             I Read and Accept <a href="#" data-toggle="modal" data-target="#staticBackdrop">Terms and
                               Conditions</a>
                           </label>
@@ -96,7 +93,7 @@
     </div>
 
     <script>
-  
+
 
       var myInput = document.getElementById("psw");
       var letter = document.getElementById("letter");
@@ -140,7 +137,7 @@
           number.classList.remove("valid");
           number.classList.add("invalid");
         }
-        if(myInput.value.length >= 8) {
+        if (myInput.value.length >= 8) {
           length.classList.remove("invalid");
           length.classList.add("valid");
         } else {
@@ -148,6 +145,55 @@
           length.classList.add("invalid");
         }
       }
+
+
+      var uppy = Uppy.Core()
+
+        .use(Uppy.Dashboard, {
+          inline: true,
+          target: '.DashboardContainer'
+        })
+        .use(Uppy.Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+
+      let img;
+      uppy.on('complete', (result) => {
+        const index = result.successful.map(i => i.response);
+        img = index.map(j => j.uploadURL).join('')
+        if (result.failed) {
+
+        }
+      })
+
+      // fileuploader
+      const form = document.getElementById('register-form')
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const email = document.getElementById('emailReg').value
+        const password = document.getElementById('psw').value
+        const name = document.getElementById('fullName').value
+        const nickName = document.getElementById('nickName').value
+        const date = document.getElementById('dateDOB').value
+
+
+        const result = await fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email, password, name, nickName, date, img
+          })
+        }).then(res => res.json())
+        if(result.status === 'ok'){
+          alert('Form Submite successfully')
+          window.location.href = "/login"
+        }else{
+          alert(result.error)
+        }
+      })
+
+
     </script>
 
     <style>
@@ -187,5 +233,4 @@
         left: -20px;
         content: "✖";
       }
-      
     </style>

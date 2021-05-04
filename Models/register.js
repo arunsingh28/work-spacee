@@ -27,19 +27,15 @@ const userSchema = new mongoose.Schema({
         required : true
     },
     img: {
-        type: Buffer,
-        required: true
-    },
-    imgType: {
         type: String,
         required: true
     }
 });
 
-userSchema.virtual('coverImagePath').get(function (){
-    if(this.img != null && this.imgType != null){
-        return `data:${this.imgType};charset=utf-8;base64,${this.img.toString('base64')}`;
-    }
-})
+// userSchema.virtual('coverImagePath').get(function (){
+//     if(this.img != null && this.imgType != null){
+//         return `data:${this.imgType};charset=utf-8;base64,${this.img.toString('base64')}`;
+//     }
+// })
 
 module.exports = mongoose.model('user', userSchema);

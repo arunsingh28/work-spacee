@@ -8,7 +8,7 @@ const User = require('../Models/register');
 const otherR = express.Router();
 
 
-const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
+
 
 
 
@@ -25,32 +25,21 @@ otherR.get('/fileUpload', ensureAuthenticated, (req, res) => {
     res.redirect('/other')
 })
 
-otherR.post('/fileUpload', async (req, res, next) => {
-    const { img } = req.body;
+otherR.post('/fileUpload', async (req, res) => {
+    const {pic} = req.body
     const allot = req.user._id;
-    const movie = new Image({ allot });
-
-    saveImage(movie, img);
-
     try {
-        const newMovie = await movie.save();
-        req.flash('success_msg', '👍 image successfully saved.')
-        return res.redirect('/other/image')
-    } catch (err) {
-        console.log(err)
+       const response = await Image.create({pic,allot})
+       .then(()=>{
+           req.flash('success_msg','image uploaded')
+           res.redirect('/other/image')
+       })
+    } catch (error) {
+        throw error
     }
-
+    res.json({status : 'ok'})
 });
 
-
-function saveImage(movie, imgEncoded) {
-    if (imgEncoded == null) return;
-    const img = JSON.parse(imgEncoded);
-    if (img != null && imageMimeTypes.includes(img.type)) {
-        movie.img = new Buffer.from(img.data, "base64");
-        movie.imgType = img.type;
-    }
-}
 
 otherR.get('/image', ensureAuthenticated, (req, res) => {
     const allot = req.user._id

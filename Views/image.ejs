@@ -21,7 +21,8 @@
             display: block;
             margin: 0 auto;
             "
-            data-toggle="modal" data-target="#images"
+            data-toggle="modal"
+            tdata-target="#imgg"
             >Upload</button>
         </p>
         <%} else {%>
@@ -29,7 +30,7 @@
             <div class="present_wr">
                 <% img.forEach(m => { %>
                 <div class="flex-GRID">
-                    <img src="<%= m.coverImagePath %>" alt="<%= user.username%>" id="imgPre" class="mt-3" style="width:200px;height:auto">
+                    <img src="<%= m.pic %>" alt="<%= user.username%>" id="imgPre" class="mt-3" style="width:200px;height:auto">
                     <a href="image/d/<%= m._id%>" class="btn btn-danger btn-block mt-2 btn_FULL py-2">Delete</a>
                     <input type="hidden" class="pb-4">
                 </div>
@@ -42,7 +43,7 @@
     
 </div>
 
-<%- include('partials/dashFooter')%>
+<%- include('partials/dashFooter') -%>
 
 
 <style>
@@ -106,17 +107,6 @@
 </style>
 
 <script>
-    var img = document.getElementById('imgPre').src;
-    var pre = document.getElementById('preview');
-    var x = document.getElementsByClassName('x')[0];
-
-    img.addEventListener('click',()=>{
-        pre.classList.add('show')
-        document.getElementById('preIMG-IMG').src = img
-    })
-
-    x.addEventListener('click',()=>{
-        pre.classList.add('hide')
-    })
+   
 
 </script>

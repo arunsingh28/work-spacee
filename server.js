@@ -19,6 +19,7 @@ const server = http.createServer(app)
 const io = socket(server);
 app.use(morgan('dev'))
 
+
 app.use(express.json({ limit: '5mb' }))
 app.use(express.urlencoded({ limit: '5mb', extended: true }));
 
@@ -42,7 +43,7 @@ app.use(express.static("Public"));
 
 
 app.use(session({
-    secret: 'arunsingh09',
+    secret: 'adfTDDaaHAdhj;paaad^%dfrunsi$%#aDFSasda&erdsngh0P)*^_SD9',
     resave: true,
     saveUninitialized: true,
 }));
@@ -72,39 +73,38 @@ const image = require('./Models/image');
 
 
 
-app.get('/dashboard', ensureAuthenticated,(req, res) => {
+app.get('/:id', ensureAuthenticated,(req, res) => {
+
     let users = {};
-    
+    io.on('connection', (socket) => {
+        // user
+        let onLine = req.user.nickName
+        // check if user exits
+        if (!users[onLine]) users[onLine] = []
 
-    //  io.on('connection', (socket) => {
-    //     // user
-    //     let onLine = req.user.nickName
-    //     // check if user exits
-    //     if (!users[onLine]) users[onLine] = []
+        users[onLine].push(socket.id)
 
-    //     users[onLine].push(socket.id)
+        io.sockets.emit('online', { onLine });
 
-    //     io.sockets.emit('online', { onLine });
+        socket.on('disconnect', () => {
+            _.remove(users[onLine], (u) => u === socket.id)
+            if (users[onLine].length === 0) {
+                io.sockets.emit('offline', onLine)
+                delete users[onLine]
+            }
+            socket.disconnect();
+        })
+    })
 
-    //     socket.on('disconnect', () => {
-    //         _.remove(users[onLine], (u) => u === socket.id)
-    //         if (users[onLine].length === 0) {
-    //             io.sockets.emit('offline', onLine)
-    //             delete users[onLine]
-    //         }
-    //         socket.disconnect();
-    //     })
-
-
-    // })
-
-    const AID = req.user._id;
-     reminderDB.find({ AID }, (err, reminder) => {
+    const {id} = req.params;
+     reminderDB.find({ AID : id }, (err, reminder) => {
         if (err) throw err;
-         linkDB.find({ AID }, (err, link) => {
+         linkDB.find({ AID :id }, (err, link) => {
             if (err) throw err;
-            image.find({ allot: AID }, (err, pic) => {
-                res.render('dashboard', {
+            image.find({ allot: id }, (err, pic) => {
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "text/html");
+                return res.render('dashboard', {
                     title: 'Dashboard',
                     nav: false,
                     user: req.user,

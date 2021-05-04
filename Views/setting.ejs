@@ -25,7 +25,7 @@
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body center_DEVuG">
-                <img src="<%= user.coverImagePath %>" alt="<%= user.nickName %>" class="UsrKI shadow-sm">
+                <img src="<%= user.img %>" alt="<%= user.nickName %>" class="UsrKI shadow-sm">
                 <div class="form-row mt-3">
                   <div class="col">
                     <label for="name">Name</label>
@@ -233,6 +233,16 @@
         </style>
 
         <script>
+
+          document.onreadystatechange = function () {
+            if (document.readyState !== "complete") {
+              document.querySelector("body").style.visibility = "hidden";
+              document.querySelector("#loader").style.visibility = "visible";
+            } else {
+              document.querySelector("#loader").style.display = "none";
+              document.querySelector("body").style.visibility = "visible";
+            }
+          }
 
 
           var myInput = document.getElementById("psw");

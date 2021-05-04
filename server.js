@@ -17,7 +17,7 @@ const { ensureAuthenticated } = require('./config/auth');
 const app = express();
 const server = http.createServer(app)
 const io = socket(server);
-// app.use(morgan('dev'))
+app.use(morgan('dev'))
 
 app.use(express.json({ limit: '5mb' }))
 app.use(express.urlencoded({ limit: '5mb', extended: true }));
@@ -29,7 +29,7 @@ require('./config/passport')(passport)
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
 
 
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(db,{ useUnifiedTopology: true})
     .then(() => console.log('database is connected'))
     .catch(err => console.log(err))
 

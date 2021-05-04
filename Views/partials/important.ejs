@@ -240,13 +240,13 @@
       let match = user.data.filter(name => {
         const regex = new RegExp(`^${searchText}`, 'gi')
         return name.name.match(regex)
+
       })
 
       if(searchText.length === 0){
         match = []
-        dis.innerHTML = `<p class="text-center text-gray">Search by name of the user</p>`
+        dis.innerHTML = `<p class="text-center text-primary py-3">Search by name of the user</p>`
       }
-
       outputHTML(match)
   }
 
@@ -262,6 +262,9 @@
         `
       ).join('')
       dis.innerHTML = html
+    }
+    if(match.length <= 0){
+      dis.innerHTML = `<p class="text-center text-danger py-3">no user found </p>`
     }
   }
 

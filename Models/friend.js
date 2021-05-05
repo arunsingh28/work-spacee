@@ -5,13 +5,10 @@ const friend = new mongsoose.Schema({
         type : String,
         required : true
     },
-    friends : [{
-        fID : {
-            type : String
-        }
-    }]
+    // nested array
+    friends : [String]
 })
 
-const dost = mongsoose.model('Friend',friend)
 
-exports.default = dost
+module.exports = mongsoose.model('Friend-Data',friend)
+

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const PORT = process.env.PORT || 70;
 const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
-
+const { allFriend } = require('../config/friend')
 // init app
 const app = express.Router();
 
@@ -43,17 +43,11 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const { name, nickName, email, password: plainText, date, img } = req.body;
-
-    console.log(req.body)
-
     const d = new Date()
     let day = d.getDate()
     let mont = d.getMonth()
     let y = d.getUTCFullYear()
     const join = y + "-" + mont + "-" + day;
-
-    
-
     const password = await bcrypt.hash(plainText, 10)
 
     try {
@@ -93,19 +87,22 @@ app.get('/logout', (req, res) => {
     return res.redirect('/login');
 })
 
-app.get('/share-work', ensureAuthenticated, (req, res) => {
+app.get('/share-work',allFriend, ensureAuthenticated, (req, res) => {
+    let friends = req.userData
     noteDB.find({ type: 'public' }, (err, note) => {
         if (err) throw err;
         res.render('shareWork', {
             title: 'ShareWork',
             nav: false,
             user: req.user,
-            note
+            note,
+            friends
         })
     })
 })
 
-app.get('/note', ensureAuthenticated, (req, res) => {
+app.get('/note', allFriend,ensureAuthenticated, (req, res) => {
+    let friends = req.userData
     const id = req.user._id
     noteDB.find({ AID: id }, (err, note) => {
         if (err) throw err
@@ -117,7 +114,8 @@ app.get('/note', ensureAuthenticated, (req, res) => {
             title: 'Notes',
             nav: false,
             user: req.user,
-            note: note
+            note: note,
+            friends
         })
     }).sort({ title: -1 })
 })
@@ -162,7 +160,8 @@ app.get('/what-is-next', ensureAuthenticated, (req, res) => {
     })
 })
 
-app.get('/q&a', ensureAuthenticated, (req, res) => {
+app.get('/q&a',allFriend, ensureAuthenticated, (req, res) => {
+    let friends = req.userData
     questionDB.find({}, (err, question) => {
         if (err) throw err;
         anserDB.find({}, (err, anser) => {
@@ -172,14 +171,16 @@ app.get('/q&a', ensureAuthenticated, (req, res) => {
                 nav: false,
                 user: req.user,
                 question,
-                anser
+                anser,
+                friends
             })
         })
     })
 })
 
 // get request
-app.get('/all-reminder', ensureAuthenticated, (req, res) => {
+app.get('/all-reminder',allFriend, ensureAuthenticated, (req, res) => {
+    let friends = req.userData
     const AID = req.user._id;
     reminderDB.find({ AID: AID }, (err, reminder) => {
         if (err) throw err;
@@ -187,7 +188,8 @@ app.get('/all-reminder', ensureAuthenticated, (req, res) => {
             title: 'Reminder',
             nav: false,
             user: req.user,
-            reminder: reminder
+            reminder: reminder,
+            friends
         })
     })
 })
@@ -226,7 +228,7 @@ app.post('/reminder', ensureAuthenticated, (req, res) => {
 })
 
 // settings
-app.get('/account-settings', ensureAuthenticated, (req, res) => {
+app.get('/account-settings',allFriend, ensureAuthenticated, (req, res) => {
     res.render('setting', {
         title: 'Setting',
         user: req.user,
@@ -352,7 +354,7 @@ app.post('/delete-account', ensureAuthenticated, (req, res) => {
                         res.redirect('/logout')
                     })
             } else {
-                req.flash('error', 'Password Incoorect');
+                req.flash('error', 'Password Incorect');
                 res.redirect('/account-settings');
             }
         })
@@ -407,6 +409,7 @@ app.post('/forgot-password', (req, res) => {
 })
 
 
+// all user API
 app.get('/all', async (req, res) => {
     const data = await userDB.find({})
     return res.json({data : data})

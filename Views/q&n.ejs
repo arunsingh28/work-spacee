@@ -1,8 +1,9 @@
 <%- include ('partials/navbar') -%>
 <%- include ('partials/important') -%>
 <%- include ('partials/messages') -%>
-<!-- <%- include('partials/messanger')%> -->
+<%- include('partials/messanger')%>
 
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <div class="container pb-5">
     <div class="jumbotron rounded-bottom shadow-sm mt-4" style="padding: 1.2rem 2rem !important; background: rgba(174, 201, 202, 0.582);">
         <form action="/question-save" method="post">
@@ -42,6 +43,10 @@
 </div>
 
 <%- include('partials/dashFooter')%>
+
+<script>
+  CKEDITOR.replace( 'answer' );
+</script>
 
 <style>
   .float-right{

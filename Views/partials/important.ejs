@@ -1,5 +1,6 @@
-<div class="important">
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
+<div class="important">
   <div class="note" data-toggle="modal" data-target="#saveNote">
     <i class="fas fa-sticky-note fa-2x"></i>
   </div>
@@ -19,8 +20,10 @@
   <div class="mobile_slider">
     <i class="fas fa-caret-left fa-2x" id="mobiL"></i>
   </div>
-  <!-- <div class="todo" data-toggle="modal" data-target="#todo"><i class="fas fa-clipboard-list fa-2x"></i></div> -->
 </div>
+
+
+
 
 <style>
   .important {
@@ -160,7 +163,6 @@
   }
 </style>
 
-
 <!-- Modal  for note-->
 <div class="modal fade" id="saveNote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -173,8 +175,7 @@
       </div>
       <div class="modal-body">
         <form action="/save-note" method="post">
-          <textarea name="note" style="width: 100%;padding: 5px;" required class="input-form" cols="54" rows="6"
-            placeholder="Write Your Notes"></textarea>
+          <textarea name="note" id="note" cols="54" rows="6"></textarea>
       </div>
       <div class="modal-footer note-footer-note">
         <p class="lead ml-5" id="hygY" style="font-size: 15px;border: 1px solid #000;padding: 10px 9px;">By default note
@@ -221,6 +222,7 @@
 
 
 <script>
+  CKEDITOR.replace( 'note' );
   const search = document.getElementById('filterUQN')
   const dis = document.getElementById('userlistPO')
   const loader = `

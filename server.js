@@ -12,7 +12,7 @@ const helmet = require('helmet')
 const _ = require("lodash");
 
 const { ensureAuthenticated } = require('./config/auth');
-
+const { allFriend } = require('./config/friend')
 
 const app = express();
 const server = http.createServer(app)
@@ -30,7 +30,7 @@ require('./config/passport')(passport)
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
 
 
-mongoose.connect(db,{ useUnifiedTopology: true})
+mongoose.connect(db, { useUnifiedTopology: true })
     .then(() => console.log('database is connected'))
     .catch(err => console.log(err))
 
@@ -68,13 +68,13 @@ app.use('/', require('./Routes/website'))
 const reminderDB = require('./Models/reminder');
 const linkDB = require('./Models/link');
 const image = require('./Models/image');
+const Friend = require('./Models/friend')
 
 
 
 
-
-app.get('/dashboard', ensureAuthenticated,(req, res) => {
-
+app.get('/dashboard', ensureAuthenticated, allFriend, async (req, res) => {
+    let friends = req.userData
     let users = {};
     io.on('connection', (socket) => {
         // user
@@ -97,46 +97,44 @@ app.get('/dashboard', ensureAuthenticated,(req, res) => {
     })
 
     const id = req.user._id;
-     reminderDB.find({ AID : id }, (err, reminder) => {
+    await reminderDB.find({ AID: id }, async (err, reminder) => {
         if (err) throw err;
-         linkDB.find({ AID :id }, (err, link) => {
+        await linkDB.find({ AID: id }, async (err, link) => {
             if (err) throw err;
-            image.find({ allot: id }, (err, pic) => {
-                res.statusCode = 200;
-                res.setHeader("Content-Type", "text/html");
-                return res.render('dashboard', {
-                    title: 'Dashboard',
-                    nav: false,
-                    user: req.user,
-                    reminder: reminder,
-                    link,
-                    users
-                })
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html");
+            return res.render('dashboard', {
+                title: 'Dashboard',
+                nav: false,
+                user: req.user,
+                reminder: reminder,
+                link,
+                users,
+                friends
             })
         })
     })
 })
 
 // other stuff
-app.use('/other', require('./Routes/other'))
+app.use('/other', allFriend, require('./Routes/other'))
 
 
 // for invalid urls
-app.use('/*', (req, res) => {
-    var url = req.baseUrl;
-    var host = req.hostname;
-    var protocol = req.protocol;
-    req.flash('error_msg', `${protocol}://${host}${url} is invalid URL.`)
-    return res.redirect('/login')
-})
+// app.use('/*', (req, res) => {
+//     var url = req.baseUrl;
+//     var host = req.hostname;
+//     var protocol = req.protocol;
+//     req.flash('error_msg', `${protocol}://${host}${url} is invalid URL.`)
+//     return res.redirect('/login')
+// })
 
 
 
 
 const PORT = process.env.PORT || 70;
-server.timeout = 0;
+
 server.listen(PORT, () => {
-    console.log(server.timeout)
     console.log(`Server Running On http://localhost:${PORT}`)
 })
 

@@ -10,6 +10,8 @@ const Friend =  require('../Models/friend')
 const otherR = express.Router();
 
 
+// middleware for friends list
+const { allFriend } = require('../config/friend')
 
 
 
@@ -43,14 +45,16 @@ otherR.post('/fileUpload', async (req, res) => {
 });
 
 
-otherR.get('/image', ensureAuthenticated, (req, res) => {
+otherR.get('/image', allFriend,ensureAuthenticated, (req, res) => {
+    let friends = req.userData
     const allot = req.user._id
     Image.find({ allot }, (err, img) => {
         res.render('image', {
             img,
             user: req.user,
             nav: false,
-            title: 'Image'
+            title: 'Image',
+            friends
         })
     })
 })
@@ -75,11 +79,29 @@ otherR.post('/change-profile', (req, res) => {
 
 
 otherR.get('/friend/:id',async(req,res)=>{
-    const id = req.params.id
-    const friend = req.user._id
-    const newFriend = await new Friend({user,friend})
-    console.log(newFriend)
+    const friends = req.params.id
+    const user = req.user._id
+    try {
+        await Friend.findOne({user},async(err,isDB)=>{
+            if(!isDB){
+                await Friend.create({user,friends})
+                req.flash('success_msg','👍 New friend added')
+                return res.redirect('/')
+            }else{
+                const newFriend = await Friend.findOneAndUpdate({user},{
+                    $addToSet : {
+                        friends
+                    }
+                })
+                req.flash('success_msg','👍 New friend added')
+                return res.redirect('/')
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
 })
+
 
 
 

@@ -1,107 +1,180 @@
 <div class="mes-wrapper">
-<div class="box-msg">
-    <span><i class="fas fa-comment-alt fa-2x"></i></span>
+    <div class="box-msg">
+        <span><i class="fas fa-comment-alt fa-2x"></i></span>
 
-<div class="msg-window shadow-lg">
-    <div class="input-msg">
-        <h1>Message feature will comming soon</h1>
-        <input type="text" placeholder="message" class="msg-input">
-        <button class="send-msg"><i class="fab fa-telegram-plane"></i></button>
+        <div class="msg-window shadow-lg">
+            <% if(friends.userData.length==0) {%>
+                <div class="input-msg">
+                    <h1>Message feature will comming soon</h1>
+                </div>
+                <%} else {%>
+
+                    <% friends.userData.forEach(function(i) { %>
+                        <ul class="list-group custome_group">
+                            <li class="list-group-item custume_list">
+                                <img src="<%=i.img%>" class="float-right custume_PRO" alt="<%=i.nickName%>"
+                                    height="50px" width="50px">
+                                <span>
+                                    <%=i.name %>
+                                </span>
+                            </li>
+                        </ul>
+                        <%})%>
+
+                            <%}%>
+                                <div class="maiN">
+                                    <input type="text" placeholder="message" class="msg-input form-control">
+                                    <button class="send-msg btn"><i class="fab fa-telegram-plane"></i></button>
+                                </div>
+
+
+        </div>
+
     </div>
-</div>
 
-</div>
+    <style>
+        .mes-wrapper {
+            position: relative;
+            z-index: 99999;
+        }
 
-<style>
-    .mes-wrapper{
-        position: relative;
-    }
-    .box-msg{
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        height: 60px;
-        width: 60px;
-        background: #134872;
-        background-image: linear-gradient(60deg,#134872,#1881d6);
-        border-radius: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition:all .1s ease-in;
-        cursor: pointer;
-        z-index: 2;
-    }
-    .box-msg:hover{
-        box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
-    }
-    .box-msg:hover .fa-comment-alt{
-        color: rgb(218, 218, 218);
-    }
+        .box-msg {
+            position: fixed;
+            bottom: 40px;
+            right: 25px;
+            height: 60px;
+            width: 60px;
+            background: #134872;
+            background-image: linear-gradient(60deg, #134872, #1881d6);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .1s ease-in;
+            cursor: pointer;
+            z-index: 2;
+        }
 
-    /* message window */
-    .msg-window{
-        height: 500px;
-        width: 300px;
-        background: #eee;
-        position: fixed;
-        bottom: 25px;
-        right: 0px;
-        margin-right: -300px;
-        border-radius: 10px;
-        transition: all .2s ease-in-out;
-        z-index: 999;
-    }
+        .maiN {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 0px;
+        }
 
-    .input-msg{
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-    }
-    .send-msg{
-        padding: 7px 5px;
-        border: 1px solid;
-        margin-left: -5px;
-    }
-    .msg-input{
-        width: 84%;
-        height: 40px;
-    }
-    .disp{
-        transition: all .2s ease-in-out;
-        margin-right: 50px;
-    }
-    .input-msg h1{
-        text-align: center;
-        font-size: 1.5rem;
-        margin-bottom: 50%;
-    }
+        .box-msg:hover {
+            box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+        }
 
+        .box-msg:hover .fa-comment-alt {
+            color: rgb(218, 218, 218);
+        }
 
-</style>
+        /* message window */
+        .msg-window {
+            height: 500px;
+            width: 300px;
+            background: rgb(255, 255, 255);
+            position: fixed;
+            bottom: 66px;
+            right: 0px;
+            margin-right: -300px;
+            border-radius: 10px;
+            transition: all .2s ease-in-out;
+            z-index: 999;
+        }
 
-<script>
-   $(document).ready(()=>{
-       var window = $('.msg-window');
-       var col = $('.col-8');
-       var card1 = $('.card1')
-       var box = $('.box-msg');
-       var footer = $('.footer-note')
-       box.click(()=>{
-           window.addClass('disp');
-           col.css('zIndex','-1')
-           card1.css('zIndex','-1')
-            return false;
-       })
-       $(document).click(()=>{
-           window.removeClass('disp');
-           col.css('zIndex','1')
-           card1.css('zIndex','1')
-           footer.css('zIndex','1')
-       })
-       window.click((e)=>{
-           e.stopPropagation();
-       });
+        .input-msg {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
 
-   })
-</script>
+        .send-msg {
+            padding: 0px 17px !important;
+            border: 1px solid rgb(50, 95, 243);
+            margin-left: -5px;
+            border-radius: 0px !important;
+            border-bottom-right-radius: 9px !important;
+            outline: none;
+        }
+
+        .msg-input {
+            border: 1px solid rgb(50, 95, 243);
+            width: 84%;
+            height: 40px;
+            border-radius: 0px;
+            border-bottom-left-radius: 9px;
+            outline: none;
+        }
+
+        .disp {
+            transition: all .2s ease-in-out;
+            margin-right: 50px;
+        }
+
+        .input-msg h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 50%;
+        }
+
+        /* custome list */
+        .custume_list {
+            padding: 0px 10px !important;
+            margin: 5px 10px !important;
+            display: flex !important;
+            flex-direction: row-reverse !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            background-image: linear-gradient(90deg, #387796, white) !important;
+            border: none !important;
+            color: aliceblue !important;
+            font-variant: small-caps !important;
+            font-weight: 700 !important;
+            font-size: 16px !important;
+        }
+
+        .custume_PRO {
+            object-fit: cover;
+            object-position: center;
+            border-radius: 51px;
+            margin: 2px;
+            border: 3px solid rgb(255, 255, 255);
+        }
+
+        .custome_group {
+            transition: all .1s ease-in-out;
+        }
+
+        .custome_group:hover {
+            box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+        }
+    </style>
+
+    <script>
+        $(document).ready(() => {
+            var window = $('.msg-window');
+            var col = $('.col-8');
+            var card1 = $('.card1')
+            var box = $('.box-msg');
+            var footer = $('.footer-note')
+            box.click(() => {
+                window.addClass('disp');
+                col.css('zIndex', '-1')
+                card1.css('zIndex', '-1')
+                return false;
+            })
+            $(document).click(() => {
+                window.removeClass('disp');
+                col.css('zIndex', '1')
+                card1.css('zIndex', '1')
+                footer.css('zIndex', '1')
+            })
+            window.click((e) => {
+                e.stopPropagation();
+            });
+
+        })
+    </script>

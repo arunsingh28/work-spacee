@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 const Image = require('../Models/image');
 const User = require('../Models/register');
+const Friend =  require('../Models/friend')
+
 
 const otherR = express.Router();
 
@@ -70,6 +72,14 @@ otherR.post('/change-profile', (req, res) => {
 })
 
 
+
+
+otherR.get('/friend/:id',async(req,res)=>{
+    const id = req.params.id
+    const friend = req.user._id
+    const newFriend = await new Friend({user,friend})
+    console.log(newFriend)
+})
 
 
 

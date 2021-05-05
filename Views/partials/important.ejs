@@ -235,7 +235,7 @@
     const user = await res.json()
 
     let match = user.data.filter(name => {
-      const regex = new RegExp(`^${searchText}`, 'gi')
+      const regex = new RegExp(`^[a-zA-Z ]*${searchText}`,'gi')
       return name.name.match(regex)
 
     })

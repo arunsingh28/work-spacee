@@ -73,7 +73,7 @@ const image = require('./Models/image');
 
 
 
-app.get('/:id', ensureAuthenticated,(req, res) => {
+app.get('/dashboard', ensureAuthenticated,(req, res) => {
 
     let users = {};
     io.on('connection', (socket) => {
@@ -96,7 +96,7 @@ app.get('/:id', ensureAuthenticated,(req, res) => {
         })
     })
 
-    const {id} = req.params;
+    const id = req.user._id;
      reminderDB.find({ AID : id }, (err, reminder) => {
         if (err) throw err;
          linkDB.find({ AID :id }, (err, link) => {

@@ -87,8 +87,10 @@ app.get('/logout', (req, res) => {
     return res.redirect('/login');
 })
 
+
+
 app.get('/share-work',allFriend, ensureAuthenticated, (req, res) => {
-    let friends = req.userData
+    // let friends = req.userData
     noteDB.find({ type: 'public' }, (err, note) => {
         if (err) throw err;
         res.render('shareWork', {
@@ -96,13 +98,13 @@ app.get('/share-work',allFriend, ensureAuthenticated, (req, res) => {
             nav: false,
             user: req.user,
             note,
-            friends
+            // friends
         })
     })
 })
 
 app.get('/note', allFriend,ensureAuthenticated, (req, res) => {
-    let friends = req.userData
+    // let friends = req.userData
     const id = req.user._id
     noteDB.find({ AID: id }, (err, note) => {
         if (err) throw err
@@ -115,10 +117,15 @@ app.get('/note', allFriend,ensureAuthenticated, (req, res) => {
             nav: false,
             user: req.user,
             note: note,
-            friends
+            // friends
         })
     }).sort({ title: -1 })
 })
+
+
+
+
+
 
 // for deleting note
 app.get('/note/d/:id', ensureAuthenticated, (req, res) => {
@@ -133,6 +140,43 @@ app.get('/note/d/:id', ensureAuthenticated, (req, res) => {
         }
     })
 })
+
+
+
+app.get('/q&a',allFriend, ensureAuthenticated, (req, res) => {
+    // let friends = req.userData
+    questionDB.find({}, (err, question) => {
+        if (err) throw err;
+        anserDB.find({}, (err, anser) => {
+            if (err) throw err;
+            res.render('q&n', {
+                title: 'Question',
+                nav: false,
+                user: req.user,
+                question,
+                anser,
+                // friends
+            })
+        })
+    })
+})
+
+// get request
+app.get('/all-reminder',allFriend, ensureAuthenticated, (req, res) => {
+    // let friends = req.userData
+    const AID = req.user._id;
+    reminderDB.find({ AID: AID }, (err, reminder) => {
+        if (err) throw err;
+        res.render('reminder', {
+            title: 'Reminder',
+            nav: false,
+            user: req.user,
+            reminder: reminder,
+            // friends
+        })
+    })
+})
+
 
 // for editing note
 app.post('/note/edit/:id', (req, res) => {
@@ -160,39 +204,8 @@ app.get('/what-is-next', ensureAuthenticated, (req, res) => {
     })
 })
 
-app.get('/q&a',allFriend, ensureAuthenticated, (req, res) => {
-    let friends = req.userData
-    questionDB.find({}, (err, question) => {
-        if (err) throw err;
-        anserDB.find({}, (err, anser) => {
-            if (err) throw err;
-            res.render('q&n', {
-                title: 'Question',
-                nav: false,
-                user: req.user,
-                question,
-                anser,
-                friends
-            })
-        })
-    })
-})
 
-// get request
-app.get('/all-reminder',allFriend, ensureAuthenticated, (req, res) => {
-    let friends = req.userData
-    const AID = req.user._id;
-    reminderDB.find({ AID: AID }, (err, reminder) => {
-        if (err) throw err;
-        res.render('reminder', {
-            title: 'Reminder',
-            nav: false,
-            user: req.user,
-            reminder: reminder,
-            friends
-        })
-    })
-})
+
 
 // post request
 app.post('/reminder', ensureAuthenticated, (req, res) => {

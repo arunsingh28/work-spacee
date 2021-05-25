@@ -30,7 +30,7 @@ require('./config/passport')(passport)
 const db = 'mongodb+srv://arun:1234@cluster0-t3qon.mongodb.net/Traker'
 
 
-mongoose.connect(db, { useUnifiedTopology: true })
+mongoose.connect(db, { useUnifiedTopology: true ,useNewUrlParser : true , useCreateIndex : true,useFindAndModify : true})
     .then(() => console.log('database is connected'))
     .catch(err => console.log(err))
 
@@ -72,9 +72,12 @@ const Friend = require('./Models/friend')
 
 
 
+// error in all friend module not able to login 
+
 
 app.get('/dashboard', ensureAuthenticated, allFriend, async (req, res) => {
-    let friends = req.userData
+    // let friends = req.userData
+    // console.log(friends)
     let users = {};
     io.on('connection', (socket) => {
         // user
@@ -110,7 +113,7 @@ app.get('/dashboard', ensureAuthenticated, allFriend, async (req, res) => {
                 reminder: reminder,
                 link,
                 users,
-                friends
+                // friends
             })
         })
     })

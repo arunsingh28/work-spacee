@@ -46,7 +46,7 @@ otherR.post('/fileUpload', async (req, res) => {
 
 
 otherR.get('/image', allFriend,ensureAuthenticated, (req, res) => {
-    let friends = req.userData
+    // let friends = req.userData
     const allot = req.user._id
     Image.find({ allot }, (err, img) => {
         res.render('image', {
@@ -54,7 +54,7 @@ otherR.get('/image', allFriend,ensureAuthenticated, (req, res) => {
             user: req.user,
             nav: false,
             title: 'Image',
-            friends
+            // friends
         })
     })
 })

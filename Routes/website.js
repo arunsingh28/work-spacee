@@ -37,41 +37,42 @@ app.get('/login', (req, res) => {
     })
 })
 
-app.get('/register', (req, res) => {
+app.router('/register')
+    .get((req, res) => {
     return res.render('register', { title: 'Register', nav: true })
-})
+    })
+    .post(async (req,res)=>{
+        const { name, nickName, email, password: plainText, date, img } = req.body;
+        const d = new Date()
+        let day = d.getDate()
+        //cause month start from 0
+        let mont = d.getMonth()  + 1;
+        let y = d.getUTCFullYear()
+        const join = y + "-" + mont + "-" + day;
+        const password = await bcrypt.hash(plainText, 10)
 
-app.post('/register', async (req, res) => {
-    const { name, nickName, email, password: plainText, date, img } = req.body;
-    const d = new Date()
-    let day = d.getDate()
-    //cause month start from 0
-    let mont = d.getMonth()  + 1;
-    let y = d.getUTCFullYear()
-    const join = y + "-" + mont + "-" + day;
-    const password = await bcrypt.hash(plainText, 10)
-
-    try {
-        userDB.findOne({email},async(err,user)=>{
-            if(user){
-                req.flash('error','Email already in use')
+        try {
+            userDB.findOne({email},async(err,user)=>{
+                if(user){
+                    req.flash('error','Email already in use')
+                    return res.redirect('/login')
+                }
+                else{
+                    const res = await userDB.create({
+                        name,nickName,email,password,date,img,join
+                    })
+                }
+            })
+        } catch (error) {
+            if(error.code === 11000){
+                req.flash('error','Email already in use.')
                 return res.redirect('/login')
             }
-            else{
-                const res = await userDB.create({
-                    name,nickName,email,password,date,img,join
-                })
-            }
-        })
-    } catch (error) {
-        if(error.code === 11000){
-            req.flash('error','Email already in use.')
-            return res.redirect('/login')
+            throw error
         }
-        throw error
-    }
-    res.json({status : 'ok'})
-})
+        res.json({status : 'ok'})
+    })  
+
 
 
 app.post('/login', (req, res, next) => {

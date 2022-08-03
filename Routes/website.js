@@ -45,7 +45,8 @@ app.post('/register', async (req, res) => {
     const { name, nickName, email, password: plainText, date, img } = req.body;
     const d = new Date()
     let day = d.getDate()
-    let mont = d.getMonth()
+    //cause month start from 0
+    let mont = d.getMonth()  + 1;
     let y = d.getUTCFullYear()
     const join = y + "-" + mont + "-" + day;
     const password = await bcrypt.hash(plainText, 10)

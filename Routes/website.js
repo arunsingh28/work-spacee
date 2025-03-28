@@ -16,7 +16,11 @@ const anserDB = require("../Models/answer");
 
 // routers
 app.get("/", forwardAuthenticated, (req, res) => {
-  return res.redirect("https://nervous-volhard-fadbc2.netlify.app");
+  // return res.redirect("https://nervous-volhard-fadbc2.netlify.app");
+  return res.render("home", {
+    title: "Home",
+    nav: true,
+  });
 });
 
 app.get("/orignal", (req, res) => {

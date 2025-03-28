@@ -3,7 +3,7 @@ const User = require("../Models/register");
 
 module.exports = {
   allFriend: async (req, res, next) => {
-    const id = req.user._id;
+    const id = req.user?._id;
     await friend.find({ user: id }, (err, data) => {
       if (err) {
         console.log("Error from friend module :" + err);
@@ -13,11 +13,12 @@ module.exports = {
           console.log(i.friends);
           User.find({ _id: i.friends }, (err, userData) => {
             req.userData = {
-              id: userData[0]?._id || "",
-              name: userData[0]?.name || "",
-              email: userData[0]?.email || "",
-              nickName: userData[0]?.nickName || "",
-              image: userData[0]?.image || "",
+              ...userData[0],
+              // id: userData[0]?._id || "",
+              // name: userData[0]?.name || "",
+              // email: userData[0]?.email || "",
+              // nickName: userData[0]?.nickName || "",
+              // image: userData[0]?.image || "",
             };
             return next();
           });

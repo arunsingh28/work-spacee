@@ -1,29 +1,8 @@
 <%- include ('partials/navbar') -%>
-  <%- include ('partials/messanger') -%>
   <%- include ('partials/important') -%>
     <%- include ('partials/messages') -%>
     
-<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-      <div class="container pb-5">
-        <% if(note.length==0) {%>
-          <p class="lead">There is no work.</p>
-          <%} else {%>
-            <% for(var i=0; i < note.length; i++) {%>
-              <div class="card mt-2 card1" style="margin-top: 2rem !important;">
-                <div class="card-header">
-                  <%= note[i].type %> <code class="float-right">Publish on  <%= note[i].date %></code>
-                </div>
-                <div class="card-body">
-                  <blockquote class="blockquote mb-0">
-                    <textarea class="form-control textarea" name="preV" id="noteMaxHeight" disabled><%= note[i].note%></textarea>
-                    <code
-                      class="blockquote-footer"><cite title="Source Title" style="color: gold;"><%= note[i].writer %></cite></code>
-                  </blockquote>
-                </div>
-              </div>
-              <% } %>
-                <% } %>
-      </div>
+
 
       <%- include('partials/dashFooter')%>
 

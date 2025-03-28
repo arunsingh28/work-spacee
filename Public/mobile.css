@@ -6,7 +6,7 @@
         width: 100% !important;
     }
     .innerBGbg-image{
-        height: 418px !important;
+        height: 100% !important;
     }
     .col-4{
         -webkit-box-flex: 0 !important;
@@ -35,6 +35,6 @@
 }
 @media screen and (min-width:600px ) {
     .innerBGbg-image{
-        height: 357px !important;
+        height: 100% !important;
     }
 }
